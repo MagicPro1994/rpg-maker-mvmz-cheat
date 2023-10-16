@@ -5,6 +5,19 @@
  */
 
 // https://vuetifyjs.com/features/sass-variables/`
-// @use 'vuetify/settings' with (
-//   $color-pack: false
-// );
+@use "vuetify/settings" with (
+  $color-pack: false,
+  $utilities: (
+    "flex-basis": (
+      responsive: true,
+      property: flex-basis,
+      class: flex-basis,
+      values: (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        100: 100%,
+      ),
+    ),
+  )
+);

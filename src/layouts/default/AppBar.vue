@@ -3,11 +3,12 @@ import { ref } from "vue";
 const drawerLeft = ref(false);
 const drawerRight = ref(false);
 const items = [
-  { title: "Home", icon: "mdi-home", to: "/" },
-  { title: "Actors", icon: "mdi-account-group", to: "/actors" },
-  { title: "Items", icon: "mdi-flask-empty", to: "/items" },
-  { title: "Armors", icon: "mdi-shield", to: "/armors" },
-  { title: "Weapons", icon: "mdi-sword", to: "/weapons" },
+  { title: "Home", icon: "mdi-controller", to: "/" },
+  { title: "Actors", icon: "mdi-cards", to: "/actors" },
+  { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
+  { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
+  { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },
+  { title: "In Battle", icon: "mdi-arrow-projectile-multiple", to: "/in-battle" },
   { title: "Variables", icon: "mdi-variable", to: "/variables" },
   { title: "Switches", icon: "mdi-dip-switch", to: "/switches" },
   { title: "Locations", icon: "mdi-sign-direction", to: "/locations" },
