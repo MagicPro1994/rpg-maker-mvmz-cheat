@@ -19,5 +19,13 @@
         100: 100%,
       ),
     ),
+    "cursor": (
+      responsive: false,
+      property: cursor,
+      class: cursor,
+      values: (
+        "pointer": pointer,
+      ),
+    ),
   )
 );

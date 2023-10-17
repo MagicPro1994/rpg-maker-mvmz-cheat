@@ -8,31 +8,40 @@ const items = [
   { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
   { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
   { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },
-  { title: "In Battle", icon: "mdi-arrow-projectile-multiple", to: "/in-battle" },
+  { title: "In Battle", icon: "mdi-sword-cross", to: "/in-battle" },
   { title: "Variables", icon: "mdi-variable", to: "/variables" },
   { title: "Switches", icon: "mdi-dip-switch", to: "/switches" },
   { title: "Locations", icon: "mdi-sign-direction", to: "/locations" },
   { title: "Favorites", icon: "mdi-star", to: "/favorites" },
   { title: "Settings", icon: "mdi-cog", to: "/settings" },
 ];
+const reloadPage = () => window.location.reload();
 </script>
 
 <template>
   <v-app-bar flat>
-    <v-app-bar-nav-icon variant="text" @click.stop="drawerLeft = !drawerLeft"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      variant="text"
+      @click.stop="drawerLeft = !drawerLeft"
+    ></v-app-bar-nav-icon>
 
     <v-app-bar-title>Cheat Menu <sub>by RJ</sub></v-app-bar-title>
 
     <v-spacer></v-spacer>
 
+    <v-btn variant="text" icon="mdi-refresh" @click.stop="reloadPage()"></v-btn>
     <v-btn variant="text" icon="mdi-magnify"></v-btn>
     <v-btn variant="text" icon="mdi-filter"></v-btn>
-    <v-btn variant="text" icon="mdi-dots-vertical" @click.stop="drawerRight = !drawerRight"></v-btn>
+    <v-btn
+      variant="text"
+      icon="mdi-dots-vertical"
+      @click.stop="drawerRight = !drawerRight"
+    ></v-btn>
   </v-app-bar>
 
   <v-navigation-drawer v-model="drawerLeft" location="left" temporary>
     <v-list dense>
-      <template v-for="item in items">
+      <template v-for="item in items" :key="item.title">
         <router-link class="router-link" :to="item.to">
           <v-list-item>
             <template v-slot:prepend>

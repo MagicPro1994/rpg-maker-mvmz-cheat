@@ -45,6 +45,27 @@ export class CheatActor {
     }
   }
 
+  get isDead() {
+    try {
+      return this._actor.isDead();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  set isDead(value) {
+    try {
+      if (value) {
+        this.die();
+      } else {
+        this.revive();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   //#region Game Property Wrappers
   get name() {
     return this._actor._name;
@@ -277,12 +298,16 @@ export class CheatActor {
   }
 
   clearStates() {
-    this._actor.clearStates();
+    try {
+      this._actor.clearStates();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  suicide() {
+  die() {
     try {
-      this.hp = 0;
+      this._actor.die();
       return true;
     } catch (error) {
       console.log(error);
@@ -290,20 +315,22 @@ export class CheatActor {
     }
   }
 
-  static kill(actor) {
+  revive() {
     try {
-      if (actor instanceof CheatActor) {
-        return actor.suicide();
-      }
-
-      if (actor instanceof opener.Game_Actor) {
-        actor.setHp(0);
-        return true;
-      }
-
-      throw new Error(`The actor is invalid`);
+      this._actor.revive();
+      return true;
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      return false;
+    }
+  }
+
+  recoverAll() {
+    try {
+      this._actor.recoverAll();
+      return true;
+    } catch (error) {
+      console.log(error);
       return false;
     }
   }

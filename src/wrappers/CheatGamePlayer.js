@@ -51,7 +51,9 @@ export class CheatGamePlayer {
   set gold(value) {
     try {
       if (isNaN(value) || value < 0) {
-        throw new Error(`Cannot set _gold to ${value} - value is NaN or negative`);
+        throw new Error(
+          `Cannot set _gold to ${value} - value is NaN or negative`
+        );
       }
 
       let delta = value - opener.$gameParty._gold;
@@ -67,10 +69,14 @@ export class CheatGamePlayer {
   get partyMembers() {
     try {
       if (!opener.$gameParty.exists()) {
-        throw new Error("Cannot get allMembers from $gameParty - no party members");
+        throw new Error(
+          "Cannot get allMembers from $gameParty - no party members"
+        );
       }
 
-      return opener.$gameParty.allMembers().map((member) => new CheatActor(member));
+      return opener.$gameParty
+        .allMembers()
+        .map((member) => new CheatActor(member));
     } catch (error) {
       console.error(error);
       return [];
@@ -79,7 +85,9 @@ export class CheatGamePlayer {
 
   get partyBattleMembers() {
     try {
-      return opener.$gameParty.battleMembers().map((member) => new CheatActor(member));
+      return opener.$gameParty
+        .battleMembers()
+        .map((member) => new CheatActor(member));
     } catch (error) {
       console.error(error);
       return [];
@@ -88,7 +96,9 @@ export class CheatGamePlayer {
 
   get enemyMembers() {
     try {
-      return opener.$gameTroop.members().map((member) => new CheatActor(member));
+      return opener.$gameTroop
+        .members()
+        .map((member) => new CheatActor(member));
     } catch (error) {
       console.error(error);
       return [];
@@ -164,7 +174,9 @@ export class CheatGamePlayer {
   setPartyBp(bpFlag, value, excludeDead = false) {
     try {
       if (!opener.$gameParty.exists()) {
-        throw new Error("Cannot setPartyActionPoint on $gameParty - no party members");
+        throw new Error(
+          "Cannot setPartyActionPoint on $gameParty - no party members"
+        );
       }
 
       opener.$gameParty.members().forEach((member) => {
@@ -241,7 +253,9 @@ export class CheatGamePlayer {
   clearPartyStates() {
     try {
       if (!opener.$gameParty.exists()) {
-        throw new Error("Cannot clearPartyStates on $gameParty - no party members");
+        throw new Error(
+          "Cannot clearPartyStates on $gameParty - no party members"
+        );
       }
 
       opener.$gameParty.allMembers().forEach((member) => {
@@ -254,7 +268,13 @@ export class CheatGamePlayer {
 
   teleport(map_id, x_pos, y_pos) {
     try {
-      opener.$gamePlayer.reserveTransfer(map_id, x_pos, y_pos, opener.$gamePlayer.direction(), 0);
+      opener.$gamePlayer.reserveTransfer(
+        map_id,
+        x_pos,
+        y_pos,
+        opener.$gamePlayer.direction(),
+        0
+      );
       opener.$gamePlayer.setPosition(x_pos, y_pos);
     } catch (error) {
       console.error(error);
@@ -262,26 +282,26 @@ export class CheatGamePlayer {
   }
 
   goToTitle() {
-    SceneManager.goto(Scene_Title);
+    opener.SceneManager.goto(opener.Scene_Title);
   }
 
   goToSaveScene() {
-    if (SceneManager._scene.constructor === Scene_Save) {
-      SceneManager.pop();
-    } else if (SceneManager._scene.constructor === Scene_Load) {
-      SceneManager.goto(Scene_Save);
+    if (opener.SceneManager._scene.constructor === opener.Scene_Save) {
+      opener.SceneManager.pop();
+    } else if (opener.SceneManager._scene.constructor === opener.Scene_Load) {
+      opener.SceneManager.goto(opener.Scene_Save);
     } else {
-      SceneManager.push(Scene_Save);
+      opener.SceneManager.push(opener.Scene_Save);
     }
   }
 
   goToLoadScene() {
-    if (SceneManager._scene.constructor === Scene_Load) {
-      SceneManager.pop();
-    } else if (SceneManager._scene.constructor === Scene_Save) {
-      SceneManager.goto(Scene_Load);
+    if (opener.SceneManager._scene.constructor === opener.Scene_Load) {
+      opener.SceneManager.pop();
+    } else if (opener.SceneManager._scene.constructor === opener.Scene_Save) {
+      opener.SceneManager.goto(opener.Scene_Load);
     } else {
-      SceneManager.push(Scene_Load);
+      opener.SceneManager.push(opener.Scene_Load);
     }
   }
 }

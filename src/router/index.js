@@ -9,52 +9,57 @@ const routes = [
       {
         path: "",
         name: "Home",
-        component: () => import("@/views/Home.vue"),
+        component: () => import("@/views/DefaultView.vue"),
       },
       {
         path: "actors",
         name: "Actors",
-        component: () => import("@/views/Actors.vue"),
+        component: () => import("@/views/ActorView.vue"),
       },
       {
         path: "items",
         name: "Items",
-        component: () => import("@/views/Items.vue"),
+        component: () => import("@/views/ItemView.vue"),
       },
       {
         path: "armors",
         name: "Armors",
-        component: () => import("@/views/Armors.vue"),
+        component: () => import("@/views/ArmorView.vue"),
       },
       {
         path: "weapons",
         name: "Weapons",
-        component: () => import("@/views/Weapons.vue"),
+        component: () => import("@/views/WeaponView.vue"),
+      },
+      {
+        path: "in-battle",
+        name: "InBattle",
+        component: () => import("@/views/InBattleView.vue"),
       },
       {
         path: "variables",
         name: "Variables",
-        component: () => import("@/views/Variables.vue"),
+        component: () => import("@/views/VariableView.vue"),
       },
       {
         path: "switches",
         name: "Switches",
-        component: () => import("@/views/Switches.vue"),
+        component: () => import("@/views/SwitchView.vue"),
       },
       {
         path: "locations",
         name: "Locations",
-        component: () => import("@/views/Locations.vue"),
+        component: () => import("@/views/LocationView.vue"),
       },
       {
         path: "favorites",
         name: "Favorites",
-        component: () => import("@/views/Favorites.vue"),
+        component: () => import("@/views/FavoriteView.vue"),
       },
       {
         path: "settings",
         name: "Settings",
-        component: () => import("@/views/Settings.vue"),
+        component: () => import("@/views/SettingView.vue"),
       },
       {
         path: "/:pathMatch(.*)*",
@@ -68,7 +73,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  base: process.env.BASE_URL,
+  base: import.meta.env.BASE_URL,
   routes,
 });
 

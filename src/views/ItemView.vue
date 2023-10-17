@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useAppStore } from '@/store/app';
+import { useAppStore } from "@/store/app";
 
 const appStore = useAppStore();
 const items = ref(appStore.gamePlayer.items);
@@ -49,16 +49,41 @@ const headers = [
 
     <v-divider class="my-1" />
     <v-card-text>
-      <v-text-field v-model="search" label="Search" single-line hide-details />
+      <v-text-field
+        v-model="search"
+        label="Search"
+        single-line
+        hide-details="auto"
+      />
       <div class="d-inline-flex flex-row px-4">
-        <v-switch v-model="isNamedOnly" label="Named only" color="primary" hide-details></v-switch>
+        <v-switch
+          v-model="isNamedOnly"
+          label="Named only"
+          color="primary"
+          hide-details="auto"
+        ></v-switch>
         <v-spacer class="px-2"></v-spacer>
-        <v-switch v-model="isOwnedOnly" label="Owned only" color="primary" hide-details></v-switch>
+        <v-switch
+          v-model="isOwnedOnly"
+          label="Owned only"
+          color="primary"
+          hide-details="auto"
+        ></v-switch>
       </div>
-      <v-data-table :headers="headers" :items="filteredItems" :search="search" :pagination.sync="pagination"
-        :items-per-page="pagination.itemsPerPage" :items-per-page-options="pagination.itemsPerPageOptions">
+      <v-data-table
+        :headers="headers"
+        :items="filteredItems"
+        :search="search"
+        :items-per-page="pagination.itemsPerPage"
+        :items-per-page-options="pagination.itemsPerPageOptions"
+      >
+        <!--eslint-disable-next-line vue/valid-v-slot-->
         <template v-slot:item.quantity="{ item }">
-          <v-text-field v-model.number="item.quantity" density="compact" hide-details></v-text-field>
+          <v-text-field
+            v-model.number="item.quantity"
+            density="compact"
+            hide-details="auto"
+          ></v-text-field>
         </template>
       </v-data-table>
     </v-card-text>

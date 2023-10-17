@@ -24,7 +24,7 @@ onMounted(() => {
       label="Select Member"
       class="ma-2"
       return-object
-      hide-details
+      hide-details="auto"
     />
     <!-- end: Select Member -->
 
@@ -35,7 +35,7 @@ onMounted(() => {
         color="primary"
         label="God Mode"
         class="mx-4"
-        hide-details
+        hide-details="auto"
       />
       <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">
         <v-text-field

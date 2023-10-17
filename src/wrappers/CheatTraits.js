@@ -1,4 +1,13 @@
-export const PARAM_TRAIT_NAMES = ["Max HP", "Max MP", "Attack", "Defense", "M.Attack", "M.Defense", "Agility", "Luck"];
+export const PARAM_TRAIT_NAMES = [
+  "Max HP",
+  "Max MP",
+  "Attack",
+  "Defense",
+  "M.Attack",
+  "M.Defense",
+  "Agility",
+  "Luck",
+];
 
 export const XPARAM_TRAIT_NAMES = [
   "Hit Rate",
@@ -67,8 +76,7 @@ export class CheatParam {
   set value(v) {
     try {
       if (isNaN(v) || v < 0) {
-        console.error(`Cannot set param ${this.name} to ${v} - input value is NaN or negative`);
-        return;
+        throw new Error(`Invalid value ${v}`);
       }
 
       let delta = v - this._actor.paramPlus(this._paramId);
