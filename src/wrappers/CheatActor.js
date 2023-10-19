@@ -13,60 +13,7 @@ export class CheatActor {
     }
   }
 
-  get displayName() {
-    try {
-      if (this._actor instanceof opener.Game_Actor) {
-        return `${this._actor._name} [${this._actor._actorId}]`;
-      }
-      if (this._actor instanceof opener.Game_Enemy) {
-        return `${this._actor.name()} [${this._actor.enemyId()}]`;
-      }
-      return "---";
-    } catch (error) {
-      console.error(error);
-      return "";
-    }
-  }
-
-  get isGodMode() {
-    try {
-      return this._actor.isGodMode && this._actor.isGodMode();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isGodMode(value) {
-    if (value) {
-      this._actor.enableGodMode();
-    } else {
-      this._actor.disableGodMode();
-    }
-  }
-
-  get isDead() {
-    try {
-      return this._actor.isDead();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isDead(value) {
-    try {
-      if (value) {
-        this.die();
-      } else {
-        this.revive();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  //#region Game Property Wrappers
+  //#region Game_Actor property wrappers
   get name() {
     return this._actor._name;
   }
@@ -94,8 +41,7 @@ export class CheatActor {
   set hp(value) {
     try {
       if (isNaN(value) || value < 0) {
-        console.error(`Cannot set _hp to ${value} - value is NaN or negative`);
-        return;
+        throw new Error(`value is NaN or negative`);
       }
 
       this._actor.setHp(value);
@@ -177,6 +123,60 @@ export class CheatActor {
 
   //#endregion
 
+  //#region extra properties
+  get displayName() {
+    try {
+      if (this._actor instanceof opener.Game_Actor) {
+        return `${this._actor._name} [${this._actor._actorId}]`;
+      }
+      if (this._actor instanceof opener.Game_Enemy) {
+        return `${this._actor.name()} [${this._actor.enemyId()}]`;
+      }
+      return "---";
+    } catch (error) {
+      console.error(error);
+      return "";
+    }
+  }
+
+  get isGodMode() {
+    try {
+      return this._actor.isGodMode && this._actor.isGodMode();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  set isGodMode(value) {
+    if (value) {
+      this._actor.enableGodMode();
+    } else {
+      this._actor.disableGodMode();
+    }
+  }
+
+  get isDead() {
+    try {
+      return this._actor.isDead();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  set isDead(value) {
+    try {
+      if (value) {
+        this.die();
+      } else {
+        this.revive();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   get paramPlusList() {
     try {
       return PARAM_TRAIT_NAMES.map(
@@ -187,7 +187,49 @@ export class CheatActor {
       return [];
     }
   }
+  //#endregion
 
+  //#region Game_Actor method wrappers
+  clearStates() {
+    try {
+      this._actor.clearStates();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  die() {
+    try {
+      this._actor.die();
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  revive() {
+    try {
+      this._actor.revive();
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  recoverAll() {
+    try {
+      this._actor.recoverAll();
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  //#endregion
+
+  //#region extra methods
   registerGodModeFunctions() {
     // Only inject god mode methods if the actor is a Game_Actor
     if (this._actor instanceof opener.Game_Actor) {
@@ -296,42 +338,5 @@ export class CheatActor {
       };
     }
   }
-
-  clearStates() {
-    try {
-      this._actor.clearStates();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  die() {
-    try {
-      this._actor.die();
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-
-  revive() {
-    try {
-      this._actor.revive();
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-
-  recoverAll() {
-    try {
-      this._actor.recoverAll();
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
+  //#endregion
 }
