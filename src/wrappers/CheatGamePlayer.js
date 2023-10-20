@@ -1,5 +1,7 @@
 import { CheatActor } from "./CheatActor";
 import { CheatArmor, CheatItem, CheatWeapon } from "./CheatInventory";
+import { CheatGameVariable } from "./CheatGameVariable";
+import { CheatGameSwitch } from "./CheatGameSwitch";
 
 export const FALLBACK_THROUGH = false;
 export const FALLBACK_MOVE_SPEED = 4.0;
@@ -115,6 +117,28 @@ export class CheatGamePlayer {
     try {
       let armors = opener.$dataArmors.filter((armor) => armor !== null);
       return armors.map((armor) => new CheatArmor(armor));
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  get variables() {
+    try {
+      return opener.$dataSystem.variables.map(
+        (_, id) => new CheatGameVariable(id)
+      );
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  get switches() {
+    try {
+      return opener.$dataSystem.switches.map(
+        (_, id) => new CheatGameSwitch(id)
+      );
     } catch (error) {
       console.error(error);
       return [];
