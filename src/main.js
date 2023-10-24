@@ -5,17 +5,21 @@
  */
 
 // Components
-import App from './App.vue'
+import App from "./App.vue";
 
 // Composables
-import { createApp } from 'vue'
+import { createApp } from "vue";
 
 // Plugins
-import { registerPlugins } from '@/plugins'
+import { registerPlugins } from "@/plugins";
 
-const app = createApp(App)
+// Customize the core Game methods
+import { customCoreMethods } from "@/plugins/karryn";
 
-registerPlugins(app)
+customCoreMethods();
 
-app.mount('#app')
+const app = createApp(App);
 
+registerPlugins(app);
+
+app.mount("#app");
