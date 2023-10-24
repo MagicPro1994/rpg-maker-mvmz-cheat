@@ -9,5 +9,18 @@
     "sourceType": "module"
   },
   "plugins": ["vue"],
-  "rules": {}
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["./public/**/*.js"],
+      "rules": {
+        "indent": "off",
+        "no-undef": "off"
+      },
+      "parserOptions": {
+        "ecmaVersion": 3,
+        "sourceType": "script"
+      }
+    }
+  ]
 }

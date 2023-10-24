@@ -1,19 +1,25 @@
-/* eslint-disable no-undef */
 function openCheatMenu() {
+  var cheatUrl = "http://localhost:3000";
+
   if (Utils.isNwjs() && !window.cheatWindow) {
-    nw.Window.open("http://localhost:3000", { frame: false }, (win) => {
+    nw.Window.open(cheatUrl, {}, function (win) {
       window.cheatWindow = win;
 
-      window.addEventListener("beforeunload", () => {
-        window.cheatWindow.close();
+      window.addEventListener("beforeunload", function () {
+        window.cheatWindow.close(true);
+        window.cheatWindow = null;
+      });
+
+      win.window.addEventListener("beforeunload", function () {
+        window.cheatWindow = null;
       });
     });
   } else {
-    window.open("http://localhost:3000");
+    window.open(cheatUrl);
   }
 }
 
-window.addEventListener("keydown", (event) => {
+window.addEventListener("keydown", function (event) {
   if (event.key === "`") {
     openCheatMenu();
   }
