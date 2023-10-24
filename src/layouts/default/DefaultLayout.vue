@@ -4,10 +4,8 @@ import DefaultView from "./AppView.vue";
 </script>
 
 <template>
-  <v-app>
-    <v-layout>
-      <default-bar />
-      <default-view />
-    </v-layout>
-  </v-app>
+  <v-layout>
+    <default-bar />
+    <default-view />
+  </v-layout>
 </template>
