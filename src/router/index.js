@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    component: () => import("@/layouts/default/Default.vue"),
+    component: () => import("@/layouts/default/DefaultLayout.vue"),
     children: [
       {
         path: "",
@@ -15,6 +15,11 @@ const routes = [
         path: "actors",
         name: "Actors",
         component: () => import("@/views/ActorView.vue"),
+      },
+      {
+        path: "karryn",
+        name: "Karryn",
+        component: () => import("@/views/KarrynView.vue"),
       },
       {
         path: "items",

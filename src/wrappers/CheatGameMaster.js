@@ -6,7 +6,7 @@ import { CheatGameSwitch } from "./CheatGameSwitch";
 export const FALLBACK_THROUGH = false;
 export const FALLBACK_MOVE_SPEED = 4.0;
 
-export class CheatGamePlayer {
+export class CheatGameMaster {
   constructor() {}
 
   get through() {
@@ -181,6 +181,42 @@ export class CheatGamePlayer {
       opener.SceneManager.goto(opener.Scene_Load);
     } else {
       opener.SceneManager.push(opener.Scene_Load);
+    }
+  }
+
+  winBattle() {
+    try {
+      let enemies = opener.$gameTroop.members();
+      enemies.forEach((enemy) => {
+        opener.Game_Interpreter.changeHp(enemy, Math.round(-enemy.mhp), true);
+      });
+      opener.BattleManager.processVictory();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  loseBattle() {
+    try {
+      opener.BattleManager.processDefeat();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  abortBattle() {
+    try {
+      opener.BattleManager.abort();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  escapeBattle() {
+    try {
+      opener.BattleManager.processEscape();
+    } catch (error) {
+      console.error(error);
     }
   }
 }

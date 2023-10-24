@@ -1,10 +1,10 @@
 // Utilities
 import { defineStore } from "pinia";
-import { CheatGamePlayer } from "@/wrappers/CheatGamePlayer";
+import { KarrynGameMaster } from "@/wrappers/exclusive/KarrynGameMaster";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
-    gamePlayer: new CheatGamePlayer(),
+    gameMaster: new KarrynGameMaster(),
     pagination: {
       itemsPerPage: 5,
       itemsPerPageOptions: [

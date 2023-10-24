@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import { useAppStore } from "@/store/app";
 
 const appStore = useAppStore();
-const items = ref(appStore.gamePlayer.variables);
+const items = ref(appStore.gameMaster.variables);
 const search = ref("");
 const isNamedOnly = ref(false);
 const pagination = ref(appStore.pagination);

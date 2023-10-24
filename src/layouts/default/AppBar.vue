@@ -4,10 +4,14 @@ const drawerLeft = ref(false);
 const drawerRight = ref(false);
 const items = [
   { title: "Home", icon: "mdi-controller", to: "/" },
-  { title: "Actors", icon: "mdi-cards", to: "/actors" },
-  { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
-  { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
-  { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },
+  // { title: "Actors", icon: "mdi-cards", to: "/actors" },
+  { title: "Karryn", icon: "mdi-account", to: "/karryn" },
+  { title: "Prison", icon: "mdi-lock", to: "prison" },
+  { title: "Titles", icon: "mdi-crown", to: "/titles" },
+  { title: "Accessories", icon: "mdi-crown", to: "/accessories" },
+  // { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
+  // { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
+  // { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },
   { title: "In Battle", icon: "mdi-sword-cross", to: "/in-battle" },
   { title: "Variables", icon: "mdi-variable", to: "/variables" },
   { title: "Switches", icon: "mdi-dip-switch", to: "/switches" },
@@ -19,7 +23,7 @@ const reloadPage = () => window.location.reload();
 </script>
 
 <template>
-  <v-app-bar flat>
+  <v-app-bar flat dense>
     <v-app-bar-nav-icon
       variant="text"
       @click.stop="drawerLeft = !drawerLeft"

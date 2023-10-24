@@ -6,9 +6,8 @@ const appStore = useAppStore();
 
 const tabs = ref(["Party", "Enemy"]);
 const selectedTab = ref("Party");
-const gamePlayer = ref(appStore.gamePlayer);
-const partyMembers = ref(gamePlayer.value.partyBattleMembers);
-const enemyMembers = ref(gamePlayer.value.enemyMembers);
+const partyMembers = ref(appStore.gameMaster.partyBattleMembers);
+const enemyMembers = ref(appStore.gameMaster.enemyMembers);
 </script>
 <template>
   <v-card class="ma-0 pa-0" flat>

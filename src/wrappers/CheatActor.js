@@ -1,7 +1,8 @@
-import { CheatParam, PARAM_TRAIT_NAMES } from "./CheatTraits";
+import { CheatParam } from "./CheatTraits";
 
 export const PARAM_MAXHP_ID = 0;
 export const PARAM_MAXMP_ID = 1;
+export const MAX_PARAM_LENGTH = 8;
 
 export class CheatActor {
   constructor(actor) {
@@ -11,6 +12,10 @@ export class CheatActor {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  get actor() {
+    return this._actor;
   }
 
   //#region Game_Actor property wrappers
@@ -179,7 +184,8 @@ export class CheatActor {
 
   get paramPlusList() {
     try {
-      return PARAM_TRAIT_NAMES.map(
+      return Array.from(
+        { length: MAX_PARAM_LENGTH },
         (_, index) => new CheatParam(this._actor, index)
       );
     } catch (error) {

@@ -2,7 +2,7 @@
 import { ref, computed } from "vue";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
-const items = ref(appStore.gamePlayer.weapons);
+const items = ref(appStore.gameMaster.weapons);
 
 const search = ref("");
 const isNamedOnly = ref(false);

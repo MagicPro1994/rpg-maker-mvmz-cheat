@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
-const partyMembers = ref(appStore.gamePlayer.partyMembers);
+const partyMembers = ref(appStore.gameMaster.partyMembers);
 const selectedMember = ref(null);
 
 onMounted(() => {
