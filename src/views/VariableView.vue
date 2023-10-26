@@ -43,12 +43,7 @@ const headers = [
 
     <v-divider class="my-1" />
     <v-card-text>
-      <v-text-field
-        v-model="search"
-        label="Search"
-        single-line
-        hide-details="auto"
-      />
+      <v-text-field v-model="search" label="Search" hide-details="auto" />
       <div class="d-inline-flex flex-row px-4">
         <v-switch
           v-model="isNamedOnly"
