@@ -1,10 +1,7 @@
+import { $gameActors } from "../Constants";
 import { CheatActor } from "../CheatActor";
-import {
-  KarrynParam,
-  KarrynSParam,
-  KarrynXParam,
-  KarrynResistParam,
-} from "./KarrynTraits";
+import { ACTOR_KARRYN_ID } from "./KarrynConstants";
+import { KarrynTrait, KARRYN_TRAIT_TYPE } from "./KarrynTraits";
 import { KarrynPassive, KarrynPassiveCategory } from "./KarrynPassives";
 
 const Yanfly = opener.Yanfly;
@@ -202,7 +199,7 @@ export class KarrynActor extends CheatActor {
   //#region Stats / Attributes
   get stats() {
     try {
-      return KarrynParam.getAll(this._actor);
+      return KarrynTrait.getAll(this._actor, KARRYN_TRAIT_TYPE.PARAM);
     } catch (error) {
       console.error(error);
       return [];
@@ -211,7 +208,7 @@ export class KarrynActor extends CheatActor {
 
   get primaryAttributes() {
     try {
-      return KarrynXParam.getAll(this._actor);
+      return KarrynTrait.getAll(this._actor, KARRYN_TRAIT_TYPE.XPARAM);
     } catch (error) {
       console.error(error);
       return [];
@@ -220,7 +217,7 @@ export class KarrynActor extends CheatActor {
 
   get secondaryAttributes() {
     try {
-      return KarrynSParam.getAll(this._actor);
+      return KarrynTrait.getAll(this._actor, KARRYN_TRAIT_TYPE.SPARAM);
     } catch (error) {
       console.error(error);
       return [];
@@ -229,7 +226,7 @@ export class KarrynActor extends CheatActor {
 
   get resistAttributes() {
     try {
-      return KarrynResistParam.getAll(this._actor);
+      return KarrynTrait.getAll(this._actor, KARRYN_TRAIT_TYPE.ELEMENT);
     } catch (error) {
       console.error(error);
       return [];
@@ -537,4 +534,13 @@ export class KarrynActor extends CheatActor {
     };
   }
   //#endregion Cheat Functions
+
+  static getKarryn() {
+    try {
+      return new KarrynActor($gameActors.actor(ACTOR_KARRYN_ID));
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 }

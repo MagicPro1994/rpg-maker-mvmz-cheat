@@ -1,53 +1,4 @@
 //#region Re-defined Constants from the game.
-export const PASSIVE_CATEGORY_ALL = 0;
-export const PASSIVE_CATEGORY_MOUTH_DESIRE = 1;
-export const PASSIVE_CATEGORY_MOUTH = 2;
-export const PASSIVE_CATEGORY_KISS = 3;
-export const PASSIVE_CATEGORY_BLOWJOB = 4;
-export const PASSIVE_CATEGORY_BOOBS_DESIRE = 5;
-export const PASSIVE_CATEGORY_BOOBS = 6;
-export const PASSIVE_CATEGORY_NIPPLES = 7;
-export const PASSIVE_CATEGORY_TITTY_FUCK = 8;
-export const PASSIVE_CATEGORY_PUSSY_DESIRE = 9;
-export const PASSIVE_CATEGORY_CLIT = 10;
-export const PASSIVE_CATEGORY_PUSSY = 11;
-export const PASSIVE_CATEGORY_WET = 12;
-export const PASSIVE_CATEGORY_CUNNILINGUS = 13;
-export const PASSIVE_CATEGORY_VAGINAL_SEX = 14;
-export const PASSIVE_CATEGORY_BUTT_DESIRE = 15;
-export const PASSIVE_CATEGORY_BUTT = 16;
-export const PASSIVE_CATEGORY_ANAL = 17;
-export const PASSIVE_CATEGORY_ANAL_SEX = 18;
-export const PASSIVE_CATEGORY_COCK_DESIRE = 19;
-export const PASSIVE_CATEGORY_WORSHIP = 20;
-export const PASSIVE_CATEGORY_HANDJOB = 21;
-export const PASSIVE_CATEGORY_BUKKAKE = 22;
-export const PASSIVE_CATEGORY_SWALLOW = 23;
-export const PASSIVE_CATEGORY_CREAMPIE = 24;
-export const PASSIVE_CATEGORY_RELATIONS = 25;
-export const PASSIVE_CATEGORY_SADISM = 26;
-export const PASSIVE_CATEGORY_STATUS = 27;
-export const PASSIVE_CATEGORY_SKILLS = 28;
-export const PASSIVE_CATEGORY_RESIST = 29;
-export const PASSIVE_CATEGORY_FOOTJOB = 30;
-export const PASSIVE_CATEGORY_DOMINANCE = 31;
-export const PASSIVE_CATEGORY_MASOCHISM = 32;
-export const PASSIVE_CATEGORY_TALK = 33;
-export const PASSIVE_CATEGORY_DEBUFFS = 34;
-export const PASSIVE_CATEGORY_RIMJOB = 35;
-export const PASSIVE_CATEGORY_FETISHISM = 36;
-export const PASSIVE_CATEGORY_SUBMISSION = 37;
-export const PASSIVE_CATEGORY_MASTURBATION = 38;
-export const PASSIVE_CATEGORY_URGES = 39;
-export const PASSIVE_CATEGORY_SLEEP = 40;
-export const PASSIVE_CATEGORY_TOYS = 41;
-export const PASSIVE_CATEGORY_ORGASM = 42;
-export const PASSIVE_CATEGORY_EXHIBITIONISM = 43;
-export const PASSIVE_CATEGORY_SIGHT = 44;
-export const PASSIVE_CATEGORY_CLOTHES = 45;
-export const PASSIVE_CATEGORY_NUDITY = 46;
-export const PASSIVE_CATEGORY_ACTIVITIES = 47;
-
 export const SKILLTYPE_ATTACK_ID = 1;
 export const SKILLTYPE_ENERGY_ID = 2;
 export const SKILLTYPE_SEXUAL_ID = 3;
@@ -72,5 +23,12 @@ export const SKILLTYPE_INTERMISSION_ID = 21;
 export const SKILLTYPE_TRAINER_ID = 22;
 
 export const ACTOR_KARRYN_ID = 1;
+
+export const EQUIP_TYPE_TITLE_ID = 3;
+
+/**
+ * @type plugin
+ */
+export const Yanfly = opener.Yanfly;
 
 //#endregion

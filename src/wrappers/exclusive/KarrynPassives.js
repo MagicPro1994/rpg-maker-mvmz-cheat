@@ -1,4 +1,5 @@
 import { TextManager, $dataSkills } from "../Constants";
+import { SKILLTYPE_PASSIVES_ID } from "./KarrynConstants";
 import { KarrynUtils } from "./KarrynUtils";
 
 export class KarrynPassiveCategory {
@@ -49,20 +50,26 @@ export class KarrynPassiveCategory {
 }
 
 export class KarrynPassive {
-  constructor(passive) {
-    if (typeof passive === "object") {
-      this._id = passive.id;
-      this._data = passive;
+  constructor(data) {
+    // data is a json object from $dataSkills
+    if (data && data.id !== undefined && data.styleId !== undefined) {
+      this._id = data.id;
+      this._data = data;
     } else {
-      if (isNaN(passive)) throw new Error(`id is NaN`);
+      // data is a number
+      if (data === undefined || isNaN(data)) {
+        throw new Error(`data is invalid`);
+      }
 
-      this._id = parseInt(passive);
+      this._id = parseInt(data);
     }
   }
 
   get data() {
     try {
-      if (!this._data) this._data = $dataSkills[this.id];
+      if (!this._data) {
+        this._data = $dataSkills[this.id];
+      }
 
       return this._data;
     } catch (error) {
@@ -116,6 +123,23 @@ export class KarrynPassive {
     } catch (error) {
       console.error(error);
       return `DESC [${this.id}]`;
+    }
+  }
+
+  static getAll() {
+    try {
+      return $dataSkills
+        .filter(
+          (item) =>
+            item &&
+            item.stypeId === SKILLTYPE_PASSIVES_ID &&
+            item.name &&
+            item.passiveColor
+        )
+        .map((item) => new KarrynPassive(item.id));
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 }

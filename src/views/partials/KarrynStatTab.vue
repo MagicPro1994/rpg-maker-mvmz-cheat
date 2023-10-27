@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
-const karryn = ref(appStore.gameMaster.karrynActor);
+const karryn = ref(appStore.karryn);
 </script>
 <template>
   <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">

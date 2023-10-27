@@ -1,42 +1,17 @@
 import { CheatGameMaster } from "../CheatGameMaster";
-import { KarrynActor } from "./KarrynActor";
-import { KarrynPassive } from "./KarrynPassives";
-import { $dataSkills } from "../Constants";
-import { ACTOR_KARRYN_ID, SKILLTYPE_PASSIVES_ID } from "./KarrynConstants";
+import { $dataArmors } from "../Constants";
+import { EQUIP_TYPE_TITLE_ID } from "./KarrynConstants";
 
 export class KarrynGameMaster extends CheatGameMaster {
   constructor() {
     super();
   }
 
-  get karrynActor() {
+  get titles() {
     try {
-      return new KarrynActor(opener.$gameActors.actor(ACTOR_KARRYN_ID));
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
-  get passives() {
-    if (!this._passives) {
-      this._passives = this._getPassives();
-    }
-
-    return this._passives;
-  }
-
-  _getPassives() {
-    try {
-      return $dataSkills
-        .filter(
-          (item) =>
-            item &&
-            item.stypeId === SKILLTYPE_PASSIVES_ID &&
-            item.name &&
-            item.passiveColor
-        )
-        .map((item) => new KarrynPassive(item.id));
+      return $dataArmors.filter(
+        (armor) => armor && armor.name && armor.etypeId === EQUIP_TYPE_TITLE_ID
+      );
     } catch (error) {
       console.error(error);
       return [];

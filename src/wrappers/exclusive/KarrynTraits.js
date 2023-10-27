@@ -1,7 +1,7 @@
 import { CheatParam } from "../CheatTraits";
-const TextManager = opener.TextManager;
+import { TextManager, $dataSystem } from "../Constants";
 
-const KARRYN_TRAIT_TYPE = {
+export const KARRYN_TRAIT_TYPE = {
   PARAM: "Stat",
   XPARAM: "XParam",
   SPARAM: "SParam",
@@ -23,6 +23,26 @@ export class KarrynTrait extends CheatParam {
     } catch (error) {
       console.error(error);
       return 0;
+    }
+  }
+
+  static getAll(actor, traitType) {
+    try {
+      switch (traitType) {
+        case KARRYN_TRAIT_TYPE.PARAM:
+          return KarrynParam.getAll(actor);
+        case KARRYN_TRAIT_TYPE.XPARAM:
+          return KarrynXParam.getAll(actor);
+        case KARRYN_TRAIT_TYPE.SPARAM:
+          return KarrynSParam.getAll(actor);
+        case KARRYN_TRAIT_TYPE.ELEMENT:
+          return KarrynResistParam.getAll(actor);
+        default:
+          return [];
+      }
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 }
@@ -362,12 +382,9 @@ export class KarrynResistParam extends KarrynTrait {
   //#region Functions
   static getAll(actor) {
     try {
-      return Array.from(
-        { length: opener.$dataSystem.elements.length },
-        (_, i) => {
-          return new KarrynResistParam(actor, i);
-        }
-      );
+      return Array.from({ length: $dataSystem.elements.length }, (_, i) => {
+        return new KarrynResistParam(actor, i);
+      });
     } catch (error) {
       console.error(error);
       return [];

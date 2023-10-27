@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
-const karryn = ref(appStore.gameMaster.karrynActor);
+const karryn = ref(appStore.karryn);
 const TextManager = ref(opener.TextManager);
 </script>
 

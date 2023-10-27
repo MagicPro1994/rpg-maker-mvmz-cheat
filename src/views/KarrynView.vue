@@ -11,7 +11,7 @@ import KarrynTertiaryTab from "./partials/KarrynTertiaryTab.vue";
 import KarrynPassiveTab from "./partials/KarrynPassiveTab.vue";
 
 const appStore = useAppStore();
-const karryn = ref(appStore.gameMaster.karrynActor);
+const karryn = ref(appStore.karryn);
 const selectedTab = ref(0);
 const tabs = [
   { title: "Cheat", component: KarrynCheatTab },

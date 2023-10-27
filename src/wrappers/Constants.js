@@ -26,9 +26,30 @@ export const Window_Base = opener.Window_Base;
 export const Game_Actor = opener.Game_Actor;
 
 /**
+ * @type array {Game_Actor}
+ */
+export const $gameActors = opener.$gameActors;
+
+/**
  * @type array {json object}
  */
 export const $dataActors = opener.$dataActors;
+/**
+ * @type array {json object}
+ */
+export const $dataArmors = opener.$dataArmors;
+/**
+ * @type array {json object}
+ */
+export const $dataWeapons = opener.$dataWeapons;
+/**
+ * @type array {json object}
+ */
+export const $dataEnemies = opener.$dataEnemies;
+/**
+ * @type array {json object}
+ */
+export const $dataItems = opener.$dataItems;
 /**
  * @type array {json object}
  */
@@ -41,4 +62,3 @@ export const $dataStates = opener.$dataStates;
  * @type array {json object}
  */
 export const $dataSystem = opener.$dataSystem;
-

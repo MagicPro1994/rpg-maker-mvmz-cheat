@@ -6,7 +6,7 @@ import { onMounted } from "vue";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
-const karryn = ref(appStore.gameMaster.karrynActor);
+const karryn = ref(appStore.karryn);
 
 const selectedCategory = ref(null);
 const categories = computed(() => {
@@ -16,7 +16,7 @@ const categories = computed(() => {
 const search = ref("");
 const searchCategory = ref("");
 const isOwnedOnly = ref(true);
-const items = ref(appStore.gameMaster.passives);
+const items = ref(appStore.passives);
 
 const pagination = ref(appStore.pagination);
 const headers = [
