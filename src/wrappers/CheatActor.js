@@ -185,7 +185,7 @@ export class CheatActor {
   get paramPlusList() {
     try {
       return Array.from(
-        { length: MAX_PARAM_LENGTH },
+        { length: this._actor._paramPlus.length },
         (_, index) => new CheatParam(this._actor, index)
       );
     } catch (error) {
