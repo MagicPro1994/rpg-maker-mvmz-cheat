@@ -1,23 +1,25 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useAppStore } from "@/store/app";
+import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 const appStore = useAppStore();
 const gameMaster = ref(appStore.gameMaster);
+
+onMounted(() => KarrynUtils.renderIcons());
 </script>
 <template>
   <v-card flat class="ma-0 pa-0">
     <v-card-title>Home</v-card-title>
     <v-divider class="my-1" />
     <!-- start: Current Location -->
-    <div class="d-flex flex-row justify-space-between ma-2">
-      <v-switch
-        v-model="gameMaster.isCheatUnlocked"
-        color="primary"
-        label="Cheat Unlocked"
-        class="mx-4"
-        hide-details="auto"
-      />
-    </div>
+    <template v-for="i in 750" :key="i">
+      <canvas
+        class="title-desc-icon"
+        :icon-index="i"
+        width="32"
+        height="32"
+      ></canvas>
+    </template>
     <!-- end: Current Location -->
 
     <!-- start: Quick Actions -->

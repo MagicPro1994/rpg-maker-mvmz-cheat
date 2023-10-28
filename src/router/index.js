@@ -72,6 +72,11 @@ const routes = [
         component: () => import("@/views/TitleView.vue"),
       },
       {
+        path: "prison",
+        name: "Prison",
+        component: () => import("@/views/PrisonView.vue"),
+      },
+      {
         path: "/:pathMatch(.*)*",
         name: "NotFound",
         component: () =>
