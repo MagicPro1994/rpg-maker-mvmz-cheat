@@ -1,9 +1,9 @@
 <script setup>
-import { storeToRefs } from "pinia";
+import { computed } from "vue";
 import { useAppStore } from "@/store/app";
 
 const appStore = useAppStore();
-const { gameMaster } = storeToRefs(appStore);
+const gameMaster = computed(() => appStore.gameMaster);
 const reloadPage = () => window.location.reload();
 </script>
 

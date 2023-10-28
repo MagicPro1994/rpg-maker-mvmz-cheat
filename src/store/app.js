@@ -29,11 +29,23 @@ export const useAppStore = defineStore("app", {
   }),
   getters: {},
   actions: {
-    updateKarryn() {
+    reloadKarryn() {
       this.karryn = KarrynActor.getKarryn();
     },
+
+    reloadTitles() {
+      this.titles = KarrynTitle.getAll();
+    },
+
+    reloadPassives() {
+      this.passiveCategories = KarrynPassiveCategory.getAll();
+      this.passives = KarrynPassive.getAll();
+    },
+
     reload() {
-      this.updateKarryn();
+      this.reloadKarryn();
+      this.reloadTitles();
+      this.reloadPassives();
     },
   },
 });

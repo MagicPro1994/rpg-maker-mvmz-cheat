@@ -28,7 +28,7 @@ defineProps({
             icon="mdi-refresh"
             small
             v-bind="props"
-            @click="appStore.updateKarryn"
+            @click="appStore.reload()"
           />
         </template>
       </v-tooltip>

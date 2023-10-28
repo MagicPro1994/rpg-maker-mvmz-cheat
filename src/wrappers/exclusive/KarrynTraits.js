@@ -1,6 +1,4 @@
 import { CheatParam } from "../CheatTraits";
-import { TextManager, $dataSystem } from "../Constants";
-
 export const KARRYN_TRAIT_TYPE = {
   PARAM: "Stat",
   XPARAM: "XParam",
@@ -57,7 +55,7 @@ export class KarrynParam extends KarrynTrait {
   //#region Getters and Setters
   get name() {
     try {
-      return TextManager.param(this._paramId);
+      return opener.TextManager.param(this._paramId);
     } catch (error) {
       console.error(error);
       return "undefined";
@@ -150,7 +148,7 @@ export class KarrynXParam extends KarrynTrait {
   //#region Getters and Setters
   get name() {
     try {
-      return TextManager.xparam(this._paramId);
+      return opener.TextManager.xparam(this._paramId);
     } catch (error) {
       console.error(error);
       return "undefined";
@@ -243,7 +241,7 @@ export class KarrynSParam extends KarrynTrait {
   //#region Getters and Setters
   get name() {
     try {
-      return TextManager.sparam(this._paramId);
+      return opener.TextManager.sparam(this._paramId);
     } catch (error) {
       console.error(error);
       return "undefined";
@@ -338,7 +336,7 @@ export class KarrynResistParam extends KarrynTrait {
   shouldDisplay() {
     try {
       if (this._paramId <= 1) return false;
-      return TextManager.element(this._paramId) != "";
+      return opener.TextManager.element(this._paramId) != "";
     } catch (error) {
       console.error(error);
       return false;
@@ -348,7 +346,10 @@ export class KarrynResistParam extends KarrynTrait {
   //#region Getters and Setters
   get name() {
     try {
-      return TextManager.element(this._paramId) + TextManager.resistName;
+      return (
+        opener.TextManager.element(this._paramId) +
+        opener.TextManager.resistName
+      );
     } catch (error) {
       console.error(error);
       return "undefined";
@@ -382,9 +383,12 @@ export class KarrynResistParam extends KarrynTrait {
   //#region Functions
   static getAll(actor) {
     try {
-      return Array.from({ length: $dataSystem.elements.length }, (_, i) => {
-        return new KarrynResistParam(actor, i);
-      });
+      return Array.from(
+        { length: opener.$dataSystem.elements.length },
+        (_, i) => {
+          return new KarrynResistParam(actor, i);
+        }
+      );
     } catch (error) {
       console.error(error);
       return [];

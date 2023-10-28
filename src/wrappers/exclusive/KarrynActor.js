@@ -148,6 +148,15 @@ Object.defineProperty(Game_Actor.prototype, "yCritDmg", {
   configurable: true,
 });
 
+Game_Actor.prototype.hasTitle = function (title) {
+  try {
+    return opener.$gameParty.hasItem(opener.$dataArmors[title], true);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
 export class KarrynActor extends CheatActor {
   constructor(actor) {
     super(actor);
