@@ -17,11 +17,6 @@ const routes = [
         component: () => import("@/views/ActorView.vue"),
       },
       {
-        path: "karryn",
-        name: "Karryn",
-        component: () => import("@/views/KarrynView.vue"),
-      },
-      {
         path: "items",
         name: "Items",
         component: () => import("@/views/ItemView.vue"),
@@ -65,6 +60,16 @@ const routes = [
         path: "settings",
         name: "Settings",
         component: () => import("@/views/SettingView.vue"),
+      },
+      {
+        path: "karryn",
+        name: "Karryn",
+        component: () => import("@/views/KarrynView.vue"),
+      },
+      {
+        path: "titles",
+        name: "Titles",
+        component: () => import("@/views/TitleView.vue"),
       },
       {
         path: "/:pathMatch(.*)*",

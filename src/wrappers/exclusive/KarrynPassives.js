@@ -1,4 +1,3 @@
-import { TextManager, $dataSkills } from "../Constants";
 import { SKILLTYPE_PASSIVES_ID } from "./KarrynConstants";
 import { KarrynUtils } from "./KarrynUtils";
 
@@ -15,7 +14,7 @@ export class KarrynPassiveCategory {
 
   get name() {
     try {
-      let rawText = TextManager.passiveCategory(this.id);
+      let rawText = opener.TextManager.passiveCategory(this.id);
       // Remove all code characters like \I[1]\C[1]
       rawText = rawText.replace(/\\[A-Z]\[\d+\]/g, "");
       return rawText;
@@ -27,7 +26,7 @@ export class KarrynPassiveCategory {
 
   get htmlName() {
     try {
-      let rawText = TextManager.passiveCategory(this.id);
+      let rawText = opener.TextManager.passiveCategory(this.id);
       return KarrynUtils.convertColorCodesToHtml(rawText);
     } catch (error) {
       console.error(error);
@@ -37,14 +36,38 @@ export class KarrynPassiveCategory {
 
   includes(passive) {
     try {
-      if (!passive) return false;
+      // 0 is a special case for all passives
+      if (this._id === 0) return true;
 
       if (passive instanceof KarrynPassive) {
         return passive.data.passiveCategory.includes(this.id);
       }
+
+      return false;
     } catch (error) {
       console.error(error);
       return false;
+    }
+  }
+
+  static getAll() {
+    try {
+      let actor = KarrynUtils.karryn;
+
+      if (!this._passiveCategories) {
+        if (!KarrynUtils.karryn._passiveCategory) {
+          actor.buildPassiveCategoryArray();
+        }
+
+        this._passiveCategories = actor._passiveCategory.map(
+          (_, index) => new KarrynPassiveCategory(index)
+        );
+      }
+
+      return this._passiveCategories;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 }
@@ -68,7 +91,7 @@ export class KarrynPassive {
   get data() {
     try {
       if (!this._data) {
-        this._data = $dataSkills[this.id];
+        this._data = opener.$dataSkills[this.id];
       }
 
       return this._data;
@@ -98,7 +121,7 @@ export class KarrynPassive {
   get name() {
     try {
       if (!this._name) {
-        let name = TextManager.skillName(this.id);
+        let name = opener.TextManager.skillName(this.id);
         this._name = KarrynUtils.convertEscapeCharacters(name);
       }
 
@@ -112,7 +135,7 @@ export class KarrynPassive {
   get description() {
     try {
       if (!this._description) {
-        let description = TextManager.skillDesc(this.id);
+        let description = opener.TextManager.skillDesc(this.id);
         this._description = KarrynUtils.convertEscapeCharacters(description, {
           colorCodeEscape: true,
           append: "\n",
@@ -126,9 +149,19 @@ export class KarrynPassive {
     }
   }
 
+  get dayObtained() {
+    try {
+      const actor = KarrynUtils.karryn;
+      return actor._passivesObtainedOn_keySkillID_valueDate[this.id];
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   static getAll() {
     try {
-      return $dataSkills
+      return opener.$dataSkills
         .filter(
           (item) =>
             item &&

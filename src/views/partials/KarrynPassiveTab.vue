@@ -1,24 +1,29 @@
 <script setup>
-import { ref } from "vue";
-import { useAppStore } from "@/store/app";
-import { computed } from "vue";
-import { onMounted } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
-
+import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
-const karryn = ref(appStore.karryn);
+
+const props = defineProps({
+  actor: {
+    type: Object,
+    required: true,
+  },
+});
+
+const karryn = computed(() => props.actor);
 
 const selectedCategory = ref(null);
 const categories = computed(() => {
-  return karryn.value.passiveCategories;
+  return appStore.passiveCategories;
 });
 
 const search = ref("");
 const searchCategory = ref("");
 const isOwnedOnly = ref(true);
 const items = ref(appStore.passives);
-
 const pagination = ref(appStore.pagination);
+
 const headers = [
   { title: "ID", sortable: true, key: "id" },
   { title: "Name", sortable: true, key: "name" },
@@ -29,7 +34,7 @@ const headers = [
 const filteredItems = computed(() => {
   try {
     return items.value.filter((item) => {
-      if (isOwnedOnly.value && !karryn.value.hasPassive(item)) {
+      if (isOwnedOnly.value && !karryn.value.hasPassive(item.id)) {
         return false;
       }
 
@@ -37,7 +42,10 @@ const filteredItems = computed(() => {
         return false;
       }
 
-      if (selectedCategory.value && selectedCategory.value.includes(item)) {
+      if (
+        selectedCategory.value !== null &&
+        !selectedCategory.value.includes(item)
+      ) {
         return false;
       }
 
@@ -50,7 +58,9 @@ const filteredItems = computed(() => {
 });
 
 onMounted(() => {
-  if (categories.value.length > 0) selectedCategory.value = categories.value[0];
+  if (categories.value.length > 0) {
+    selectedCategory.value = categories.value[0];
+  }
 });
 
 const onCategoryBlur = () => {
@@ -82,7 +92,6 @@ const onCategoryBlur = () => {
     </div>
 
     <v-data-table
-      width="100%"
       :headers="headers"
       :items="filteredItems"
       :search="search"
@@ -90,12 +99,12 @@ const onCategoryBlur = () => {
       :items-per-page-options="pagination.itemsPerPageOptions"
     >
       <template v-slot:item="{ item }">
-        <tr :class="{ owned: karryn.hasPassive(item) }">
+        <tr :class="{ owned: karryn.hasPassive(item.id) }">
           <td class="id">{{ item.id }}</td>
           <td class="name">{{ item.name }}</td>
           <td class="description"><pre v-html="item.description"></pre></td>
           <td class="day-obtained">
-            {{ karryn.getPassiveDayObtained(item) ?? "Not yet" }}
+            {{ item.dayObtained ?? "---" }}
           </td>
         </tr>
       </template>
@@ -119,20 +128,7 @@ tr {
   width: 1rem;
 }
 
-.id {
-  width: 1rem;
-}
-
-.name {
-  width: 12rem;
-}
-
-.description {
-  font-style: italic;
-  width: 24rem;
-}
-
-.owned {
-  color: #a8a8a8;
+canvas {
+  margin-bottom: -1rem;
 }
 </style>

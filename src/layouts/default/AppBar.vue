@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import { useAppStore } from "@/store/app";
+const appStore = useAppStore();
+const gameMaster = ref(appStore.gameMaster);
+
 const drawerLeft = ref(false);
 const drawerRight = ref(false);
 const items = [
@@ -59,6 +63,33 @@ const reloadPage = () => window.location.reload();
   </v-navigation-drawer>
 
   <v-navigation-drawer v-model="drawerRight" location="right">
+    <v-card-subtitle>Quick Actions</v-card-subtitle>
+    <div class="d-flex flex-wrap align-center w-100 px-4">
+      <v-btn
+        title="Go to Title Screen"
+        variant="text"
+        icon="mdi-home"
+        color="primary"
+        size="small"
+        @click="gameMaster.goToTitle"
+      ></v-btn>
+      <v-btn
+        title="Go to Load Screen"
+        variant="text"
+        icon="mdi-folder-open"
+        color="primary"
+        size="small"
+        @click="gameMaster.goToLoadScene"
+      ></v-btn>
+      <v-btn
+        title="Go to Save Screen"
+        variant="text"
+        icon="mdi-content-save"
+        color="primary"
+        size="small"
+        @click="gameMaster.goToSaveScene"
+      ></v-btn>
+    </div>
   </v-navigation-drawer>
 </template>
 

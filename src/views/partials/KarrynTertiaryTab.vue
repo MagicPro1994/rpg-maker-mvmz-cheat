@@ -1,78 +1,83 @@
 <script setup>
-import { ref } from "vue";
-import { useAppStore } from "@/store/app";
-const appStore = useAppStore();
-const karryn = ref(appStore.karryn);
-const TextManager = ref(opener.TextManager);
+import { computed } from "vue";
+
+const props = defineProps({
+  actor: {
+    type: Object,
+    required: true,
+  },
+});
+
+const karryn = computed(() => props.actor);
 </script>
 
 <template>
   <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">
     <v-text-field
-      v-model.number="karryn.slutLevel"
-      :label="TextManager.slutLevel"
+      v-model.number="karryn.xSlutLevel"
+      :label="$G.TextManager.slutLevel"
       type="number"
     ></v-text-field>
     <v-spacer />
     <v-text-field
       disabled
-      :model-value="karryn.kissLvl"
-      :label="TextManager.kissingLevel"
+      :model-value="karryn.kissLvl()"
+      :label="$G.TextManager.kissingLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.pettingLvl"
-      :label="TextManager.pettingLevel"
+      :model-value="karryn.pettingLvl()"
+      :label="$G.TextManager.pettingLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.handjobLvl"
-      :label="TextManager.handjobLevel"
+      :model-value="karryn.handjobLvl()"
+      :label="$G.TextManager.handjobLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.blowjobLvl"
-      :label="TextManager.blowjobLevel"
+      :model-value="karryn.blowjobLvl()"
+      :label="$G.TextManager.blowjobLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.tittyFuckLvl"
-      :label="TextManager.tittyFuckLevel"
+      :model-value="karryn.tittyFuckLvl()"
+      :label="$G.TextManager.tittyFuckLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.footjobLvl"
-      :label="TextManager.footjobLevel"
+      :model-value="karryn.footjobLvl()"
+      :label="$G.TextManager.footjobLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.rimjobLvl"
-      :label="TextManager.rimjobLevel"
+      :model-value="karryn.rimjobLvl()"
+      :label="$G.TextManager.rimjobLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.pussySexLvl"
-      :label="TextManager.pussySexLevel"
+      :model-value="karryn.pussySexLvl()"
+      :label="$G.TextManager.pussySexLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.analSexLvl"
-      :label="TextManager.analSexLevel"
+      :model-value="karryn.analSexLvl()"
+      :label="$G.TextManager.analSexLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.masturbateLvl"
-      :label="TextManager.masturbationLevel"
+      :model-value="karryn.masturbateLvl()"
+      :label="$G.TextManager.masturbationLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.sadismLvl"
-      :label="TextManager.sadismLevel"
+      :model-value="karryn.sadismLvl()"
+      :label="$G.TextManager.sadismLevel"
     ></v-text-field>
     <v-text-field
       disabled
-      :model-value="karryn.masochismLvl"
-      :label="TextManager.masochismLevel"
+      :model-value="karryn.masochismLvl()"
+      :label="$G.TextManager.masochismLevel"
     ></v-text-field>
   </div>
 </template>

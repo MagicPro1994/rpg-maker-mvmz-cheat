@@ -1,10 +1,13 @@
-export function customCoreMethods() {
-  if (opener.Game_Party.prototype.cheatMode_bk === undefined) {
-    opener.Game_Party.prototype.cheatMode_bk =
-      opener.Game_Party.prototype.cheatMode;
-    opener.Game_Party.prototype.cheatMode = function () {
-      if (this.isCheatUnlocked && this.isCheatUnlocked()) return true;
-      return this.cheatMode_bk();
-    };
-  }
-}
+import { KarrynActor } from "@/wrappers/exclusive/KarrynActor";
+import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
+
+KarrynUtils.init();
+window.KarrynUtils = KarrynUtils;
+window.KarrynActor = KarrynActor;
+
+export default {
+  install(app) {
+    app.config.globalProperties.$G = opener;
+    app.config.globalProperties.$KarrynUtils = KarrynUtils;
+  },
+};

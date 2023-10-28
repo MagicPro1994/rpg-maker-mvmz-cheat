@@ -13,11 +13,6 @@ import { createApp } from "vue";
 // Plugins
 import { registerPlugins } from "@/plugins";
 
-// Customize the core Game methods
-import { customCoreMethods } from "@/plugins/karryn";
-
-customCoreMethods();
-
 const app = createApp(App);
 
 registerPlugins(app);

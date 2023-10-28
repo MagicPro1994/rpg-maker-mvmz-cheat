@@ -1,10 +1,21 @@
 // Utilities
 import { defineStore } from "pinia";
 import { KarrynGameMaster } from "@/wrappers/exclusive/KarrynGameMaster";
+import {
+  KarrynPassive,
+  KarrynPassiveCategory,
+} from "@/wrappers/exclusive/KarrynPassives";
+import { KarrynActor } from "@/wrappers/exclusive/KarrynActor";
+import { KarrynTitle } from "@/wrappers/exclusive/KarrynTitle";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
+    loading: false,
     gameMaster: new KarrynGameMaster(),
+    karryn: KarrynActor.getKarryn(),
+    passiveCategories: KarrynPassiveCategory.getAll(),
+    passives: KarrynPassive.getAll(),
+    titles: KarrynTitle.getAll(),
     pagination: {
       itemsPerPage: 5,
       itemsPerPageOptions: [
@@ -17,5 +28,12 @@ export const useAppStore = defineStore("app", {
     },
   }),
   getters: {},
-  actions: {},
+  actions: {
+    updateKarryn() {
+      this.karryn = KarrynActor.getKarryn();
+    },
+    reload() {
+      this.updateKarryn();
+    },
+  },
 });

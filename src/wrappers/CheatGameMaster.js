@@ -5,12 +5,8 @@ import { CheatGameSwitch } from "./CheatGameSwitch";
 
 export const FALLBACK_THROUGH = false;
 export const FALLBACK_MOVE_SPEED = 4.0;
-const FALLBACK_COLOR = "#000000";
-
 export class CheatGameMaster {
-  constructor() {
-    this._dummyWindow = new opener.Window_Base();
-  }
+  constructor() {}
 
   get through() {
     try {
@@ -163,6 +159,14 @@ export class CheatGameMaster {
     }
   }
 
+  isTitleScene() {
+    return opener.SceneManager._scene.constructor === opener.Scene_Title;
+  }
+
+  isInGame() {
+    return opener.DataManager.isMapLoaded();
+  }
+
   goToTitle() {
     opener.SceneManager.goto(opener.Scene_Title);
   }
@@ -220,41 +224,6 @@ export class CheatGameMaster {
       opener.BattleManager.processEscape();
     } catch (error) {
       console.error(error);
-    }
-  }
-
-  getTextColor(colorIndex) {
-    try {
-      return this._dummyWindow.textColor(colorIndex);
-    } catch (error) {
-      console.error(error);
-      return FALLBACK_COLOR;
-    }
-  }
-
-  convertColorCodesToHtml(text) {
-    try {
-      // eslint-disable-next-line no-control-regex
-      const colorRegex = /\x1bC\[(\d+)\]\s*(.*?)\s*(?=\x1bC\[\d+\]|$)/g;
-      let match = colorRegex.exec(text);
-      let lastIndex = 0;
-      let result = "";
-      while (match !== null) {
-        const colorIndex = parseInt(match[1]);
-        const colorHex = this.getTextColor(colorIndex);
-        const replaceContent = `<span style="color: ${colorHex}">${match[2]}</span>`;
-        const startIndex = match.index;
-        const endIndex = startIndex + match[0].length;
-        result += text.substring(lastIndex, startIndex);
-        result += replaceContent;
-        lastIndex = endIndex;
-
-        match = colorRegex.exec(text);
-      }
-      return result;
-    } catch (error) {
-      console.error(error);
-      return text;
     }
   }
 }
