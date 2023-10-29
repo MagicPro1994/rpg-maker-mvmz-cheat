@@ -181,4 +181,21 @@ export class KarrynPrison {
       console.error(e);
     }
   }
+
+  get edicts() {
+    try {
+      return KarrynUtils.karryn.getStoredEdictPoints();
+    } catch (e) {
+      console.error(e);
+      return 0;
+    }
+  }
+
+  set edicts(value) {
+    try {
+      KarrynUtils.karryn._storedEdictPoints = value;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

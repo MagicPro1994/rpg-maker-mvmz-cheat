@@ -25,19 +25,28 @@ onMounted(() => KarrynUtils.renderIcons());
         type="number"
       />
       <v-spacer />
+      <v-text-field
+        v-model.number="prison.order"
+        :label="$G.TextManager.order"
+        type="number"
+      />
+      <v-text-field
+        v-model.number="prison.control"
+        :label="$G.TextManager.orderChange"
+        type="number"
+      />
+
+      <v-text-field
+        v-model.number="prison.edicts"
+        :label="$G.TextManager.edicts"
+        type="number"
+      />
 
       <v-text-field
         v-model.number="prison.funding"
         :label="$G.TextManager.funding"
         type="number"
       />
-
-      <v-text-field
-        v-model.number="prison.corruption"
-        :label="$G.TextManager.corruption"
-        type="number"
-      />
-
       <v-text-field
         v-model.number="prison.income"
         :label="$G.TextManager.income"
@@ -53,20 +62,17 @@ onMounted(() => KarrynUtils.renderIcons());
       />
 
       <v-text-field
-        v-model.number="prison.order"
-        :label="$G.TextManager.order"
+        v-model.number="prison.corruption"
+        :label="$G.TextManager.corruption"
         type="number"
       />
-      <v-text-field
-        v-model.number="prison.control"
-        :label="$G.TextManager.orderChange"
-        type="number"
-      />
+
       <v-text-field
         v-model.number="prison.guardAggression"
         label="Guard Aggression"
         type="number"
       />
+
       <v-spacer />
     </div>
   </v-card>
