@@ -105,19 +105,6 @@ export class KarrynPassive {
     return this._id;
   }
 
-  get category() {
-    try {
-      if (!this._category) {
-        this._category = new KarrynPassiveCategory(this.data.styleId);
-      }
-
-      return this._category;
-    } catch (error) {
-      console.error(error);
-      return new KarrynPassiveCategory();
-    }
-  }
-
   get name() {
     try {
       if (!this._name) {
@@ -153,6 +140,24 @@ export class KarrynPassive {
     try {
       const actor = KarrynUtils.karryn;
       return actor._passivesObtainedOn_keySkillID_valueDate[this.id];
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  get colorCode() {
+    try {
+      let passiveColorIndex = this.data._passiveColor || -1;
+
+      // If the passive color is not set, use the default color
+      if (passiveColorIndex === -1) {
+        return null;
+      }
+
+      this._colorCode = KarrynUtils.getTextColor(passiveColorIndex);
+
+      return this._colorCode;
     } catch (error) {
       console.error(error);
       return null;

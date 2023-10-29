@@ -19,11 +19,16 @@
 }
 
 canvas.title-desc-icon {
-  margin-bottom: -4px;
-  padding-right: 4px;
+  &[height="32"] {
+    margin-bottom: -6px;
+  }
+  &[height="16"] {
+    margin-bottom: -4px;
+    padding-right: 2px;
+  }
 }
 
-tr.primary {
+canvas.title-desc-icon tr.primary {
   td.id,
   td.name {
     color: rgb(var(--v-theme-primary));

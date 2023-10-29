@@ -1,9 +1,9 @@
-import { KarrynActor } from "@/wrappers/exclusive/KarrynActor";
+import { KarrynPassive } from "@/wrappers/exclusive/KarrynPassives";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
 KarrynUtils.init();
 window.KarrynUtils = KarrynUtils;
-window.KarrynActor = KarrynActor;
+window.KarrynPassive = KarrynPassive;
 
 export default {
   install(app) {

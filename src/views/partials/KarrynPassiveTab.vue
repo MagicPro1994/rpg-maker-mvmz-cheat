@@ -101,7 +101,12 @@ const onCategoryBlur = () => {
       <template v-slot:item="{ item }">
         <tr :class="{ owned: karryn.hasPassive(item.id) }">
           <td class="id">{{ item.id }}</td>
-          <td class="name">{{ item.name }}</td>
+          <td
+            class="name"
+            :style="item.colorCode !== null ? { color: item.colorCode } : {}"
+          >
+            {{ item.name }}
+          </td>
           <td class="description"><pre v-html="item.description"></pre></td>
           <td class="day-obtained">
             {{ item.dayObtained ?? "---" }}
@@ -121,7 +126,6 @@ pre {
 
 tr {
   font-size: medium;
-  color: rgb(185, 135, 135);
 }
 
 .day-obtained {
