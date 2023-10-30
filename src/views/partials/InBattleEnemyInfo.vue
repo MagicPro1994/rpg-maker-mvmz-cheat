@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
+
 import ConfirmationDialog from "@/components/ConfirmationDialog.vue";
+
+const TextManager = opener.TextManager;
 
 const dialogText = {
   title: "Update all members' ",
@@ -21,9 +24,27 @@ const tableHeaders = [
     key: "displayName",
     sortable: false,
   },
-  { title: "HP", key: "hp", sortable: false, bulkUpdate: true },
-  { title: "MP", key: "mp", sortable: false, bulkUpdate: true },
-  { title: "TP", key: "tp", sortable: false, bulkUpdate: true },
+  {
+    title: TextManager.hp,
+    key: "hp",
+    funct: "setHp",
+    sortable: false,
+    bulkUpdate: true,
+  },
+  {
+    title: TextManager.mp,
+    key: "mp",
+    funct: "setMp",
+    sortable: false,
+    bulkUpdate: true,
+  },
+  {
+    title: TextManager.basic(6),
+    key: "tp",
+    funct: "setTp",
+    sortable: false,
+    bulkUpdate: true,
+  },
   { title: "Actions", sortable: false },
 ];
 
@@ -37,10 +58,11 @@ const dialog = ref({
 
 const includeDead = ref(true);
 
-const openBulkUpdateDialog = (stat) => {
+const openBulkUpdateDialog = (stat, funct) => {
   const title = `${dialogText.title} ${stat.toUpperCase()}.`;
   const message = `${dialogText.message} ${stat.toUpperCase()}.`;
   dialog.value.key = stat;
+  dialog.value.funct = funct;
   dialog.value.title = `${title}`;
   dialog.value.message = `${message}`;
   dialog.value.inputValue = 0;
@@ -57,7 +79,12 @@ const onConfirm = () => {
     if (!includeDead.value && member.isDead()) {
       continue;
     }
-    member[dialog.value.key] = value;
+    if (dialog.value.funct) {
+      member[dialog.value.funct](value);
+      continue;
+    } else {
+      member[dialog.value.key] = value;
+    }
   }
 };
 </script>
@@ -91,7 +118,7 @@ const onConfirm = () => {
                   title="Bulk Update"
                   icon="mdi-pencil-box-multiple-outline"
                   size="small"
-                  @click="openBulkUpdateDialog(column.key)"
+                  @click="openBulkUpdateDialog(column.key, column.funct)"
                 ></v-icon>
               </template>
             </td>
@@ -101,27 +128,28 @@ const onConfirm = () => {
 
       <template v-slot:item="{ item: member }">
         <tr class="py-2">
-          <td>{{ member.displayName }}</td>
+          <td>{{ member.displayName() }}</td>
           <td>
             <v-text-field
-              :suffix="'/' + member.maxHp"
-              v-model.number="member.hp"
+              :suffix="'/' + member.mhp"
+              v-model.number="member._hp"
               density="compact"
               hide-details="auto"
             ></v-text-field>
           </td>
           <td>
             <v-text-field
-              :suffix="'/' + member.maxMp"
-              v-model.number="member.mp"
+              :suffix="'/' + member.mmp"
+              v-model.number="member._mp"
               density="compact"
               hide-details="auto"
             ></v-text-field>
           </td>
+
           <td>
             <v-text-field
-              :suffix="'/' + member.maxTp"
-              v-model.number="member.tp"
+              :suffix="'/' + member.orgasmPoint()"
+              v-model.number="member._tp"
               density="compact"
               hide-details="auto"
             ></v-text-field>
