@@ -1,3 +1,4 @@
+import { KarrynActorHelper } from "./KarrynActor";
 import { SKILLTYPE_PASSIVES_ID } from "./KarrynConstants";
 import { KarrynUtils } from "./KarrynUtils";
 
@@ -52,10 +53,10 @@ export class KarrynPassiveCategory {
 
   static getAll() {
     try {
-      let actor = KarrynUtils.karryn;
+      let actor = KarrynActorHelper.getActor();
 
       if (!this._passiveCategories) {
-        if (!KarrynUtils.karryn._passiveCategory) {
+        if (!actor._passiveCategory) {
           actor.buildPassiveCategoryArray();
         }
 

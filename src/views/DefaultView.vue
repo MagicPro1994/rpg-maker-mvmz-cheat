@@ -1,10 +1,6 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useAppStore } from "@/store/app";
+import { onMounted } from "vue";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
-const appStore = useAppStore();
-const gameMaster = ref(appStore.gameMaster);
-
 onMounted(() => KarrynUtils.renderIcons());
 </script>
 <template>
@@ -26,9 +22,9 @@ onMounted(() => KarrynUtils.renderIcons());
     <v-card-text>
       <v-card-subtitle>Quick Actions</v-card-subtitle>
       <v-card-actions>
-        <v-btn @click="gameMaster.goToTitle">To Title</v-btn>
-        <v-btn @click="gameMaster.goToLoadScene">Load Game</v-btn>
-        <v-btn @click="gameMaster.goToSaveScene">Save Game</v-btn>
+        <v-btn @click="KarrynUtils.goToTitle">To Title</v-btn>
+        <v-btn @click="KarrynUtils.goToLoadScene">Load Game</v-btn>
+        <v-btn @click="KarrynUtils.goToSaveScene">Save Game</v-btn>
       </v-card-actions>
     </v-card-text>
     <!-- end: Quick Actions -->

@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useAppStore } from "@/store/app";
 import ViewTitle from "@/views/partials/ViewTitle.vue";
 import { onMounted } from "vue";
-import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
+import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
 const prison = computed(() => appStore.prison);
@@ -14,7 +14,13 @@ onMounted(() => KarrynUtils.renderIcons());
   <v-card flat class="ma-0 pa-0">
     <view-title title="Prison" />
     <v-divider class="my-1" />
+    <div v-if="!KarrynUtils.isInPrison">
+      <v-card-text>
+        {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
+      </v-card-text>
+    </div>
     <div
+      v-else
       class="prison pa-2 d-flex flex-wrap justify-space-between flex-items-2"
     >
       <v-text-field

@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useAppStore } from "@/store/app";
-import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
+import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 import { watch } from "vue";
 import ViewTitle from "./partials/ViewTitle.vue";
+
 const appStore = useAppStore();
-const gameMaster = computed(() => appStore.gameMaster);
 const karryn = computed(() => {
   return appStore.karryn;
 });
@@ -72,14 +72,14 @@ const forceReactivity = (id) => {
 };
 
 const gainTitle = (id) => {
-  gameMaster.value.gainTitle(id);
+  KarrynUtils.gainTitle(id);
 
   // Refresh the action buttons
   forceReactivity(id);
 };
 
 const loseTitle = (id) => {
-  gameMaster.value.loseTitle(id);
+  KarrynUtils.loseTitle(id);
 
   // Refresh the action buttons
   forceReactivity(id);
@@ -124,7 +124,10 @@ onMounted(() => {
   <v-card flat class="ma-0 pa-0">
     <view-title title="Titles" />
     <v-divider class="my-1" />
-    <v-card-text>
+    <v-card-text v-if="!KarrynUtils.isInPrison">
+      {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
+    </v-card-text>
+    <v-card-text v-else>
       <v-text-field v-model="search" label="Search" hide-details />
       <div class="d-inline-flex flex-row px-4">
         <v-switch

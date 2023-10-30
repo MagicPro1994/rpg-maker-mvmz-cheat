@@ -1,5 +1,3 @@
-import { ACTOR_KARRYN_ID } from "./KarrynConstants";
-
 const DEFAULT_CONVERT_OPTIONS = {
   extraEscape: true,
   colorCodeEscape: false,
@@ -12,6 +10,10 @@ const DEFAULT_CONVERT_OPTIONS = {
   unknownCodeEscape: false,
 };
 
+export const MESSAGES = {
+  FEATURE_NOT_AVAILABLE:
+    "Start a new game or load any game to use this feature.",
+};
 export class KarrynUtils {
   static get Karryn() {
     if (!opener.Karryn) {
@@ -27,27 +29,57 @@ export class KarrynUtils {
     return opener.Prison;
   }
 
-  static get karryn() {
+  static get isInPrison() {
     try {
-      return opener.$gameActors.actor(ACTOR_KARRYN_ID);
+      return opener.DataManager.isMapLoaded() && !this.isTitleScene;
     } catch (error) {
       console.error(error);
-      return null;
+      return false;
+    }
+  }
+
+  static get isTitleScene() {
+    try {
+      return opener.SceneManager._scene.constructor === opener.Scene_Title;
+    } catch (e) {
+      console.error(e);
+      return false;
     }
   }
 
   static init() {
-    if (!opener.KarrynCheat) {
-      opener.KarrynCheat = KarrynUtils;
+    if (!opener.KarrynUtils) {
+      opener.KarrynUtils = KarrynUtils;
     }
 
     try {
-      KarrynUtils.Game_Party_cheatMode = opener.Game_Party.prototype.cheatMode;
+      if (!opener.KarrynUtils.Game_Party_cheatMode) {
+        KarrynUtils.Game_Party_cheatMode =
+          opener.Game_Party.prototype.cheatMode;
+      } else {
+        KarrynUtils.Game_Party_cheatMode =
+          opener.KarrynUtils.Game_Party_cheatMode;
+      }
+
+      Object.defineProperty(opener.Game_Party.prototype, "flagCheatUnlocked", {
+        get: function () {
+          return this.isCheatUnlocked && this.isCheatUnlocked();
+        },
+        set: function (value) {
+          if (value) {
+            this.isCheatUnlocked = () => true;
+          } else {
+            this.isCheatUnlocked = () => false;
+          }
+        },
+        configurable: true,
+      });
+
       opener.Game_Party.prototype.cheatMode = function () {
         // Inject the variable to the game party to bypass the cheat mode check.
         if (this.isCheatUnlocked && this.isCheatUnlocked()) return true;
 
-        return KarrynUtils.Game_Party_cheatMode.call(this);
+        return opener.KarrynUtils.Game_Party_cheatMode.call(this);
       };
     } catch (error) {
       console.error(error);
@@ -256,4 +288,84 @@ export class KarrynUtils {
       console.error(error);
     }
   }
+
+  //#region Game Helper Functions
+  static goToTitle() {
+    opener.SceneManager.goto(opener.Scene_Title);
+  }
+
+  static goToSaveScene() {
+    if (opener.SceneManager._scene.constructor === opener.Scene_Save) {
+      opener.SceneManager.pop();
+    } else if (opener.SceneManager._scene.constructor === opener.Scene_Load) {
+      opener.SceneManager.goto(opener.Scene_Save);
+    } else {
+      opener.SceneManager.push(opener.Scene_Save);
+    }
+  }
+
+  static goToLoadScene() {
+    if (opener.SceneManager._scene.constructor === opener.Scene_Load) {
+      opener.SceneManager.pop();
+    } else if (opener.SceneManager._scene.constructor === opener.Scene_Save) {
+      opener.SceneManager.goto(opener.Scene_Load);
+    } else {
+      opener.SceneManager.push(opener.Scene_Load);
+    }
+  }
+
+  static winBattle() {
+    try {
+      let enemies = opener.$gameTroop.members();
+      enemies.forEach((enemy) => {
+        opener.Game_Interpreter.changeHp(enemy, Math.round(-enemy.mhp), true);
+      });
+      opener.BattleManager.processVictory();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static loseBattle() {
+    try {
+      opener.BattleManager.processDefeat();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static abortBattle() {
+    try {
+      opener.BattleManager.abort();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static escapeBattle() {
+    try {
+      opener.BattleManager.processEscape();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static gainTitle(itemId) {
+    try {
+      if (!this.Karryn.hasThisTitle(itemId)) {
+        opener.$gameParty.gainTitle(itemId);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static removeTitle(id) {
+    try {
+      opener.$gameParty.removeTitle(id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  //#endregion Game Helper Functions
 }

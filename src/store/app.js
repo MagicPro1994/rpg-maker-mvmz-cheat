@@ -5,15 +5,15 @@ import {
   KarrynPassive,
   KarrynPassiveCategory,
 } from "@/wrappers/exclusive/KarrynPassives";
-import { KarrynActor } from "@/wrappers/exclusive/KarrynActor";
 import { KarrynPrison } from "@/wrappers/exclusive/KarrynPrison";
 import { KarrynTitle } from "@/wrappers/exclusive/KarrynTitle";
+import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActor";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
     loading: false,
     gameMaster: new KarrynGameMaster(),
-    karryn: KarrynActor.getKarryn(),
+    karryn: KarrynActorHelper.getActor(),
     prison: new KarrynPrison(),
     passiveCategories: KarrynPassiveCategory.getAll(),
     passives: KarrynPassive.getAll(),
@@ -36,7 +36,7 @@ export const useAppStore = defineStore("app", {
     },
 
     reloadKarryn() {
-      this.karryn = KarrynActor.getKarryn();
+      this.karryn = KarrynActorHelper.getActor();
     },
 
     reloadTitles() {

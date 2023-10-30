@@ -1,7 +1,5 @@
 import { CheatGameMaster } from "../CheatGameMaster";
 import { EQUIP_TYPE_TITLE_ID } from "./KarrynConstants";
-import { KarrynUtils } from "./KarrynUtils";
-const Karryn = KarrynUtils.Karryn;
 
 export class KarrynGameMaster extends CheatGameMaster {
   constructor() {
@@ -16,26 +14,6 @@ export class KarrynGameMaster extends CheatGameMaster {
     } catch (error) {
       console.error(error);
       return [];
-    }
-  }
-
-  gainTitle(id) {
-    try {
-      if (!Karryn.hasThisTitle(id)) {
-        opener.$gameParty.gainTitle(id);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  removeTitle(id) {
-    try {
-      if (Karryn.hasThisTitle(id)) {
-        opener.$gameParty.removeTitle(id);
-      }
-    } catch (error) {
-      console.error(error);
     }
   }
 

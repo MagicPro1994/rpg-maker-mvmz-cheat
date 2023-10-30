@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useAppStore } from "@/store/app";
-const appStore = useAppStore();
-const gameMaster = ref(appStore.gameMaster);
+import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
 const drawerLeft = ref(false);
 const drawerRight = ref(false);
@@ -71,7 +69,7 @@ const reloadPage = () => window.location.reload();
         icon="mdi-home"
         color="primary"
         size="small"
-        @click="gameMaster.goToTitle"
+        @click="KarrynUtils.goToTitle"
       ></v-btn>
       <v-btn
         title="Go to Load Screen"
@@ -79,7 +77,7 @@ const reloadPage = () => window.location.reload();
         icon="mdi-folder-open"
         color="primary"
         size="small"
-        @click="gameMaster.goToLoadScene"
+        @click="KarrynUtils.goToLoadScene"
       ></v-btn>
       <v-btn
         title="Go to Save Screen"
@@ -87,7 +85,7 @@ const reloadPage = () => window.location.reload();
         icon="mdi-content-save"
         color="primary"
         size="small"
-        @click="gameMaster.goToSaveScene"
+        @click="KarrynUtils.goToSaveScene"
       ></v-btn>
     </div>
   </v-navigation-drawer>

@@ -1,15 +1,10 @@
 <script setup>
-import { computed } from "vue";
-import { useAppStore } from "@/store/app";
-
-const appStore = useAppStore();
-const gameMaster = computed(() => appStore.gameMaster);
 const reloadPage = () => window.location.reload();
 </script>
 
 <template>
   <v-main>
-    <v-card-text v-if="!gameMaster.isInGame()">
+    <v-card-text v-if="!$G.KarrynUtils">
       Please start the game first. Then reload the page.
       <v-btn variant="text" icon="mdi-refresh" @click.stop="reloadPage"></v-btn>
     </v-card-text>

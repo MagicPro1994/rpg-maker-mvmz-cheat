@@ -2,18 +2,20 @@
 import { computed, ref } from "vue";
 import { useAppStore } from "@/store/app";
 
+import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
+
 import ViewTitleVue from "./partials/ViewTitle.vue";
 import KarrynCheatTab from "@/views/partials/KarrynCheatTab.vue";
 import KarrynStatsTab from "@/views/partials/KarrynStatsTab.vue";
-import KarrynResistTab from "@/views/partials/KarrynResistTab.vue";
 import KarrynPassiveTab from "./partials/KarrynPassiveTab.vue";
+import KarrynOtherStatTab from "./partials/KarrynOtherStatTab.vue";
 
 const appStore = useAppStore();
 const selectedTab = ref(0);
 const tabs = [
   { title: "Cheat", component: KarrynCheatTab },
   { title: "Stats", component: KarrynStatsTab },
-  { title: "Others", component: KarrynResistTab },
+  { title: "Others", component: KarrynOtherStatTab },
   { title: "Passives", component: KarrynPassiveTab },
 ];
 
@@ -27,6 +29,11 @@ const karryn = computed(() => {
     <v-divider class="my-1" />
     <div v-if="karryn === null">
       <v-card-text> Karryn is not in the party. </v-card-text>
+    </div>
+    <div v-else-if="!KarrynUtils.isInPrison">
+      <v-card-text>
+        {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
+      </v-card-text>
     </div>
     <div v-else>
       <!-- start: Tabs -->
