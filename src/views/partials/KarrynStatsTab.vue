@@ -16,7 +16,7 @@ const props = defineProps({
 const karryn = computed(() => props.actor);
 </script>
 <template>
-  <v-card-text>
+  <v-card-text class="scrollable-container">
     <v-card-subtitle>Basic</v-card-subtitle>
     <karryn-basic-stat-tab :actor="karryn" />
 
@@ -30,3 +30,5 @@ const karryn = computed(() => props.actor);
     <karryn-secondary-tab :actor="karryn" />
   </v-card-text>
 </template>
+
+<style></style>

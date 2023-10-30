@@ -7,7 +7,7 @@ import {
 } from "@/wrappers/exclusive/KarrynPassives";
 import { KarrynPrison } from "@/wrappers/exclusive/KarrynPrison";
 import { KarrynTitle } from "@/wrappers/exclusive/KarrynTitle";
-import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActor";
+import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActorHelper";
 
 export const useAppStore = defineStore("app", {
   state: () => ({

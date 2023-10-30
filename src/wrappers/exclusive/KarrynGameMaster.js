@@ -103,14 +103,11 @@ export class KarrynGameMaster extends CheatGameMaster {
       prototype.isNoCooldown = () => false;
     }
   }
-  //#endregion Cheat Toggles
 
-  //#region Ignore all condition in Prison.cheatMode()
   get isCheatUnlocked() {
+    const prototype = opener.Game_Party.prototype;
     try {
-      return (
-        opener.$gameParty.isCheatUnlocked && opener.$gameParty.isCheatUnlocked()
-      );
+      return prototype.isCheatUnlocked && prototype.isCheatUnlocked();
     } catch (error) {
       console.error(error);
       return false;
@@ -118,16 +115,40 @@ export class KarrynGameMaster extends CheatGameMaster {
   }
 
   set isCheatUnlocked(value) {
+    const prototype = opener.Game_Party.prototype;
     try {
       if (value) {
-        opener.$gameParty.isCheatUnlocked = () => true;
+        prototype.isCheatUnlocked = () => true;
       } else {
-        opener.$gameParty.isCheatUnlocked = () => false;
+        prototype.isCheatUnlocked = () => false;
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  //#endregion
+  get isDesireReqUnlocked() {
+    const prototype = opener.Game_Actor.prototype;
+    try {
+      return prototype.isDesireReqUnlocked && prototype.isDesireReqUnlocked();
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  set isDesireReqUnlocked(value) {
+    const prototype = opener.Game_Actor.prototype;
+    try {
+      if (value) {
+        prototype.isDesireReqUnlocked = () => true;
+      } else {
+        prototype.isDesireReqUnlocked = () => false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //#endregion Cheat Toggles
 }

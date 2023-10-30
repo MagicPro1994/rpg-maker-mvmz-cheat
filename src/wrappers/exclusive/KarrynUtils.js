@@ -14,13 +14,29 @@ export const MESSAGES = {
   FEATURE_NOT_AVAILABLE:
     "Start a new game or load any game to use this feature.",
 };
+
 export class KarrynUtils {
-  static get isInPrison() {
+  static init() {
+    if (!opener.KarrynUtils) {
+      opener.KarrynUtils = KarrynUtils;
+    }
+
     try {
-      return opener.DataManager.isMapLoaded() && !this.isTitleScene;
+      const self = opener.KarrynUtils;
+      const Game_Party = opener.Game_Party;
+
+      if (!self.Game_Party_cheatMode) {
+        self.Game_Party_cheatMode = Game_Party.prototype.cheatMode;
+      }
+
+      Game_Party.prototype.cheatMode = function () {
+        // Inject the variable to the game party to bypass the cheat mode check.
+        if (this.isCheatUnlocked && this.isCheatUnlocked()) return true;
+
+        return self.Game_Party_cheatMode.call(this);
+      };
     } catch (error) {
       console.error(error);
-      return false;
     }
   }
 
@@ -33,42 +49,34 @@ export class KarrynUtils {
     }
   }
 
-  static init() {
-    if (!opener.KarrynUtils) {
-      opener.KarrynUtils = KarrynUtils;
-    }
-
+  static get isInBattle() {
     try {
-      if (!opener.KarrynUtils.Game_Party_cheatMode) {
-        KarrynUtils.Game_Party_cheatMode =
-          opener.Game_Party.prototype.cheatMode;
-      } else {
-        KarrynUtils.Game_Party_cheatMode =
-          opener.KarrynUtils.Game_Party_cheatMode;
-      }
-
-      Object.defineProperty(opener.Game_Party.prototype, "flagCheatUnlocked", {
-        get: function () {
-          return this.isCheatUnlocked && this.isCheatUnlocked();
-        },
-        set: function (value) {
-          if (value) {
-            this.isCheatUnlocked = () => true;
-          } else {
-            this.isCheatUnlocked = () => false;
-          }
-        },
-        configurable: true,
-      });
-
-      opener.Game_Party.prototype.cheatMode = function () {
-        // Inject the variable to the game party to bypass the cheat mode check.
-        if (this.isCheatUnlocked && this.isCheatUnlocked()) return true;
-
-        return opener.KarrynUtils.Game_Party_cheatMode.call(this);
-      };
+      return opener.SceneManager._scene.constructor === opener.Scene_Battle;
     } catch (error) {
       console.error(error);
+      return false;
+    }
+  }
+
+  static get isInMap() {
+    try {
+      return opener.SceneManager._scene.constructor === opener.Scene_Map;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  static get isInPrison() {
+    try {
+      if (!opener.DataManager.isMapLoaded()) {
+        return false;
+      }
+
+      return this.isInMap || this.isInBattle;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   }
 
@@ -133,19 +141,6 @@ export class KarrynUtils {
     } catch (error) {
       console.error(error);
       return text;
-    }
-  }
-
-  static search(item, searchInItem) {
-    try {
-      if (!searchInItem) return true;
-
-      if (typeof searchInItem === "string") {
-        return item.name.toLowerCase().includes(searchInItem.toLowerCase());
-      }
-    } catch (error) {
-      console.error(error);
-      return false;
     }
   }
 
@@ -275,6 +270,19 @@ export class KarrynUtils {
     }
   }
 
+  static search(item, searchInItem) {
+    try {
+      if (!searchInItem) return true;
+
+      if (typeof searchInItem === "string") {
+        return item.name.toLowerCase().includes(searchInItem.toLowerCase());
+      }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
   //#region Game Helper Functions
   static goToTitle() {
     opener.SceneManager.goto(opener.Scene_Title);
@@ -303,8 +311,13 @@ export class KarrynUtils {
   static winBattle() {
     try {
       let enemies = opener.$gameTroop.members();
+
       enemies.forEach((enemy) => {
-        opener.Game_Interpreter.changeHp(enemy, Math.round(-enemy.mhp), true);
+        opener.Game_Interpreter.prototype.changeHp(
+          enemy,
+          Math.round(-enemy.mhp),
+          true
+        );
       });
       opener.BattleManager.processVictory();
     } catch (error) {

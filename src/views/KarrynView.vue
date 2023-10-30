@@ -42,9 +42,7 @@ const karryn = computed(() => {
       </v-tabs>
       <v-window v-model="selectedTab">
         <v-window-item v-for="(tab, index) in tabs" :key="index">
-          <div class="component-container">
-            <component :is="tab.component" :actor="karryn"></component>
-          </div>
+          <component :is="tab.component" :actor="karryn"></component>
         </v-window-item>
       </v-window>
       <!-- end: Tabs -->
@@ -60,7 +58,7 @@ const karryn = computed(() => {
   padding-left: 10px;
 }
 
-.component-container {
+.scrollable-container {
   min-height: 72vh; /* Set minimum height */
   max-height: 72vh; /* Set the maximum width of the container */
   overflow-y: scroll; /* Set the vertical overflow behavior to scroll */

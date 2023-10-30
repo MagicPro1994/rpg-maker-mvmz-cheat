@@ -1,6 +1,6 @@
 import { KarrynPassive } from "@/wrappers/exclusive/KarrynPassives";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
-import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActor";
+import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActorHelper";
 
 KarrynActorHelper.init();
 KarrynUtils.init();
@@ -11,6 +11,5 @@ window.KarrynPassive = KarrynPassive;
 export default {
   install(app) {
     app.config.globalProperties.$G = opener;
-    app.config.globalProperties.$Utils = KarrynUtils;
   },
 };

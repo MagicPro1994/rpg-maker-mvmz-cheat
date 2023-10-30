@@ -1,4 +1,4 @@
-import { KarrynActorHelper } from "./KarrynActor";
+import { KarrynActorHelper } from "./KarrynActorHelper";
 
 export class KarrynPrison {
   constructor() {}

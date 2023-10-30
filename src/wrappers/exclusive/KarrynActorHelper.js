@@ -1,12 +1,17 @@
 import { ACTOR_KARRYN_ID } from "./KarrynConstants";
 import { KarrynTrait, KARRYN_TRAIT_TYPE } from "./KarrynTraits";
+import {
+  properties as desires,
+  registerDesireRequirementProperties,
+} from "./actor/DesireRequirements";
 
-export const wrapper = {
+const properties = {
   level: "xLevel",
   wardenLevelLimit: "yLevelLimit",
   hp: "xStamina",
   mp: "xEnergy",
   tp: "xPleasure",
+  maxTp: "yMaxPleasure",
   cockiness: "xCockiness",
   clothingDurability: "xClothingDurability",
   clothingMaxDurability: "yClothingMaxDurability",
@@ -22,6 +27,8 @@ export const wrapper = {
 
   cd: "yCritDmg",
 };
+
+export const wrapper = Object.assign({}, properties, desires);
 
 //#region Game_Actor properties for cheat functions
 export class KarrynActorHelper {
@@ -42,102 +49,6 @@ export class KarrynActorHelper {
       console.error(error);
     }
   }
-
-  //#region Cheat Toggles
-  static get isInvincible() {
-    const actor = this.getActor();
-    return actor.isInvincible && actor.isInvincible();
-  }
-
-  static set isInvincible(value) {
-    const actor = this.getActor();
-    if (value) {
-      actor.isInvincible = () => true;
-    } else {
-      actor.isInvincible = () => false;
-    }
-  }
-
-  static get isNoClothingDamage() {
-    const actor = this.getActor();
-    return actor.isNoClothingDamage && actor.isNoClothingDamage();
-  }
-
-  static set isNoClothingDamage(value) {
-    const actor = this.getActor();
-    if (value) {
-      actor.isNoClothingDamage = () => true;
-    } else {
-      actor.isNoClothingDamage = () => false;
-    }
-  }
-
-  static get isNoPaySkillCost() {
-    return (
-      opener.Game_Actor.isNoPaySkillCost && opener.Game_Actor.isNoPaySkillCost()
-    );
-  }
-
-  static set isNoPaySkillCost(value) {
-    if (value) {
-      opener.Game_Actor.isNoPaySkillCost = () => true;
-    } else {
-      opener.Game_Actor.isNoPaySkillCost = () => false;
-    }
-  }
-
-  static get isNoStaminaCost() {
-    return (
-      opener.Game_Actor.isNoStaminaCost && opener.Game_Actor.isNoStaminaCost()
-    );
-  }
-
-  static set isNoStaminaCost(value) {
-    if (value) {
-      opener.Game_Actor.prototype.isNoStaminaCost = () => true;
-    } else {
-      opener.Game_Actor.prototype.isNoStaminaCost = () => false;
-    }
-  }
-
-  static get isNoEnergyCost() {
-    return (
-      opener.Game_Actor.isNoEnergyCost && opener.Game_Actor.isNoEnergyCost()
-    );
-  }
-
-  static set isNoEnergyCost(value) {
-    if (value) {
-      opener.Game_Actor.isNoEnergyCost = () => true;
-    } else {
-      opener.Game_Actor.isNoEnergyCost = () => false;
-    }
-  }
-
-  static get isNoWillCost() {
-    return opener.Game_Actor.isNoWillCost && opener.Game_Actor.isNoWillCost();
-  }
-
-  static set isNoWillCost(value) {
-    if (value) {
-      opener.Game_Actor.isNoWillCost = () => true;
-    } else {
-      opener.Game_Actor.isNoWillCost = () => false;
-    }
-  }
-
-  static get isNoCooldown() {
-    return opener.Game_Actor.isNoCooldown && opener.Game_Actor.isNoCooldown();
-  }
-
-  static set isNoCooldown(value) {
-    if (value) {
-      opener.Game_Actor.isNoCooldown = () => true;
-    } else {
-      opener.Game_Actor.isNoCooldown = () => false;
-    }
-  }
-  //#endregion Cheat Toggles
 
   static getActor() {
     try {
@@ -195,6 +106,13 @@ export class KarrynActorHelper {
       },
       set: function (value) {
         this.setTp(value);
+      },
+      configurable: true,
+    });
+
+    Object.defineProperty(prototype, wrapper.maxTp, {
+      get: function () {
+        return this.orgasmPoint();
       },
       configurable: true,
     });
@@ -346,6 +264,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
+    registerDesireRequirementProperties();
     //#endregion Game_Actor wrapper properties
   }
 

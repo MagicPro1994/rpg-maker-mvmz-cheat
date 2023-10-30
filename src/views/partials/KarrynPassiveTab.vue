@@ -71,7 +71,7 @@ const onCategoryBlur = () => {
 };
 </script>
 <template>
-  <v-card-text>
+  <v-card-text class="scrollable-container">
     <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">
       <v-text-field v-model="search" label="Search" hide-details="auto" />
       <v-combobox

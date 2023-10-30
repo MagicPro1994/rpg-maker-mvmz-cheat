@@ -26,9 +26,4 @@ export const ACTOR_KARRYN_ID = 1;
 
 export const EQUIP_TYPE_TITLE_ID = 3;
 
-/**
- * @type plugin
- */
-export const Yanfly = opener.Yanfly;
-
 //#endregion

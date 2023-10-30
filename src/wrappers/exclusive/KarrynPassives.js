@@ -1,4 +1,4 @@
-import { KarrynActorHelper } from "./KarrynActor";
+import { KarrynActorHelper } from "./KarrynActorHelper";
 import { SKILLTYPE_PASSIVES_ID } from "./KarrynConstants";
 import { KarrynUtils } from "./KarrynUtils";
 
