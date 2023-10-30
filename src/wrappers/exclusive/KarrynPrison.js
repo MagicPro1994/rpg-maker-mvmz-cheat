@@ -1,4 +1,4 @@
-import { KarrynUtils } from "./KarrynUtils";
+import { KarrynActorHelper } from "./KarrynActor";
 
 export class KarrynPrison {
   constructor() {}
@@ -47,7 +47,7 @@ export class KarrynPrison {
 
   get calculatedIncome() {
     try {
-      return KarrynUtils.Prison.income;
+      return opener.Prison.income;
     } catch (e) {
       console.error(e);
       return 0;
@@ -69,7 +69,8 @@ export class KarrynPrison {
         throw new Error(`value is NaN or negative`);
       }
 
-      let delta = value - KarrynUtils.karryn._baseIncome;
+      const actor = KarrynActorHelper.getActor();
+      let delta = value - actor._baseIncome;
 
       if (delta === 0) return;
 
@@ -81,7 +82,7 @@ export class KarrynPrison {
 
   get calculatedExpense() {
     try {
-      return KarrynUtils.Prison.expense;
+      return opener.Prison.expense;
     } catch (e) {
       console.error(e);
       return 0;
@@ -103,7 +104,8 @@ export class KarrynPrison {
         throw new Error(`value is NaN or negative`);
       }
 
-      let delta = value - KarrynUtils.karryn._baseExpense;
+      const actor = KarrynActorHelper.getActor();
+      let delta = value - actor._baseExpense;
 
       if (delta === 0) return;
 
@@ -124,7 +126,7 @@ export class KarrynPrison {
 
   get currentRunDays() {
     try {
-      return KarrynUtils.Prison.currentRunsDays;
+      return opener.Prison.currentRunsDays;
     } catch (e) {
       console.error(e);
       return 0;
@@ -184,7 +186,8 @@ export class KarrynPrison {
 
   get edicts() {
     try {
-      return KarrynUtils.karryn.getStoredEdictPoints();
+      const actor = KarrynActorHelper.getActor();
+      return actor.getStoredEdictPoints();
     } catch (e) {
       console.error(e);
       return 0;
@@ -193,7 +196,8 @@ export class KarrynPrison {
 
   set edicts(value) {
     try {
-      KarrynUtils.karryn._storedEdictPoints = value;
+      const actor = KarrynActorHelper.getActor();
+      actor._storedEdictPoints = value;
     } catch (e) {
       console.error(e);
     }

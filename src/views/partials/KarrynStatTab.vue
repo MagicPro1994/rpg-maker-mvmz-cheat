@@ -29,8 +29,9 @@ const karryn = computed(() => props.actor);
     />
 
     <v-text-field
-      v-model.number="karryn.xSlutLevel"
-      label="Slut Level"
+      v-model.number="karryn.xCockiness"
+      :label="$G.TextManager.cockiness"
+      suffix="[%]"
       type="number"
     />
   </div>

@@ -13,9 +13,11 @@ const props = defineProps({
 const karryn = computed(() => props.actor);
 </script>
 <template>
-  <v-card-subtitle>Sex Levels</v-card-subtitle>
-  <karryn-tertiary-tab :actor="karryn" />
+  <v-card-text>
+    <v-card-subtitle>Sex Levels</v-card-subtitle>
+    <karryn-tertiary-tab :actor="karryn" />
 
-  <v-card-subtitle>Resistance</v-card-subtitle>
-  <karryn-resist-tab :actor="karryn" />
+    <v-card-subtitle>Resistance</v-card-subtitle>
+    <karryn-resist-tab :actor="karryn" />
+  </v-card-text>
 </template>

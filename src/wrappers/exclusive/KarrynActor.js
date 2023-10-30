@@ -1,4 +1,3 @@
-import { CheatActor } from "../CheatActor";
 import { ACTOR_KARRYN_ID } from "./KarrynConstants";
 import { KarrynTrait, KARRYN_TRAIT_TYPE } from "./KarrynTraits";
 
@@ -8,6 +7,9 @@ export const wrapper = {
   hp: "xStamina",
   mp: "xEnergy",
   tp: "xPleasure",
+  cockiness: "xCockiness",
+  clothingDurability: "xClothingDurability",
+  clothingMaxDurability: "yClothingMaxDurability",
   will: "xWill",
   exp: "xExp",
   nextLevelExp: "yNextLevelExp",
@@ -19,17 +21,14 @@ export const wrapper = {
   elements: "yElements",
 
   cd: "yCritDmg",
-
-  noClothingDmg: "_cClothingDmg",
-  noPaySkillCost: "_cPaySkillCost",
-  noStaminaCost: "_cStaminaCost",
-  noEnergyCost: "_cEnergyCost",
-  noWillCost: "_cWillCost",
-  invincible: "_cInvincible",
 };
 
 //#region Game_Actor properties for cheat functions
 export class KarrynActorHelper {
+  constructor() {
+    throw new Error("KarrynActorHelper is a static class.");
+  }
+
   static init() {
     if (!opener.KarrynActorHelper) {
       opener.KarrynActorHelper = KarrynActorHelper;
@@ -38,10 +37,107 @@ export class KarrynActorHelper {
     try {
       KarrynActorHelper.registerWrapperProperties();
       KarrynActorHelper.registerWrapperMethods();
+      KarrynActorHelper.registerCheatFunctions();
     } catch (error) {
       console.error(error);
     }
   }
+
+  //#region Cheat Toggles
+  static get isInvincible() {
+    const actor = this.getActor();
+    return actor.isInvincible && actor.isInvincible();
+  }
+
+  static set isInvincible(value) {
+    const actor = this.getActor();
+    if (value) {
+      actor.isInvincible = () => true;
+    } else {
+      actor.isInvincible = () => false;
+    }
+  }
+
+  static get isNoClothingDamage() {
+    const actor = this.getActor();
+    return actor.isNoClothingDamage && actor.isNoClothingDamage();
+  }
+
+  static set isNoClothingDamage(value) {
+    const actor = this.getActor();
+    if (value) {
+      actor.isNoClothingDamage = () => true;
+    } else {
+      actor.isNoClothingDamage = () => false;
+    }
+  }
+
+  static get isNoPaySkillCost() {
+    return (
+      opener.Game_Actor.isNoPaySkillCost && opener.Game_Actor.isNoPaySkillCost()
+    );
+  }
+
+  static set isNoPaySkillCost(value) {
+    if (value) {
+      opener.Game_Actor.isNoPaySkillCost = () => true;
+    } else {
+      opener.Game_Actor.isNoPaySkillCost = () => false;
+    }
+  }
+
+  static get isNoStaminaCost() {
+    return (
+      opener.Game_Actor.isNoStaminaCost && opener.Game_Actor.isNoStaminaCost()
+    );
+  }
+
+  static set isNoStaminaCost(value) {
+    if (value) {
+      opener.Game_Actor.prototype.isNoStaminaCost = () => true;
+    } else {
+      opener.Game_Actor.prototype.isNoStaminaCost = () => false;
+    }
+  }
+
+  static get isNoEnergyCost() {
+    return (
+      opener.Game_Actor.isNoEnergyCost && opener.Game_Actor.isNoEnergyCost()
+    );
+  }
+
+  static set isNoEnergyCost(value) {
+    if (value) {
+      opener.Game_Actor.isNoEnergyCost = () => true;
+    } else {
+      opener.Game_Actor.isNoEnergyCost = () => false;
+    }
+  }
+
+  static get isNoWillCost() {
+    return opener.Game_Actor.isNoWillCost && opener.Game_Actor.isNoWillCost();
+  }
+
+  static set isNoWillCost(value) {
+    if (value) {
+      opener.Game_Actor.isNoWillCost = () => true;
+    } else {
+      opener.Game_Actor.isNoWillCost = () => false;
+    }
+  }
+
+  static get isNoCooldown() {
+    return opener.Game_Actor.isNoCooldown && opener.Game_Actor.isNoCooldown();
+  }
+
+  static set isNoCooldown(value) {
+    if (value) {
+      opener.Game_Actor.isNoCooldown = () => true;
+    } else {
+      opener.Game_Actor.isNoCooldown = () => false;
+    }
+  }
+  //#endregion Cheat Toggles
 
   static getActor() {
     try {
@@ -54,8 +150,9 @@ export class KarrynActorHelper {
 
   static registerWrapperProperties() {
     //#region Game_Actor wrapper properties
+    const prototype = opener.Game_Actor.prototype;
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.level, {
+    Object.defineProperty(prototype, wrapper.level, {
       get: function () {
         return this._level;
       },
@@ -65,18 +162,14 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(
-      opener.Game_Actor.prototype,
-      wrapper.wardenLevelLimit,
-      {
-        get: function () {
-          return this.getWardenLevelLimit();
-        },
-        configurable: true,
-      }
-    );
+    Object.defineProperty(prototype, wrapper.wardenLevelLimit, {
+      get: function () {
+        return this.getWardenLevelLimit();
+      },
+      configurable: true,
+    });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.hp, {
+    Object.defineProperty(prototype, wrapper.hp, {
       get: function () {
         return this._hp;
       },
@@ -86,7 +179,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.mp, {
+    Object.defineProperty(prototype, wrapper.mp, {
       get: function () {
         return this._mp;
       },
@@ -96,7 +189,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.tp, {
+    Object.defineProperty(prototype, wrapper.tp, {
       get: function () {
         return this._tp;
       },
@@ -106,7 +199,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.will, {
+    Object.defineProperty(prototype, wrapper.will, {
       get: function () {
         return this._will;
       },
@@ -116,7 +209,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.exp, {
+    Object.defineProperty(prototype, wrapper.exp, {
       get: function () {
         return this.currentExp();
       },
@@ -126,14 +219,14 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.nextLevelExp, {
+    Object.defineProperty(prototype, wrapper.nextLevelExp, {
       get: function () {
         return this.nextLevelExp();
       },
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.fatigue, {
+    Object.defineProperty(prototype, wrapper.fatigue, {
       get: function () {
         return this._fatigue;
       },
@@ -143,7 +236,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.slutLvl, {
+    Object.defineProperty(prototype, wrapper.slutLvl, {
       get: function () {
         return this._slutLvl;
       },
@@ -153,35 +246,87 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.params, {
+    Object.defineProperty(prototype, wrapper.cockiness, {
+      get: function () {
+        return this.cockiness;
+      },
+      set: function (value) {
+        try {
+          if (isNaN(value) || value < 0) {
+            return;
+          }
+
+          let delta = value - this.cockiness;
+
+          if (delta === 0) {
+            return;
+          }
+
+          this.addCockiness(delta);
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      configurable: true,
+    });
+
+    Object.defineProperty(prototype, wrapper.clothingDurability, {
+      get: function () {
+        return this._clothingDurability;
+      },
+      set: function (value) {
+        try {
+          if (isNaN(value) || value < 0) {
+            return;
+          }
+
+          this._clothingDurability = value.clamp(
+            0,
+            this.getClothingMaxDurability(false)
+          );
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      configurable: true,
+    });
+
+    Object.defineProperty(prototype, wrapper.clothingMaxDurability, {
+      get: function () {
+        return this.getClothingMaxDurability(false);
+      },
+      configurable: true,
+    });
+
+    Object.defineProperty(prototype, wrapper.params, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.PARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.xParams, {
+    Object.defineProperty(prototype, wrapper.xParams, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.XPARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.sParams, {
+    Object.defineProperty(prototype, wrapper.sParams, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.SPARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.elements, {
+    Object.defineProperty(prototype, wrapper.elements, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.ELEMENT);
       },
       configurable: true,
     });
 
-    Object.defineProperty(opener.Game_Actor.prototype, wrapper.cd, {
+    Object.defineProperty(prototype, wrapper.cd, {
       get: function () {
         try {
           let value = 1;
@@ -219,27 +364,21 @@ export class KarrynActorHelper {
 
   static registerCheatFunctions() {
     try {
-      // KarrynActorHelper.registerInvincibleFunctions();
+      KarrynActorHelper.registerInvincibleCheatFunctions();
       KarrynActorHelper.registerClothingDamageCheatFunctions();
-      // KarrynActorHelper.registerStaminaCostCheatFunctions();
-      // KarrynActorHelper.registerEnergyCostCheatFunctions();
-      // KarrynActorHelper.registerWillpowerCheatFunctions();
-      // KarrynActorHelper.registerCooldownCheatFunctions();
-      // KarrynActorHelper.registerPaySkillCostCheatFunctions();
+      KarrynActorHelper.registerStaminaCostCheatFunctions();
+      KarrynActorHelper.registerEnergyCostCheatFunctions();
+      KarrynActorHelper.registerWillpowerCheatFunctions();
+      KarrynActorHelper.registerCooldownCheatFunctions();
+      KarrynActorHelper.registerPaySkillCostCheatFunctions();
     } catch (error) {
       console.error(error);
     }
   }
 
-  static unregisterCheatFunctions() {
+  static registerInvincibleCheatFunctions() {
     try {
-      // KarrynActorHelper.unregisterInvincibleFunctions();
-      KarrynActorHelper.unregisterClothingDamageCheatFunctions();
-      // KarrynActorHelper.unregisterStaminaCostCheatFunctions();
-      // KarrynActorHelper.unregisterEnergyCostCheatFunctions();
-      // KarrynActorHelper.unregisterWillpowerCheatFunctions();
-      // KarrynActorHelper.unregisterCooldownCheatFunctions();
-      // KarrynActorHelper.unregisterPaySkillCostCheatFunctions();
+      console.log(`Invincible cheat is not implemented`);
     } catch (error) {
       console.error(error);
     }
@@ -247,340 +386,129 @@ export class KarrynActorHelper {
 
   static registerClothingDamageCheatFunctions() {
     try {
-      if (!opener.KarrynActorHelper.Game_Actor_damageClothing) {
-        this.damageClothing = opener.Game_Actor.prototype.damageClothing;
-      } else {
-        this.damageClothing = opener.KarrynActorHelper.damageClothing;
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
+
+      if (!self.Game_Actor_damageClothing) {
+        self.Game_Actor_damageClothing = Game_Actor.prototype.damageClothing;
       }
 
-      opener.Game_Actor.prototype.damageClothing = function (
-        damage,
-        selfDamage
-      ) {
+      Game_Actor.prototype.damageClothing = function (damage, selfDamage) {
         if (this.isNoClothingDamage && this.isNoClothingDamage()) {
           return 0;
         }
 
-        return opener.KarrynActorHelper.Game_Actor_damageClothing.call(
-          this,
-          damage,
-          selfDamage
-        );
+        return self.Game_Actor_damageClothing.call(this, damage, selfDamage);
       };
     } catch (error) {
       console.error(error);
     }
   }
 
-  static unregisterClothingDamageCheatFunctions() {
+  static registerStaminaCostCheatFunctions() {
     try {
-      if (opener.KarrynActorHelper.Game_Actor_damageClothing) {
-        opener.Game_Actor.prototype.damageClothing =
-          opener.KarrynActorHelper.Game_Actor_damageClothing;
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
 
-        delete opener.KarrynActorHelper.Game_Actor_damageClothing;
+      if (!self.Game_Actor_skillHpCost) {
+        self.Game_Actor_skillHpCost = Game_Actor.prototype.skillHpCost;
       }
+
+      Game_Actor.prototype.skillHpCost = function (skill) {
+        if (this.isNoStaminaCost && this.isNoStaminaCost()) {
+          return 0;
+        }
+
+        return self.Game_Actor_skillHpCost.call(this, skill);
+      };
     } catch (error) {
       console.error(error);
     }
   }
-}
 
-export class KarrynActor extends CheatActor {
-  constructor(actor) {
-    super(actor);
-  }
-
-  get actor() {
-    this._actor = opener.$gameActors.actor(ACTOR_KARRYN_ID);
-    KarrynActor.registerCheatFunctions(this._actor);
-    return this._actor;
-  }
-
-  //#region Cheat Functions
-  get isInvincible() {
+  static registerEnergyCostCheatFunctions() {
     try {
-      return this.actor.isInvincible && this.actor.isInvincible();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
 
-  set isInvincible(value) {
-    if (value) {
-      this.actor.enableInvincible();
-    } else {
-      this.actor.disableInvincible();
-    }
-  }
-
-  get isNoPaySkillCost() {
-    try {
-      return this.actor.isNoPaySkillCost && this.actor.isNoPaySkillCost();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoPaySkillCost(value) {
-    if (value) {
-      this.actor.enableNoSkillCost();
-    } else {
-      this.actor.disableNoNoSkillCost();
-    }
-  }
-
-  get isNoStaminaCost() {
-    try {
-      return this.actor.isNoStaminaCost && this.actor.isNoStaminaCost();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoStaminaCost(value) {
-    if (value) {
-      this.actor.enableNoStaminaCost();
-    } else {
-      this.actor.disableNoStaminaCost();
-    }
-  }
-
-  get isNoEnergyCost() {
-    try {
-      return this.actor.isNoEnergyCost && this.actor.isNoEnergyCost();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoEnergyCost(value) {
-    if (value) {
-      this.actor.enableNoEnergyCost();
-    } else {
-      this.actor.disableNoEnergyCost();
-    }
-  }
-
-  get isNoWillCost() {
-    try {
-      return this.actor.isNoWillCost && this.actor.isNoWillCost();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoWillCost(value) {
-    if (value) {
-      this.actor.enableNoWillCost();
-    } else {
-      this.actor.disableNoWillCost();
-    }
-  }
-
-  get isNoClothingDamage() {
-    try {
-      return this.actor.isNoClothingDamage && this.actor.isNoClothingDamage();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoClothingDamage(value) {
-    if (value) {
-      this.actor.enableNoClothingDamage();
-    } else {
-      this.actor.disableNoClothingDamage();
-    }
-  }
-
-  get isNoCooldown() {
-    try {
-      return this.actor.isNoCooldown && this.actor.isNoCooldown();
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-
-  set isNoCooldown(value) {
-    if (value) {
-      this.actor.enableNoCooldown();
-    } else {
-      this.actor.disableNoCooldown();
-    }
-  }
-
-  static registerCheatFunctions(actor) {
-    try {
-      this.registerInvincibleFunctions(actor);
-      this.registerClothingDamageCheatFunctions(actor);
-      this.registerStaminaCostCheatFunctions(actor);
-      this.registerEnergyCostCheatFunctions(actor);
-      this.registerWillpowerCheatFunctions(actor);
-      this.registerCooldownCheatFunctions(actor);
-      this.registerPaySkillCostCheatFunctions(actor);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  static registerInvincibleFunctions(actor) {
-    if (actor.enableInvincible) {
-      return;
-    }
-
-    actor.enableInvincible = function () {
-      this.isInvincible = () => true;
-    };
-
-    actor.disableInvincible = function () {
-      if (this.isInvincible) {
-        delete this.isInvincible;
+      if (!self.Game_Actor_skillMpCost) {
+        self.Game_Actor_skillMpCost = Game_Actor.prototype.skillMpCost;
       }
-    };
+
+      Game_Actor.prototype.skillMpCost = function (skill) {
+        if (this.isNoEnergyCost && this.isNoEnergyCost()) {
+          return 0;
+        }
+
+        return self.Game_Actor_skillMpCost.call(this, skill);
+      };
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  static registerPaySkillCostCheatFunctions(actor) {
-    if (actor.enableNoPaySkillCost) {
-      return;
+  static registerWillpowerCheatFunctions() {
+    try {
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
+
+      if (!self.Game_Actor_calculateWillSkillCost) {
+        self.Game_Actor_calculateWillSkillCost =
+          Game_Actor.prototype.calculateWillSkillCost;
+      }
+
+      Game_Actor.prototype.calculateWillSkillCost = function (cost, skill) {
+        if (this.isNoWillCost && this.isNoWillCost()) {
+          return 0;
+        }
+
+        return self.Game_Actor_calculateWillSkillCost.call(this, cost, skill);
+      };
+    } catch (e) {
+      console.error(e);
     }
+  }
 
-    actor.enableNoPaySkillCost = function () {
-      this.isNoPaySkillCost = () => true;
+  static registerCooldownCheatFunctions() {
+    try {
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
 
-      this.paySkillCost_bk = this.paySkillCost;
-      this.paySkillCost = function (skill) {
-        if (this.isNoPaySkillCost()) {
+      if (!self.Game_Actor_payCooldownCost) {
+        self.Game_Actor_payCooldownCost = Game_Actor.prototype.payCooldownCost;
+      }
+
+      Game_Actor.prototype.payCooldownCost = function (skill) {
+        if (this.isNoCooldown && this.isNoCooldown()) {
           return;
         }
 
-        this.paySkillCost_bk(skill);
+        return self.Game_Actor_payCooldownCost.call(this, skill);
       };
-    };
-
-    actor.disableNoPaySkillCost = function () {
-      if (this.isNoPaySkillCost) {
-        this.paySkillCost = this.paySkillCost_bk;
-        delete this.isNoPaySkillCost;
-        delete this.paySkillCost_bk;
-      }
-    };
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  static registerStaminaCostCheatFunctions(actor) {
-    if (actor.enableNoStaminaCost) {
-      return;
-    }
+  static registerPaySkillCostCheatFunctions() {
+    try {
+      const Game_Actor = opener.Game_Actor;
+      const self = opener.KarrynActorHelper;
 
-    actor.enableNoStaminaCost = function () {
-      this.isNoStaminaCost = () => true;
-
-      this.skillHpCost_bk = this.skillHpCost;
-      this.skillHpCost = function (skill) {
-        if (this.isNoStaminaCost()) {
-          return 0;
-        }
-
-        return this.skillHpCost_bk(skill);
-      };
-    };
-
-    actor.disableNoStaminaCost = function () {
-      if (this.isNoStaminaCost) {
-        this.skillHpCost = this.skillHpCost_bk;
-        delete this.isNoStaminaCost;
-        delete this.skillHpCost_bk;
+      if (!self.Game_Actor_paySkillCost) {
+        self.Game_Actor_paySkillCost = Game_Actor.prototype.paySkillCost;
       }
-    };
-  }
 
-  static registerEnergyCostCheatFunctions(actor) {
-    if (actor.enableNoEnergyCost) {
-      return;
-    }
-
-    actor.enableNoEnergyCost = function () {
-      this.isNoEnergyCost = () => true;
-
-      this.skillMpCost_bk = this.skillMpCost;
-      this.skillMpCost = function (skill) {
-        if (this.isNoEnergyCost()) {
-          return 0;
-        }
-
-        return this.skillMpCost_bk(skill);
-      };
-    };
-
-    actor.disableNoEnergyCost = function () {
-      if (this.isNoEnergyCost) {
-        this.skillMpCost = this.skillMpCost_bk;
-        delete this.isNoEnergyCost;
-        delete this.skillMpCost_bk;
-      }
-    };
-  }
-
-  static registerWillpowerCheatFunctions(actor) {
-    if (actor.enableNoWillCost) {
-      return;
-    }
-
-    actor.enableNoWillCost = function () {
-      this.isNoWillCost = () => true;
-
-      this.calculateWillSkillCost_bk = this.calculateWillSkillCost;
-      this.calculateWillSkillCost = function (baseCost, skill) {
-        if (this.isNoWillCost()) {
-          return 0;
-        }
-
-        return this.calculateWillSkillCost_bk(baseCost, skill);
-      };
-    };
-
-    actor.disableNoWillCost = function () {
-      if (this.isNoWillCost) {
-        this.calculateWillSkillCost = this.calculateWillSkillCost_bk;
-        delete this.isNoWillCost;
-        delete this.calculateWillSkillCost_bk;
-      }
-    };
-  }
-
-  static registerCooldownCheatFunctions(actor) {
-    if (actor.enableNoCooldown) {
-      return;
-    }
-
-    actor.enableNoCooldown = function () {
-      this.isNoCooldown = () => true;
-
-      this.payCooldownCost_bk = this.payCooldownCost;
-      this.payCooldownCost = function (skill) {
-        if (this.isNoCooldown()) {
-          this.setCooldown(skill, 0);
+      Game_Actor.prototype.paySkillCost = function (skill) {
+        if (this.isNoPaySkillCost && this.isNoPaySkillCost()) {
           return;
         }
 
-        this.payCooldownCost_bk(skill);
+        return self.Game_Actor_paySkillCost.call(this, skill);
       };
-    };
-
-    actor.disableNoCooldown = function () {
-      if (this.isNoCooldown) {
-        this.payCooldownCost = this.payCooldownCost_bk;
-        delete this.isNoCooldown;
-        delete this.payCooldownCost_bk;
-      }
-    };
+    } catch (e) {
+      console.error(e);
+    }
   }
-  //#endregion Cheat Functions
+  //#endregion
 }

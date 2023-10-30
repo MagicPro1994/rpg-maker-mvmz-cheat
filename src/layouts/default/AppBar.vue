@@ -1,7 +1,10 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useAppStore } from "@/store/app";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
+const appStore = useAppStore();
+const gameMaster = computed(() => appStore.gameMaster);
 const drawerLeft = ref(false);
 const drawerRight = ref(false);
 const items = [
@@ -36,8 +39,6 @@ const reloadPage = () => window.location.reload();
     <v-spacer></v-spacer>
 
     <v-btn variant="text" icon="mdi-refresh" @click.stop="reloadPage()"></v-btn>
-    <v-btn variant="text" icon="mdi-magnify"></v-btn>
-    <v-btn variant="text" icon="mdi-filter"></v-btn>
     <v-btn
       variant="text"
       icon="mdi-dots-vertical"
@@ -88,10 +89,60 @@ const reloadPage = () => window.location.reload();
         @click="KarrynUtils.goToSaveScene"
       ></v-btn>
     </div>
+    <v-card-subtitle>Cheats</v-card-subtitle>
+    <div class="cheat-switches d-flex flex-wrap align-center w-100 px-4">
+      <v-switch
+        title="Enable/Disable Invincible Mode"
+        label="Invincible"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoClothingDamage"
+        title="Enable/Disable No Clothing Damage Mode"
+        label="No Clothing Damage"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoStaminaCost"
+        title="Enable/Disable No Stamina Skill Cost"
+        label="No Stamina Skill Cost"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoEnergyCost"
+        title="Enable/Disable No Energy Skill Cost"
+        label="No Energy Skill Cost"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoWillCost"
+        title="Enable/Disable No Will Skill Cost"
+        label="No Will Skill Cost"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoSkillCostPay"
+        title="Enable/Disable No Skill Cost Pay"
+        label="No Skill Cost Pay"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+    </div>
   </v-navigation-drawer>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .router-link {
   text-decoration: none;
   color: inherit;
@@ -100,5 +151,12 @@ const reloadPage = () => window.location.reload();
 .router-link.router-link-active.router-link-exact-active {
   color: rgb(var(--v-theme-primary));
   font-weight: bold;
+}
+
+.cheat-switches {
+  .v-input {
+    --v-input-control-height: 10px;
+    --v-input-padding-top: 0px;
+  }
 }
 </style>

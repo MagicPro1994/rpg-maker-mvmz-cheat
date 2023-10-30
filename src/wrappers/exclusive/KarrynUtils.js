@@ -15,20 +15,6 @@ export const MESSAGES = {
     "Start a new game or load any game to use this feature.",
 };
 export class KarrynUtils {
-  static get Karryn() {
-    if (!opener.Karryn) {
-      throw new Error("Karryn is not defined");
-    }
-    return opener.Karryn;
-  }
-
-  static get Prison() {
-    if (!opener.Prison) {
-      throw new Error("Prison is not defined");
-    }
-    return opener.Prison;
-  }
-
   static get isInPrison() {
     try {
       return opener.DataManager.isMapLoaded() && !this.isTitleScene;

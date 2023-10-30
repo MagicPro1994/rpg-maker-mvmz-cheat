@@ -53,5 +53,19 @@ const karryn = computed(() => props.actor);
       :suffix="'/' + karryn.maxTp()"
       type="number"
     />
+
+    <v-text-field
+      v-model.number="karryn.xClothingDurability"
+      label="Clothing Durability"
+      :suffix="'/' + karryn.yClothingMaxDurability"
+      type="number"
+    />
+
+    <v-text-field
+      :model-value="karryn._clothingStage"
+      label="Clothing Stage"
+      :suffix="'/' + karryn._clothingMaxStage"
+      type="number"
+    />
   </div>
 </template>

@@ -139,7 +139,7 @@ export class KarrynPassive {
 
   get dayObtained() {
     try {
-      const actor = KarrynUtils.karryn;
+      const actor = KarrynActorHelper.getActor();
       return actor._passivesObtainedOn_keySkillID_valueDate[this.id];
     } catch (error) {
       console.error(error);
