@@ -8,13 +8,15 @@ import ViewTitleVue from "./partials/ViewTitle.vue";
 import KarrynStatsTab from "@/views/partials/KarrynStatsTab.vue";
 import KarrynPassiveTab from "./partials/KarrynPassiveTab.vue";
 import KarrynOtherStatTab from "./partials/KarrynOtherStatTab.vue";
+import KarrynTitleTab from "./partials/KarrynTitleTab.vue";
 
 const appStore = useAppStore();
 const selectedTab = ref(0);
 const tabs = [
   { title: "Stats", component: KarrynStatsTab },
-  { title: "Others", component: KarrynOtherStatTab },
+  { title: "Titles", component: KarrynTitleTab },
   { title: "Passives", component: KarrynPassiveTab },
+  { title: "Others", component: KarrynOtherStatTab },
 ];
 
 const karryn = computed(() => {

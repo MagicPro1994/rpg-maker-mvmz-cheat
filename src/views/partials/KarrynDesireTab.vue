@@ -323,7 +323,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
-        v-model.number="karryn[$p.buttReqAnalSex]"
+        v-model.number="karryn[$p.cockReqAnalSex]"
         :label="$G.TextManager.profileRecordAnalSex"
         type="number"
         hide-details="auto"

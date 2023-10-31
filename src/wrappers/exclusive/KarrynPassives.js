@@ -18,6 +18,7 @@ export class KarrynPassiveCategory {
       let rawText = opener.TextManager.passiveCategory(this.id);
       // Remove all code characters like \I[1]\C[1]
       rawText = rawText.replace(/\\[A-Z]\[\d+\]/g, "");
+      rawText = rawText.replace(/├|└/g, "");
       return rawText;
     } catch (error) {
       console.error(error);
@@ -28,27 +29,20 @@ export class KarrynPassiveCategory {
   get htmlName() {
     try {
       let rawText = opener.TextManager.passiveCategory(this.id);
-      return KarrynUtils.convertColorCodesToHtml(rawText);
+      return KarrynUtils.convertEscapeCharacters(rawText, {
+        colorCodeEscape: true,
+        iconCodeEscape: true,
+        iconClass: "category-desc-icon",
+      });
     } catch (error) {
       console.error(error);
       return `[${this.id}]`;
     }
   }
 
-  includes(passive) {
-    try {
-      // 0 is a special case for all passives
-      if (this._id === 0) return true;
-
-      if (passive instanceof KarrynPassive) {
-        return passive.data.passiveCategory.includes(this.id);
-      }
-
-      return false;
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
+  static getCategoryName(id) {
+    const newCategory = new KarrynPassiveCategory(id);
+    return newCategory.name;
   }
 
   static getAll() {
@@ -147,21 +141,47 @@ export class KarrynPassive {
     }
   }
 
-  get colorCode() {
+  get passiveColor() {
     try {
-      let passiveColorIndex = this.data._passiveColor || -1;
-
-      // If the passive color is not set, use the default color
-      if (passiveColorIndex === -1) {
-        return null;
-      }
-
-      this._colorCode = KarrynUtils.getTextColor(passiveColorIndex);
-
-      return this._colorCode;
+      return this.data.passiveColor;
     } catch (error) {
       console.error(error);
       return null;
+    }
+  }
+
+  isInCategory(categoryIds) {
+    try {
+      if (!Array.isArray(categoryIds)) {
+        categoryIds = [categoryIds];
+      }
+
+      return categoryIds.some((id) => {
+        return this.data.passiveCategory.includes(id);
+      });
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  get categoryNames() {
+    try {
+      if (!this._categoryNames) {
+        const self = this;
+        this.data.passiveCategory.forEach((id) => {
+          if (!self._categoryNames) {
+            self._categoryNames = [];
+          }
+
+          self._categoryNames.push(KarrynPassiveCategory.getCategoryName(id));
+        });
+      }
+
+      return this._categoryNames;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
   }
 
