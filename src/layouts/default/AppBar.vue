@@ -92,6 +92,15 @@ const reloadPage = () => window.location.reload();
     <v-card-subtitle>Cheats</v-card-subtitle>
     <div class="cheat-switches d-flex flex-wrap align-center w-100 px-4">
       <v-switch
+        v-model="gameMaster.isCheatUnlocked"
+        title="Enable/Disable Cheat Condition Unlock"
+        label="Cheat Condition Unlock"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isInvincible"
         title="Enable/Disable Invincible Mode"
         label="Invincible"
         color="primary"
@@ -126,6 +135,14 @@ const reloadPage = () => window.location.reload();
         v-model="gameMaster.isNoWillCost"
         title="Enable/Disable No Will Skill Cost"
         label="No Will Skill Cost"
+        color="primary"
+        hide-details="auto"
+        density="compact"
+      ></v-switch>
+      <v-switch
+        v-model="gameMaster.isNoCooldown"
+        title="Enable/Disable No Skill Cooldown"
+        label="No Skill Cooldown"
         color="primary"
         hide-details="auto"
         density="compact"
