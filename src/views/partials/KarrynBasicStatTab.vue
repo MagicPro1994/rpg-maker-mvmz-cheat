@@ -1,16 +1,14 @@
 <script setup>
 import { computed } from "vue";
-
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
-
-const karryn = computed(() => props.actor);
+import { useAppStore } from "@/store/app";
+const appStore = useAppStore();
+const karryn = computed(() => appStore.karryn);
+const timeStamp = computed(() => appStore.timeStamp);
 </script>
+
 <template>
+  <!-- start: KarrynBasicStatTab.vue -->
+  <span :title="timeStamp"></span>
   <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">
     <v-text-field
       v-model.number="karryn.xLevel"
@@ -68,4 +66,5 @@ const karryn = computed(() => props.actor);
       type="number"
     />
   </div>
+  <!-- end: KarrynBasicStatTab.vue -->
 </template>

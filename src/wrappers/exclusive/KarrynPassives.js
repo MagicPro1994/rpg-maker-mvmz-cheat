@@ -47,7 +47,7 @@ export class KarrynPassiveCategory {
 
   static getAll() {
     try {
-      let actor = KarrynActorHelper.getActor();
+      let actor = KarrynActorHelper.karryn;
 
       if (!this._passiveCategories) {
         if (!actor._passiveCategory) {
@@ -133,7 +133,7 @@ export class KarrynPassive {
 
   get dayObtained() {
     try {
-      const actor = KarrynActorHelper.getActor();
+      const actor = KarrynActorHelper.karryn;
       return actor._passivesObtainedOn_keySkillID_valueDate[this.id];
     } catch (error) {
       console.error(error);

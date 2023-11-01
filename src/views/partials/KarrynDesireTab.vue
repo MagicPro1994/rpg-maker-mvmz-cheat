@@ -1,23 +1,16 @@
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { useAppStore } from "@/store/app";
 import { wrapper as $p } from "@/wrappers/exclusive/KarrynActorHelper";
-import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
 const gameMaster = computed(() => appStore.gameMaster);
-
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
-
-const karryn = computed(() => props.actor);
-onMounted(() => KarrynUtils.renderIcons());
+const karryn = computed(() => appStore.karryn);
+const timeStamp = computed(() => appStore.timeStamp);
 </script>
 <template>
+  <span :title="timeStamp"></span>
+
   <v-card-subtitle>Desires & Requirements</v-card-subtitle>
   <v-switch
     class="px-4"
@@ -30,8 +23,8 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- start: Mouth Desire -->
   <div class="d-inline-flex pb-4">
     <label>
-      <canvas class="icon" icon-index="57" width="32" height="32"></canvas>
-      {{ $G.TextManager.statusMenuMouthDesireReq }}
+      <i class="rpg-icon rpg-icon-i57"></i>
+      <span>{{ $G.TextManager.statusMenuMouthDesireReq }}</span>
     </label>
     <div class="desire-container">
       <v-text-field
@@ -43,6 +36,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.mouthReqSuckFingers]"
         :label="$G.TextManager.profileRecordSuckFingers"
         type="number"
@@ -51,6 +45,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.mouthReqKiss]"
         :label="$G.TextManager.profileRecordKiss"
         type="number"
@@ -59,6 +54,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.mouthReqBlowjob]"
         :label="$G.TextManager.profileRecordBlowjob"
         type="number"
@@ -66,6 +62,7 @@ onMounted(() => KarrynUtils.renderIcons());
       ></v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.mouthReqRimjob]"
         :label="$G.TextManager.profileRecordRimjob"
         type="number"
@@ -78,11 +75,12 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- start: Boobs Desire -->
   <div class="d-inline-flex pb-4">
     <label>
-      <canvas class="icon" icon-index="58" width="32" height="32"></canvas>
-      {{ $G.TextManager.statusMenuBoobsDesireReq }}
+      <i class="rpg-icon rpg-icon-i58"></i>
+      <span>{{ $G.TextManager.statusMenuBoobsDesireReq }}</span>
     </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.boobsDesire]"
         label="Boobs Desire"
         type="number"
@@ -91,6 +89,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.boobsReqBoobsPetting]"
         :label="$G.TextManager.profileRecordBoobsPetting"
         type="number"
@@ -99,6 +98,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.boobsReqNipplesPetting]"
         :label="$G.TextManager.profileRecordNipplesPetting"
         type="number"
@@ -107,6 +107,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.boobsReqTittyFuck]"
         :label="$G.TextManager.profileRecordTittyFuck"
         type="number"
@@ -120,11 +121,12 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- start: Pussy Desire -->
   <div class="d-inline-flex pb-2">
     <label>
-      <canvas class="icon" icon-index="59" width="32" height="32"></canvas>
-      {{ $G.TextManager.statusMenuPussyDesireReq }}
+      <i class="rpg-icon rpg-icon-i59"></i>
+      <span>{{ $G.TextManager.statusMenuPussyDesireReq }}</span>
     </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyDesire]"
         label="Pussy Desire"
         type="number"
@@ -133,6 +135,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqClitPetting]"
         :label="$G.TextManager.profileRecordClitPetting"
         type="number"
@@ -141,6 +144,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqClitToy]"
         :label="$G.TextManager.profileRecordClitToy"
         type="number"
@@ -149,6 +153,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqCunnilingus]"
         :label="$G.TextManager.profileRecordCunnilingus"
         type="number"
@@ -156,6 +161,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqPussyPetting]"
         :label="$G.TextManager.profileRecordPussyPetting"
         type="number"
@@ -163,6 +169,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqPussyToy]"
         :label="$G.TextManager.profileRecordPussyToy"
         type="number"
@@ -170,6 +177,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqPussySex]"
         :label="$G.TextManager.profileRecordPussySex"
         type="number"
@@ -179,9 +187,10 @@ onMounted(() => KarrynUtils.renderIcons());
     </div>
   </div>
   <div class="d-inline-flex pb-4">
-    <label> </label>
+    <label></label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqPussyToy]"
         :label="$G.TextManager.profileRecordPussyToy"
         type="number"
@@ -189,6 +198,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyReqPussySex]"
         :label="$G.TextManager.profileRecordPussySex"
         type="number"
@@ -202,11 +212,12 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- start: Butt Desire -->
   <div class="d-inline-flex pb-2">
     <label>
-      <canvas class="icon" icon-index="60" width="32" height="32"></canvas>
-      {{ $G.TextManager.statusMenuButtDesireReq }}
+      <i class="rpg-icon rpg-icon-i60"></i>
+      <span>{{ $G.TextManager.statusMenuButtDesireReq }}</span>
     </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttDesire]"
         label="Butt Desire"
         type="number"
@@ -215,6 +226,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttReqButtPetting]"
         :label="$G.TextManager.profileRecordButtPetting"
         type="number"
@@ -222,6 +234,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttReqButtSpank]"
         :label="$G.TextManager.profileRecordButtSpank"
         type="number"
@@ -229,6 +242,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttReqAnalPetting]"
         :label="$G.TextManager.profileRecordAnalPetting"
         type="number"
@@ -236,6 +250,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttReqAnalToy]"
         :label="$G.TextManager.profileRecordAnalToy"
         type="number"
@@ -245,9 +260,9 @@ onMounted(() => KarrynUtils.renderIcons());
     </div>
   </div>
   <div class="d-inline-flex pb-4">
-    <label> </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttReqAnalSex]"
         :label="$G.TextManager.profileRecordAnalSex"
         type="number"
@@ -261,11 +276,12 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- start: Cock Desire-->
   <div class="d-inline-flex pb-2">
     <label>
-      <canvas class="icon" icon-index="61" width="32" height="32"></canvas>
-      {{ $G.TextManager.statusMenuCockDesireReq }}
+      <i class="rpg-icon rpg-icon-i61"></i>
+      <span>{{ $G.TextManager.statusMenuCockDesireReq }}</span>
     </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockDesire]"
         label="Cock Desire"
         type="number"
@@ -274,6 +290,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqBodyBukkake]"
         :label="$G.TextManager.profileRecordBodyBukkake"
         type="number"
@@ -281,6 +298,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqHandjob]"
         :label="$G.TextManager.profileRecordHandjob"
         type="number"
@@ -288,6 +306,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqBlowjob]"
         :label="$G.TextManager.profileRecordBlowjob"
         type="number"
@@ -295,6 +314,7 @@ onMounted(() => KarrynUtils.renderIcons());
       >
       </v-text-field>
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqTittyFuck]"
         :label="$G.TextManager.profileRecordTittyFuck"
         type="number"
@@ -304,9 +324,9 @@ onMounted(() => KarrynUtils.renderIcons());
     </div>
   </div>
   <div class="d-inline-flex pb-2">
-    <label> </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqFootjob]"
         :label="$G.TextManager.profileRecordFootjob"
         type="number"
@@ -315,6 +335,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqPussySex]"
         :label="$G.TextManager.profileRecordPussySex"
         type="number"
@@ -323,6 +344,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqAnalSex]"
         :label="$G.TextManager.profileRecordAnalSex"
         type="number"
@@ -331,6 +353,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqFaceBukkake]"
         :label="$G.TextManager.profileRecordFaceBukkake"
         type="number"
@@ -339,6 +362,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqSwallow]"
         :label="$G.TextManager.profileRecordSwallow"
         type="number"
@@ -348,9 +372,9 @@ onMounted(() => KarrynUtils.renderIcons());
     </div>
   </div>
   <div class="d-inline-flex pb-4">
-    <label> </label>
     <div class="desire-container">
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqPussyCreampie]"
         :label="$G.TextManager.profileRecordPussyCreampie"
         type="number"
@@ -359,6 +383,7 @@ onMounted(() => KarrynUtils.renderIcons());
       </v-text-field>
 
       <v-text-field
+        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockReqAnalCreampie]"
         :label="$G.TextManager.profileRecordAnalCreampie"
         type="number"
@@ -370,7 +395,7 @@ onMounted(() => KarrynUtils.renderIcons());
   <!-- end: Cock Desire-->
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .desire-container {
   display: flex;
   flex-direction: row;
@@ -388,9 +413,13 @@ label {
   display: flex;
   align-items: center;
   font-size: small;
+  span {
+    width: 110px;
+    word-wrap: break-word;
+  }
 }
 
-.icon {
+.rpg-icon {
   margin-right: 5px;
 }
 </style>

@@ -4,15 +4,8 @@ import { useAppStore } from "@/store/app";
 import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
-
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
-
-const karryn = computed(() => props.actor);
+const timeStamp = computed(() => appStore.timeStamp);
+const karryn = computed(() => appStore.karryn);
 
 const ACTION_TYPE = {
   GAIN: 0,
@@ -45,12 +38,13 @@ const search = ref("");
 const ownedStatus = ref(0);
 
 const lastActivityId = ref("");
+const searchProperties = ref(["id"]);
 
 const filteredItems = computed(() => {
   return items.value.filter((item) => {
     if (
       search.value &&
-      !KarrynUtils.search(item, search.value, ["id", "name", "description"])
+      !KarrynUtils.search(item, search.value, searchProperties.value)
     ) {
       return false;
     }
@@ -118,12 +112,23 @@ const shouldDisplayIcon = (id, actionType) => {
 </script>
 
 <template>
+  <span :title="timeStamp"></span>
   <v-card-text v-if="!KarrynUtils.isInPrison">
     {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
   </v-card-text>
   <v-card-text v-else>
-    <v-text-field v-model="search" label="Search" hide-details />
-    <div class="d-inline-flex flex-row px-4">
+    <v-text-field class="py-1" v-model="search" label="Search" hide-details />
+    <div class="d-inline-flex flex-row">
+      <v-autocomplete
+        class="search-properties"
+        v-model="searchProperties"
+        :items="headers"
+        label="Search properties"
+        item-title="title"
+        item-value="key"
+        multiple
+        hide-details
+      ></v-autocomplete>
       <v-checkbox
         :model-value="ownedStatus"
         @change="changeStatus"
@@ -152,7 +157,12 @@ const shouldDisplayIcon = (id, actionType) => {
           }"
         >
           <td class="id">{{ item.id }}</td>
-          <td class="name">{{ item.name }}</td>
+          <td class="name">
+            <span>
+              <i :class="`rpg-icon rpg-icon-i${item.data.iconIndex}`"></i>
+              {{ item.name }}
+            </span>
+          </td>
           <td class="description">
             <pre v-html="item.description"></pre>
           </td>
@@ -185,6 +195,11 @@ pre {
   overflow-x: auto;
 }
 
+.name {
+  width: 20em;
+  font-size: small;
+}
+
 tr {
   font-size: medium;
 }
@@ -200,5 +215,9 @@ p {
 
 .actions i:hover {
   color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+}
+
+.search-properties {
+  width: 20em;
 }
 </style>

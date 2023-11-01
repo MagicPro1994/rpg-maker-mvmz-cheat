@@ -1,14 +1,11 @@
 <script setup>
-import { computed } from "vue";
+import { ref } from "vue";
 import { useAppStore } from "@/store/app";
 import ViewTitle from "@/views/partials/ViewTitle.vue";
-import { onMounted } from "vue";
 import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
-const prison = computed(() => appStore.prison);
-
-onMounted(() => KarrynUtils.renderIcons());
+const prison = ref(appStore.prison);
 </script>
 <template>
   <v-card flat class="ma-0 pa-0">

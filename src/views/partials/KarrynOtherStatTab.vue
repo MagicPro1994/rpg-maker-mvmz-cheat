@@ -1,15 +1,9 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
+
 import KarrynDesireTab from "./KarrynDesireTab.vue";
 import KarrynSexLevelTab from "./KarrynSexLevelTab.vue";
 import KarrynResistTab from "./KarrynResistTab.vue";
-
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
 
 const drawer = ref(false);
 const selectedTab = ref(0);
@@ -18,8 +12,6 @@ const tabs = [
   { title: "Sex Levels", component: KarrynSexLevelTab },
   { title: "Resistance", component: KarrynResistTab },
 ];
-
-const karryn = computed(() => props.actor);
 </script>
 <template>
   <v-card-text class="scrollable-container">
@@ -47,7 +39,7 @@ const karryn = computed(() => props.actor);
     </v-navigation-drawer>
     <v-window v-model="selectedTab">
       <v-window-item v-for="(tab, index) in tabs" :key="index">
-        <component :is="tab.component" :actor="karryn"></component>
+        <component :is="tab.component"></component>
       </v-window-item>
     </v-window>
   </v-card-text>

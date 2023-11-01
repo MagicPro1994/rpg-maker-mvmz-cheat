@@ -131,6 +131,7 @@ const onConfirm = () => {
           <td>{{ member.displayName() }}</td>
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member.mhp"
               v-model.number="member._hp"
               density="compact"
@@ -139,6 +140,7 @@ const onConfirm = () => {
           </td>
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member.mmp"
               v-model.number="member._mp"
               density="compact"
@@ -148,6 +150,7 @@ const onConfirm = () => {
 
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member.orgasmPoint()"
               v-model.number="member._tp"
               density="compact"

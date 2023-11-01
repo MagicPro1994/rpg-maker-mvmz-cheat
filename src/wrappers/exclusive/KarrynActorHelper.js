@@ -50,7 +50,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static getActor() {
+  static get karryn() {
     try {
       return opener.$gameActors.actor(ACTOR_KARRYN_ID);
     } catch (error) {
@@ -248,7 +248,7 @@ export class KarrynActorHelper {
       get: function () {
         try {
           let value = 1;
-          let user = KarrynActorHelper.getActor();
+          let user = KarrynActorHelper.karryn;
           // eslint-disable-next-line no-unused-vars
           let bonus = user.criticalMultiplierBonus();
           // eslint-disable-next-line no-unused-vars

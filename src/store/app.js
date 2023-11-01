@@ -11,9 +11,10 @@ import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActorHelper";
 
 export const useAppStore = defineStore("app", {
   state: () => ({
+    timeStamp: Date.now(),
     loading: false,
     gameMaster: new KarrynGameMaster(),
-    karryn: KarrynActorHelper.getActor(),
+    karryn: KarrynActorHelper.karryn,
     prison: new KarrynPrison(),
     passiveCategories: KarrynPassiveCategory.getAll(),
     passives: KarrynPassive.getAll(),
@@ -36,7 +37,7 @@ export const useAppStore = defineStore("app", {
     },
 
     reloadKarryn() {
-      this.karryn = KarrynActorHelper.getActor();
+      this.karryn = KarrynActorHelper.karryn;
     },
 
     reloadTitles() {
@@ -53,6 +54,8 @@ export const useAppStore = defineStore("app", {
       this.reloadPrison();
       this.reloadTitles();
       this.reloadPassives();
+
+      this.timeStamp = Date.now();
     },
   },
 });

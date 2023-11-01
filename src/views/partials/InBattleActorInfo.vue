@@ -114,6 +114,7 @@ const onConfirm = () => {
           <td>{{ member.displayName() }}</td>
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member.mhp"
               v-model.number="member[$p.hp]"
               density="compact"
@@ -122,6 +123,7 @@ const onConfirm = () => {
           </td>
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member.mmp"
               v-model.number="member[$p.mp]"
               density="compact"
@@ -131,6 +133,7 @@ const onConfirm = () => {
 
           <td>
             <v-text-field
+              type="number"
               v-if="member.maxwill"
               :suffix="'/' + member.maxwill"
               v-model.number="member[$p.will]"
@@ -141,6 +144,7 @@ const onConfirm = () => {
 
           <td>
             <v-text-field
+              type="number"
               :suffix="'/' + member[$p.maxTp]"
               v-model.number="member[$p.tp]"
               density="compact"
