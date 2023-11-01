@@ -242,12 +242,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqClitPetting) {
           return this.getPussyReqClitPetting();
         }
-
-        return self.Game_Actor_clitPettingPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_clitPettingPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.clitToyPussyDesireRequirement = function (
@@ -257,12 +257,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqClitToy) {
           return this.getPussyReqClitToy();
         }
-
-        return self.Game_Actor_clitToyPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_clitToyPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
     Game_Actor.prototype.cunnilingusPussyDesireRequirement = function (
       karrynSkillUse
@@ -271,12 +271,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqCunnilingus) {
           return this.getPussyReqCunnilingus();
         }
-
-        return self.Game_Actor_cunnilingusPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_cunnilingusPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.pussyPettingPussyDesireRequirement = function (
@@ -286,12 +286,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqPussyPetting) {
           return this.getPussyReqPussyPetting();
         }
-
-        return self.Game_Actor_pussyPettingPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_pussyPettingPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
     Game_Actor.prototype.pussyToyPussyDesireRequirement = function (
       karrynSkillUse
@@ -300,12 +300,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqPussyToy) {
           return this.getPussyReqPussyToy();
         }
-
-        return self.Game_Actor_pussyToyPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_pussyToyPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.pussySexPussyDesireRequirement = function (
@@ -315,12 +315,12 @@ function registerPussyRequirements() {
         if (this.getPussyReqPussySex) {
           return this.getPussyReqPussySex();
         }
-
-        return self.Game_Actor_pussySexPussyDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_pussySexPussyDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
   } catch (e) {
     console.error(e);
@@ -364,12 +364,12 @@ function registerButtRequirements() {
         if (this.getButtReqButtPetting) {
           return this.getButtReqButtPetting();
         }
-
-        return self.Game_Actor_buttPettingButtDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_buttPettingButtDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.spankingButtDesireRequirement = function (
@@ -379,12 +379,12 @@ function registerButtRequirements() {
         if (this.getButtReqButtSpank) {
           return this.getButtReqButtSpank();
         }
-
-        return self.Game_Actor_spankingButtDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_spankingButtDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.analPettingButtDesireRequirement = function (
@@ -394,12 +394,12 @@ function registerButtRequirements() {
         if (this.getButtReqAnalPetting) {
           return this.getButtReqAnalPetting();
         }
-
-        return self.Game_Actor_analPettingButtDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_analPettingButtDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.analToyButtDesireRequirement = function (
@@ -409,12 +409,12 @@ function registerButtRequirements() {
         if (this.getButtReqAnalToy) {
           return this.getButtReqAnalToy();
         }
-
-        return self.Game_Actor_analToyButtDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_analToyButtDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.analSexButtDesireRequirement = function (
@@ -424,12 +424,12 @@ function registerButtRequirements() {
         if (this.getButtReqAnalSex) {
           return this.getButtReqAnalSex();
         }
-
-        return self.Game_Actor_analSexButtDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_analSexButtDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
   } catch (e) {
     console.error(e);
@@ -446,6 +446,56 @@ function registerCockRequirements() {
         Game_Actor.prototype.bodyBukkakeCockDesireRequirement;
     }
 
+    if (!self.Game_Actor_handjobCockDesireRequirement) {
+      self.Game_Actor_handjobCockDesireRequirement =
+        Game_Actor.prototype.handjobCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_blowjobCockDesireRequirement) {
+      self.Game_Actor_blowjobCockDesireRequirement =
+        Game_Actor.prototype.blowjobCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_tittyFuckCockDesireRequirement) {
+      self.Game_Actor_tittyFuckCockDesireRequirement =
+        Game_Actor.prototype.tittyFuckCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_footjobCockDesireRequirement) {
+      self.Game_Actor_footjobCockDesireRequirement =
+        Game_Actor.prototype.footjobCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_pussySexCockDesireRequirement) {
+      self.Game_Actor_pussySexCockDesireRequirement =
+        Game_Actor.prototype.pussySexCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_analSexCockDesireRequirement) {
+      self.Game_Actor_analSexCockDesireRequirement =
+        Game_Actor.prototype.analSexCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_faceBukkakeCockDesireRequirement) {
+      self.Game_Actor_faceBukkakeCockDesireRequirement =
+        Game_Actor.prototype.faceBukkakeCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_mouthSwallowCockDesireRequirement) {
+      self.Game_Actor_mouthSwallowCockDesireRequirement =
+        Game_Actor.prototype.mouthSwallowCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_analCreampieCockDesireRequirement) {
+      self.Game_Actor_analCreampieCockDesireRequirement =
+        Game_Actor.prototype.analCreampieCockDesireRequirement;
+    }
+
+    if (!self.Game_Actor_pussyCreampieCockDesireRequirement) {
+      self.Game_Actor_pussyCreampieCockDesireRequirement =
+        Game_Actor.prototype.pussyCreampieCockDesireRequirement;
+    }
+
     Game_Actor.prototype.bodyBukkakeCockDesireRequirement = function (
       karrynSkillUse
     ) {
@@ -453,17 +503,13 @@ function registerCockRequirements() {
         if (this.getCockReqBodyBukkake) {
           return this.getCockReqBodyBukkake();
         }
-
-        return self.Game_Actor_bodyBukkakeCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_bodyBukkakeCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_handjobCockDesireRequirement) {
-      self.Game_Actor_handjobCockDesireRequirement =
-        Game_Actor.prototype.handjobCockDesireRequirement;
-    }
 
     Game_Actor.prototype.handjobCockDesireRequirement = function (
       karrynSkillUse
@@ -472,17 +518,13 @@ function registerCockRequirements() {
         if (this.getCockReqHandjob) {
           return this.getCockReqHandjob();
         }
-
-        return self.Game_Actor_handjobCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_handjobCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_blowjobCockDesireRequirement) {
-      self.Game_Actor_blowjobCockDesireRequirement =
-        Game_Actor.prototype.blowjobCockDesireRequirement;
-    }
 
     Game_Actor.prototype.blowjobCockDesireRequirement = function (
       karrynSkillUse
@@ -498,10 +540,6 @@ function registerCockRequirements() {
         );
       }
     };
-    if (!self.Game_Actor_tittyFuckCockDesireRequirement) {
-      self.Game_Actor_tittyFuckCockDesireRequirement =
-        Game_Actor.prototype.tittyFuckCockDesireRequirement;
-    }
 
     Game_Actor.prototype.tittyFuckCockDesireRequirement = function (
       karrynSkillUse
@@ -510,17 +548,12 @@ function registerCockRequirements() {
         if (this.getCockReqTittyFuck) {
           return this.getCockReqTittyFuck();
         }
-
-        return self.Game_Actor_tittyFuckCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+      return self.Game_Actor_tittyFuckCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_footjobCockDesireRequirement) {
-      self.Game_Actor_footjobCockDesireRequirement =
-        Game_Actor.prototype.footjobCockDesireRequirement;
-    }
 
     Game_Actor.prototype.footjobCockDesireRequirement = function (
       karrynSkillUse
@@ -529,17 +562,13 @@ function registerCockRequirements() {
         if (this.getCockReqFootjob) {
           return this.getCockReqFootjob();
         }
-
-        return self.Game_Actor_footjobCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_footjobCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_pussySexCockDesireRequirement) {
-      self.Game_Actor_pussySexCockDesireRequirement =
-        Game_Actor.prototype.pussySexCockDesireRequirement;
-    }
 
     Game_Actor.prototype.pussySexCockDesireRequirement = function (
       karrynSkillUse
@@ -548,17 +577,13 @@ function registerCockRequirements() {
         if (this.getCockReqPussySex) {
           return this.getCockReqPussySex();
         }
-
-        return self.Game_Actor_pussySexCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_pussySexCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_analSexCockDesireRequirement) {
-      self.Game_Actor_analSexCockDesireRequirement =
-        Game_Actor.prototype.analSexCockDesireRequirement;
-    }
 
     Game_Actor.prototype.analSexCockDesireRequirement = function (
       karrynSkillUse
@@ -567,17 +592,13 @@ function registerCockRequirements() {
         if (this.getCockReqAnalSex) {
           return this.getCockReqAnalSex();
         }
-
-        return self.Game_Actor_analSexCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_analSexCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_faceBukkakeCockDesireRequirement) {
-      self.Game_Actor_faceBukkakeCockDesireRequirement =
-        Game_Actor.prototype.faceBukkakeCockDesireRequirement;
-    }
 
     Game_Actor.prototype.faceBukkakeCockDesireRequirement = function (
       karrynSkillUse
@@ -586,17 +607,13 @@ function registerCockRequirements() {
         if (this.getCockReqFaceBukkake) {
           return this.getCockReqFaceBukkake();
         }
-
-        return self.Game_Actor_faceBukkakeCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_faceBukkakeCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_mouthSwallowCockDesireRequirement) {
-      self.Game_Actor_mouthSwallowCockDesireRequirement =
-        Game_Actor.prototype.mouthSwallowCockDesireRequirement;
-    }
 
     Game_Actor.prototype.mouthSwallowCockDesireRequirement = function (
       karrynSkillUse
@@ -605,17 +622,13 @@ function registerCockRequirements() {
         if (this.getCockReqSwallow) {
           return this.getCockReqSwallow();
         }
-
-        return self.Game_Actor_mouthSwallowCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_mouthSwallowCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_pussyCreampieCockDesireRequirement) {
-      self.Game_Actor_pussyCreampieCockDesireRequirement =
-        Game_Actor.prototype.pussyCreampieCockDesireRequirement;
-    }
 
     Game_Actor.prototype.pussyCreampieCockDesireRequirement = function (
       karrynSkillUse
@@ -624,17 +637,13 @@ function registerCockRequirements() {
         if (this.getCockReqPussyCreampie) {
           return this.getCockReqPussyCreampie();
         }
-
-        return self.Game_Actor_pussyCreampieCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_pussyCreampieCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
-    if (!self.Game_Actor_analCreampieCockDesireRequirement) {
-      self.Game_Actor_analCreampieCockDesireRequirement =
-        Game_Actor.prototype.analCreampieCockDesireRequirement;
-    }
 
     Game_Actor.prototype.analCreampieCockDesireRequirement = function (
       karrynSkillUse
@@ -643,12 +652,12 @@ function registerCockRequirements() {
         if (this.getCockReqAnalCreampie) {
           return this.getCockReqAnalCreampie();
         }
-
-        return self.Game_Actor_analCreampieCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+
+      return self.Game_Actor_analCreampieCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
   } catch (e) {
     console.error(e);

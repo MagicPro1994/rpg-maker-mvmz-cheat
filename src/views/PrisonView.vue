@@ -1,13 +1,16 @@
 <script setup>
 import { ref } from "vue";
 import { useAppStore } from "@/store/app";
-import ViewTitle from "@/views/partials/ViewTitle.vue";
 import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
+import ViewTitle from "@/views/partials/ViewTitle.vue";
+
 const appStore = useAppStore();
+const timeStamp = ref(appStore.timeStamp);
 const prison = ref(appStore.prison);
 </script>
 <template>
+  <span :title="timeStamp"></span>
   <v-card flat class="ma-0 pa-0">
     <view-title title="Prison" />
     <v-divider class="my-1" />

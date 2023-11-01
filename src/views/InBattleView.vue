@@ -18,11 +18,48 @@ const enemyMembers = ref(gameTroop.members());
     <view-title title="In Battle" />
     <v-divider class="my-1" />
     <div v-if="!KarrynUtils.isInBattle">
-      <v-card-text class="text-center">
+      <v-card-text>
         <span class="font-weight-bold">You are not in battle.</span>
       </v-card-text>
     </div>
     <div v-else>
+      <div class="d-inline-flex pb-2">
+        <v-btn
+          variant="plain"
+          color="secondary"
+          density="compact"
+          @click="KarrynUtils.clearSingleWave()"
+        >
+          Win Wave
+        </v-btn>
+        <v-spacer class="px-2" />
+        <v-btn
+          variant="plain"
+          color="secondary"
+          density="compact"
+          @click="KarrynUtils.winAllWaves()"
+        >
+          Win Battle
+        </v-btn>
+        <v-spacer class="px-2" />
+        <v-btn
+          variant="plain"
+          color="secondary"
+          density="compact"
+          @click="KarrynUtils.loseBattle()"
+        >
+          Lose Battle
+        </v-btn>
+        <v-spacer class="px-2" />
+        <v-btn
+          variant="plain"
+          color="secondary"
+          density="compact"
+          @click="KarrynUtils.escapeBattle()"
+        >
+          Escape Battle
+        </v-btn>
+      </div>
       <v-tabs v-model="selectedTab" color="primary" grow>
         <v-tab :value="tabs[0]">{{ tabs[0] }}</v-tab>
         <v-tab :value="tabs[1]">{{ tabs[1] }}</v-tab>

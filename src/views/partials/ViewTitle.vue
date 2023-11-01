@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, onUnmounted } from "vue";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
 
@@ -12,6 +13,18 @@ defineProps({
     required: false,
     default: "Reload from game data",
   },
+});
+
+let intervalId;
+
+onMounted(() => {
+  intervalId = setInterval(() => {
+    appStore.reload();
+  }, 5000); // Reload every 5 seconds
+});
+
+onUnmounted(() => {
+  clearInterval(intervalId);
 });
 </script>
 

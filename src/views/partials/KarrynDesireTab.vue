@@ -126,7 +126,6 @@ const timeStamp = computed(() => appStore.timeStamp);
     </label>
     <div class="desire-container">
       <v-text-field
-        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.pussyDesire]"
         label="Pussy Desire"
         type="number"
@@ -217,7 +216,6 @@ const timeStamp = computed(() => appStore.timeStamp);
     </label>
     <div class="desire-container">
       <v-text-field
-        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.buttDesire]"
         label="Butt Desire"
         type="number"
@@ -260,6 +258,7 @@ const timeStamp = computed(() => appStore.timeStamp);
     </div>
   </div>
   <div class="d-inline-flex pb-4">
+    <label></label>
     <div class="desire-container">
       <v-text-field
         :disabled="!gameMaster.isDesireReqUnlocked"
@@ -281,7 +280,6 @@ const timeStamp = computed(() => appStore.timeStamp);
     </label>
     <div class="desire-container">
       <v-text-field
-        :disabled="!gameMaster.isDesireReqUnlocked"
         v-model.number="karryn[$p.cockDesire]"
         label="Cock Desire"
         type="number"
@@ -324,6 +322,7 @@ const timeStamp = computed(() => appStore.timeStamp);
     </div>
   </div>
   <div class="d-inline-flex pb-2">
+    <label></label>
     <div class="desire-container">
       <v-text-field
         :disabled="!gameMaster.isDesireReqUnlocked"
@@ -372,6 +371,7 @@ const timeStamp = computed(() => appStore.timeStamp);
     </div>
   </div>
   <div class="d-inline-flex pb-4">
+    <label></label>
     <div class="desire-container">
       <v-text-field
         :disabled="!gameMaster.isDesireReqUnlocked"

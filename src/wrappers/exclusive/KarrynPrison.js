@@ -69,7 +69,7 @@ export class KarrynPrison {
         throw new Error(`value is NaN or negative`);
       }
 
-      const actor = KarrynActorHelper.getActor();
+      const actor = KarrynActorHelper.karryn;
       let delta = value - actor._baseIncome;
 
       if (delta === 0) return;
@@ -104,7 +104,7 @@ export class KarrynPrison {
         throw new Error(`value is NaN or negative`);
       }
 
-      const actor = KarrynActorHelper.getActor();
+      const actor = KarrynActorHelper.karryn;
       let delta = value - actor._baseExpense;
 
       if (delta === 0) return;
@@ -186,7 +186,7 @@ export class KarrynPrison {
 
   get edicts() {
     try {
-      const actor = KarrynActorHelper.getActor();
+      const actor = KarrynActorHelper.karryn;
       return actor.getStoredEdictPoints();
     } catch (e) {
       console.error(e);
@@ -196,7 +196,7 @@ export class KarrynPrison {
 
   set edicts(value) {
     try {
-      const actor = KarrynActorHelper.getActor();
+      const actor = KarrynActorHelper.karryn;
       actor._storedEdictPoints = value;
     } catch (e) {
       console.error(e);

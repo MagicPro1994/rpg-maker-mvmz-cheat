@@ -3,15 +3,9 @@ import { computed, ref } from "vue";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 import { useAppStore } from "@/store/app";
 const appStore = useAppStore();
+const timeStamp = computed(() => appStore.timeStamp);
+const karryn = computed(() => appStore.karryn);
 
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
-
-const karryn = computed(() => props.actor);
 const categoryAllName = KarrynUtils.convertEscapeCharacters(
   opener.TextManager.passiveCategory(0),
   {
@@ -101,6 +95,7 @@ const onSelectCategory = () => {
 const searchDrawer = ref(false);
 </script>
 <template>
+  <span :title="timeStamp"></span>
   <v-card-text class="scrollable-container">
     <v-btn
       variant="tonal"

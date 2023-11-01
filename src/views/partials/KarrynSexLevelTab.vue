@@ -1,17 +1,13 @@
 <script setup>
 import { computed } from "vue";
+import { useAppStore } from "@/store/app";
 
-const props = defineProps({
-  actor: {
-    type: Object,
-    required: true,
-  },
-});
-
-const karryn = computed(() => props.actor);
+const appStore = useAppStore();
+const karryn = computed(() => appStore.karryn);
+const timeStamp = computed(() => appStore.timeStamp);
 </script>
-
 <template>
+  <span :title="timeStamp"></span>
   <div class="d-flex flex-wrap justify-space-between ma-2 flex-items-2">
     <v-text-field
       v-model.number="karryn.xSlutLevel"

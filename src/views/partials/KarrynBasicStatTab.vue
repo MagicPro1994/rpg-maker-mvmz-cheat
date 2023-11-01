@@ -48,7 +48,7 @@ const timeStamp = computed(() => appStore.timeStamp);
     <v-text-field
       v-model.number="karryn.xPleasure"
       :label="$G.TextManager.tp"
-      :suffix="'/' + karryn.maxTp()"
+      :suffix="'/' + karryn.yMaxPleasure"
       type="number"
     />
 
