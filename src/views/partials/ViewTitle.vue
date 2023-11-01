@@ -1,6 +1,7 @@
 <script setup>
-import { onMounted, onUnmounted } from "vue";
+import { ref, onUnmounted } from "vue";
 import { useAppStore } from "@/store/app";
+import { watch } from "vue";
 const appStore = useAppStore();
 
 defineProps({
@@ -15,16 +16,26 @@ defineProps({
   },
 });
 
+const autoReload = ref(false);
+
 let intervalId;
 
-onMounted(() => {
-  intervalId = setInterval(() => {
-    appStore.reload();
-  }, 5000); // Reload every 5 seconds
+watch(autoReload, (value) => {
+  if (value) {
+    intervalId = setInterval(() => {
+      appStore.reload();
+    }, 5000); // Reload every 10 seconds
+  } else {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  }
 });
 
 onUnmounted(() => {
-  clearInterval(intervalId);
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
 });
 </script>
 
@@ -35,14 +46,23 @@ onUnmounted(() => {
       <v-tooltip>
         <span>{{ tooltip }}</span>
         <template v-slot:activator="{ props }">
-          <v-btn
-            color="primary"
-            density="compact"
-            icon="mdi-refresh"
-            small
-            v-bind="props"
-            @click="appStore.reload()"
-          />
+          <div class="d-inline-flex align-center" align="center">
+            <v-btn
+              color="primary"
+              density="compact"
+              icon="mdi-refresh"
+              small
+              v-bind="props"
+              @click="appStore.reload()"
+            />
+            <v-checkbox
+              v-model="autoReload"
+              title="Auto Reload"
+              class="pl-2"
+              density="compact"
+              hide-details="auto"
+            />
+          </div>
         </template>
       </v-tooltip>
     </div>

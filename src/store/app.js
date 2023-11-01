@@ -12,7 +12,6 @@ import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActorHelper";
 export const useAppStore = defineStore("app", {
   state: () => ({
     timeStamp: Date.now(),
-    loading: false,
     gameMaster: new KarrynGameMaster(),
     karryn: KarrynActorHelper.karryn,
     prison: new KarrynPrison(),
