@@ -92,8 +92,7 @@ const prison = ref(appStore.prison);
   padding-left: 10px;
 }
 .prison {
-  min-height: 80vh; /* Set minimum height */
-  max-height: 80vh; /* Set the maximum width of the container */
+  min-height: 78vh; /* Set minimum height */
   overflow-y: auto; /* Enable scroll if needed */
 }
 </style>

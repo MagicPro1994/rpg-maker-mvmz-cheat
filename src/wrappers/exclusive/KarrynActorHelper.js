@@ -2,7 +2,7 @@ import { ACTOR_KARRYN_ID } from "./KarrynConstants";
 import { KarrynTrait, KARRYN_TRAIT_TYPE } from "./KarrynTraits";
 import {
   properties as desires,
-  registerDesireRequirementProperties,
+  setupDesireCheat,
 } from "./actor/DesireRequirements";
 
 const properties = {
@@ -28,7 +28,7 @@ const properties = {
   cd: "yCritDmg",
 };
 
-export const wrapper = Object.assign({}, properties, desires);
+export const propertyMapper = Object.assign({}, properties, desires);
 
 //#region Game_Actor properties for cheat functions
 export class KarrynActorHelper {
@@ -42,8 +42,8 @@ export class KarrynActorHelper {
     }
 
     try {
-      KarrynActorHelper.registerWrapperProperties();
-      KarrynActorHelper.registerWrapperMethods();
+      KarrynActorHelper.setupWrapperProperties();
+      KarrynActorHelper.setupWrapperMethods();
       KarrynActorHelper.registerCheatFunctions();
     } catch (error) {
       console.error(error);
@@ -59,11 +59,11 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerWrapperProperties() {
+  static setupWrapperProperties() {
     //#region Game_Actor wrapper properties
     const prototype = opener.Game_Actor.prototype;
 
-    Object.defineProperty(prototype, wrapper.level, {
+    Object.defineProperty(prototype, propertyMapper.level, {
       get: function () {
         return this._level;
       },
@@ -73,14 +73,14 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.wardenLevelLimit, {
+    Object.defineProperty(prototype, propertyMapper.wardenLevelLimit, {
       get: function () {
         return this.getWardenLevelLimit();
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.hp, {
+    Object.defineProperty(prototype, propertyMapper.hp, {
       get: function () {
         return this._hp;
       },
@@ -90,7 +90,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.mp, {
+    Object.defineProperty(prototype, propertyMapper.mp, {
       get: function () {
         return this._mp;
       },
@@ -100,7 +100,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.tp, {
+    Object.defineProperty(prototype, propertyMapper.tp, {
       get: function () {
         return this._tp;
       },
@@ -110,14 +110,14 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.maxTp, {
+    Object.defineProperty(prototype, propertyMapper.maxTp, {
       get: function () {
         return this.orgasmPoint();
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.will, {
+    Object.defineProperty(prototype, propertyMapper.will, {
       get: function () {
         return this._will;
       },
@@ -127,7 +127,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.exp, {
+    Object.defineProperty(prototype, propertyMapper.exp, {
       get: function () {
         return this.currentExp();
       },
@@ -137,14 +137,14 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.nextLevelExp, {
+    Object.defineProperty(prototype, propertyMapper.nextLevelExp, {
       get: function () {
         return this.nextLevelExp();
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.fatigue, {
+    Object.defineProperty(prototype, propertyMapper.fatigue, {
       get: function () {
         return this._fatigue;
       },
@@ -154,7 +154,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.slutLvl, {
+    Object.defineProperty(prototype, propertyMapper.slutLvl, {
       get: function () {
         return this._slutLvl;
       },
@@ -164,7 +164,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.cockiness, {
+    Object.defineProperty(prototype, propertyMapper.cockiness, {
       get: function () {
         return this.cockiness;
       },
@@ -188,7 +188,7 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.clothingDurability, {
+    Object.defineProperty(prototype, propertyMapper.clothingDurability, {
       get: function () {
         return this._clothingDurability;
       },
@@ -209,42 +209,42 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.clothingMaxDurability, {
+    Object.defineProperty(prototype, propertyMapper.clothingMaxDurability, {
       get: function () {
         return this.getClothingMaxDurability(false);
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.params, {
+    Object.defineProperty(prototype, propertyMapper.params, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.PARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.xParams, {
+    Object.defineProperty(prototype, propertyMapper.xParams, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.XPARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.sParams, {
+    Object.defineProperty(prototype, propertyMapper.sParams, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.SPARAM);
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.elements, {
+    Object.defineProperty(prototype, propertyMapper.elements, {
       get: function () {
         return KarrynTrait.getAll(this, KARRYN_TRAIT_TYPE.ELEMENT);
       },
       configurable: true,
     });
 
-    Object.defineProperty(prototype, wrapper.cd, {
+    Object.defineProperty(prototype, propertyMapper.cd, {
       get: function () {
         try {
           let value = 1;
@@ -264,11 +264,11 @@ export class KarrynActorHelper {
       configurable: true,
     });
 
-    registerDesireRequirementProperties();
+    setupDesireCheat();
     //#endregion Game_Actor wrapper properties
   }
 
-  static registerWrapperMethods() {
+  static setupWrapperMethods() {
     //#region Game_Actor wrapper functions
     opener.Game_Actor.prototype.hasTitle = function (title) {
       try {
@@ -278,24 +278,32 @@ export class KarrynActorHelper {
         return false;
       }
     };
+
+    opener.Game_Actor.prototype.setDesires = function (value) {
+      this.setMouthDesire(value, false);
+      this.setBoobsDesire(value, false);
+      this.setPussyDesire(value, false);
+      this.setButtDesire(value, false);
+      this.setCockDesire(value, false);
+    };
     //#endregion Game_Actor wrapper functions
   }
 
   static registerCheatFunctions() {
     try {
-      KarrynActorHelper.registerInvincibleCheatFunctions();
-      KarrynActorHelper.registerClothingDamageCheatFunctions();
-      KarrynActorHelper.registerStaminaCostCheatFunctions();
-      KarrynActorHelper.registerEnergyCostCheatFunctions();
-      KarrynActorHelper.registerWillpowerCheatFunctions();
-      KarrynActorHelper.registerCooldownCheatFunctions();
-      KarrynActorHelper.registerPaySkillCostCheatFunctions();
+      KarrynActorHelper.setupInvincibleCheat();
+      KarrynActorHelper.setupClothingDamageCheat();
+      KarrynActorHelper.setupStaminaCostCheat();
+      KarrynActorHelper.setupEnergyCostCheat();
+      KarrynActorHelper.setupWillpowerCheat();
+      KarrynActorHelper.setupCooldownCheat();
+      KarrynActorHelper.setupPaySkillCostCheat();
     } catch (error) {
       console.error(error);
     }
   }
 
-  static registerInvincibleCheatFunctions() {
+  static setupInvincibleCheat() {
     try {
       console.log(`Invincible cheat is not implemented`);
     } catch (error) {
@@ -303,7 +311,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerClothingDamageCheatFunctions() {
+  static setupClothingDamageCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;
@@ -324,7 +332,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerStaminaCostCheatFunctions() {
+  static setupStaminaCostCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;
@@ -345,7 +353,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerEnergyCostCheatFunctions() {
+  static setupEnergyCostCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;
@@ -366,7 +374,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerWillpowerCheatFunctions() {
+  static setupWillpowerCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;
@@ -388,7 +396,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerCooldownCheatFunctions() {
+  static setupCooldownCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;
@@ -409,7 +417,7 @@ export class KarrynActorHelper {
     }
   }
 
-  static registerPaySkillCostCheatFunctions() {
+  static setupPaySkillCostCheat() {
     try {
       const Game_Actor = opener.Game_Actor;
       const self = opener.KarrynActorHelper;

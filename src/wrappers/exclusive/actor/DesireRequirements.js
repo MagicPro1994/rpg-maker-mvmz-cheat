@@ -533,12 +533,12 @@ function registerCockRequirements() {
         if (this.getCockReq) {
           return this.getCockReqBlowjob();
         }
-
-        return self.Game_Actor_blowjobCockDesireRequirement.call(
-          this,
-          karrynSkillUse
-        );
       }
+      
+      return self.Game_Actor_blowjobCockDesireRequirement.call(
+        this,
+        karrynSkillUse
+      );
     };
 
     Game_Actor.prototype.tittyFuckCockDesireRequirement = function (
@@ -1329,7 +1329,7 @@ function registerCockProperties() {
   }
 }
 
-export const registerDesireRequirementProperties = function () {
+export const setupDesireCheat = function () {
   try {
     registerMouthRequirements();
     registerMouthProperties();

@@ -48,11 +48,16 @@ export const useAppStore = defineStore("app", {
       this.passives = KarrynPassive.getAll();
     },
 
+    reloadGameMaster() {
+      this.gameMaster = new KarrynGameMaster();
+    },
+
     reload() {
       this.reloadKarryn();
       this.reloadPrison();
       this.reloadTitles();
       this.reloadPassives();
+      this.reloadGameMaster();
 
       this.timeStamp = Date.now();
     },

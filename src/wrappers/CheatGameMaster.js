@@ -72,9 +72,7 @@ export class CheatGameMaster {
 
   get partyBattleMembers() {
     try {
-      return opener.$gameParty
-        .battleMembers()
-        .map((member) => new CheatActor(member));
+      return opener.$gameParty.battleMembers();
     } catch (error) {
       console.error(error);
       return [];
@@ -83,9 +81,7 @@ export class CheatGameMaster {
 
   get enemyMembers() {
     try {
-      return opener.$gameTroop
-        .members()
-        .map((member) => new CheatActor(member));
+      return opener.$gameTroop.members();
     } catch (error) {
       console.error(error);
       return [];

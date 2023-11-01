@@ -1,200 +1,158 @@
 <script setup>
-import { ref } from "vue";
-import { wrapper as $p } from "@/wrappers/exclusive/KarrynActorHelper";
+import { computed } from "vue";
+import { useAppStore } from "@/store/app";
+import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
+import { propertyMapper as $p } from "@/wrappers/exclusive/KarrynActorHelper";
 
-import ConfirmationDialog from "@/components/ConfirmationDialog.vue";
-
-const TextManager = opener.TextManager;
-
-const dialogText = {
-  title: "Update all members' ",
-  message: "Enter a value to update all members' ",
-};
-
-const props = defineProps({
-  members: {
-    type: Array,
-    required: true,
-  },
-});
-
-const tableHeaders = [
-  {
-    title: "Name",
-    align: "start",
-    key: "displayName",
-    sortable: false,
-  },
-  { title: TextManager.hp, key: "hp", sortable: false, bulkUpdate: true },
-  { title: TextManager.mp, key: "mp", sortable: false, bulkUpdate: true },
-  {
-    title: TextManager.willpower,
-    key: "will",
-    sortable: false,
-    bulkUpdate: true,
-  },
-  { title: TextManager.basic(6), key: "tp", sortable: false, bulkUpdate: true },
-  { title: "Actions", sortable: false },
-];
-
-const dialog = ref({
-  visible: false,
-  title: "",
-  key: "",
-  message: "",
-  inputValue: 0,
-});
-
-const includeDead = ref(true);
-
-const openBulkUpdateDialog = (stat) => {
-  const title = `${dialogText.title} ${stat.toUpperCase()}.`;
-  const message = `${dialogText.message} ${stat.toUpperCase()}.`;
-  dialog.value.key = stat;
-  dialog.value.title = `${title}`;
-  dialog.value.message = `${message}`;
-  dialog.value.inputValue = 0;
-  dialog.value.visible = true;
-};
-
-const onConfirm = () => {
-  let value = dialog.value.inputValue;
-  if (isNaN(value) || value < 0) {
-    value = 0;
-  }
-
-  for (const member of props.members) {
-    if (!includeDead.value && member.isDead()) {
-      continue;
-    }
-    member[dialog.value.key] = value;
-  }
-};
+const appStore = useAppStore();
+const timeStamp = computed(() => appStore.timeStamp);
+const karryn = computed(() => appStore.karryn);
 </script>
 <template>
+  <span :title="timeStamp"></span>
   <v-card-text>
-    <v-switch
-      v-model="includeDead"
-      hint="Include dead members when perform bulk update"
-      label="Include Dead"
-      color="primary"
-      density="compact"
-      hide-details="auto"
-    ></v-switch>
-    <v-data-table :headers="tableHeaders" :items="members" hide-default-footer>
-      <template v-slot:headers="{ columns, isSorted, getSortIcon, toggleSort }">
-        <tr>
-          <template v-for="column in columns" :key="column.key">
-            <td>
-              <span class="cursor-pointer" @click="() => toggleSort(column)"
-                >{{ column.title }}
-              </span>
+    <div class="desire-container">
+      <v-text-field
+        v-model.number="karryn[$p.cockDesire]"
+        label="Cock Desire"
+        type="number"
+        hide-details="auto"
+      />
+      <v-text-field
+        v-model.number="karryn[$p.mouthDesire]"
+        label="Mouth Desire"
+        type="number"
+        hide-details="auto"
+      />
+      <v-text-field
+        v-model.number="karryn[$p.boobsDesire]"
+        label="Boobs Desire"
+        type="number"
+        hide-details="auto"
+      />
+      <v-text-field
+        v-model.number="karryn[$p.pussyDesire]"
+        label="Pussy Desire"
+        type="number"
+        hide-details="auto"
+      />
 
-              <template v-if="isSorted(column)">
-                <v-icon size="small" :icon="getSortIcon(column)"></v-icon>
-              </template>
+      <v-text-field
+        v-model.number="karryn[$p.buttDesire]"
+        label="Butt Desire"
+        type="number"
+        hide-details="auto"
+      />
+    </div>
+    <div class="desire-container">
+      <v-text-field
+        type="number"
+        :label="$G.TextManager.hp"
+        v-model.number="karryn[$p.hp]"
+        :suffix="'/' + karryn.mhp"
+        density="compact"
+        hide-details="auto"
+      ></v-text-field>
 
-              <span class="mr-1">&nbsp;</span>
+      <v-text-field
+        type="number"
+        :label="$G.TextManager.mp"
+        v-model.number="karryn[$p.mp]"
+        :suffix="'/' + karryn.mmp"
+        density="compact"
+        hide-details="auto"
+      ></v-text-field>
 
-              <template v-if="column.bulkUpdate">
-                <v-icon
-                  title="Bulk Update"
-                  icon="mdi-pencil-box-multiple-outline"
-                  size="small"
-                  @click="openBulkUpdateDialog(column.key)"
-                ></v-icon>
-              </template>
-            </td>
-          </template>
-        </tr>
-      </template>
+      <v-text-field
+        type="number"
+        :label="$G.TextManager.willpower"
+        v-model.number="karryn[$p.will]"
+        :suffix="'/' + karryn.maxwill"
+        density="compact"
+        hide-details="auto"
+      ></v-text-field>
 
-      <template v-slot:item="{ item: member }">
-        <tr class="py-2">
-          <td>{{ member.displayName() }}</td>
-          <td>
-            <v-text-field
-              type="number"
-              :suffix="'/' + member.mhp"
-              v-model.number="member[$p.hp]"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </td>
-          <td>
-            <v-text-field
-              type="number"
-              :suffix="'/' + member.mmp"
-              v-model.number="member[$p.mp]"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </td>
+      <v-text-field
+        type="number"
+        :label="$G.TextManager.basic(6)"
+        v-model.number="karryn[$p.tp]"
+        :suffix="'/' + karryn[$p.maxTp]"
+        density="compact"
+        hide-details="auto"
+      ></v-text-field>
 
-          <td>
-            <v-text-field
-              type="number"
-              v-if="member.maxwill"
-              :suffix="'/' + member.maxwill"
-              v-model.number="member[$p.will]"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </td>
-
-          <td>
-            <v-text-field
-              type="number"
-              :suffix="'/' + member[$p.maxTp]"
-              v-model.number="member[$p.tp]"
-              density="compact"
-              hide-details="auto"
-            ></v-text-field>
-          </td>
-
-          <td>
-            <v-icon
-              icon="mdi-skull-crossbones"
-              title="Kill"
-              class="mr-1"
-              small
-              @click.prevent="member.die()"
-            ></v-icon>
-            <v-icon
-              icon="mdi-cross-celtic"
-              title="Revive"
-              class="mr-1"
-              small
-              @click.prevent="member.revive()"
-            ></v-icon>
-            <v-icon
-              icon="mdi-clover"
-              title="Recover all"
-              small
-              @click.prevent="member.recoverAll()"
-            ></v-icon>
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
+      <div class="v-input"></div>
+    </div>
+    <div class="d-inline-flex align-center">
+      <i
+        class="rpg-icon rpg-icon-i320"
+        title="Increase all desires"
+        @click="karryn.setDesires(999)"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i328"
+        title="Decrease all desires"
+        @click="karryn.setDesires(0)"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i322"
+        title="Recover all stamina"
+        @click="karryn[$p.hp] = karryn.mhp"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i240"
+        title="Lose all stamina"
+        @click="karryn[$p.hp] = 0"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i330"
+        title="Recover all energy"
+        @click="karryn[$p.mp] = karryn.mmp"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i241"
+        title="Lose all energy"
+        @click="karryn[$p.mp] = 0"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i99"
+        title="Raise pleasure to max"
+        @click="karryn[$p.tp] = karryn[$p.maxTp]"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i186"
+        title="Lose all pleasure"
+        @click="karryn[$p.tp] = 0"
+      ></i>
+      <i
+        class="rpg-icon rpg-icon-i127"
+        title="Perform escape"
+        @click="KarrynUtils.escapeBattle()"
+      ></i>
+    </div>
   </v-card-text>
-
-  <confirmation-dialog
-    v-model="dialog.visible"
-    :title="dialog.title"
-    :message="dialog.message"
-    @confirm="onConfirm"
-  >
-    <template v-slot:content="{ message }">
-      <v-card-text>
-        <v-text-field
-          label="Input value"
-          :hint="message"
-          v-model.number="dialog.inputValue"
-          variant="outlined"
-          hide-details="auto"
-        ></v-text-field>
-      </v-card-text>
-    </template>
-  </confirmation-dialog>
 </template>
+
+<style scoped lang="scss">
+.desire-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+
+  .v-input {
+    flex: 1;
+    width: 7rem;
+    margin-right: 1rem;
+  }
+}
+
+.rpg-icon {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+}
+</style>

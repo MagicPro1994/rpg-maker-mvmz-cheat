@@ -116,7 +116,7 @@ const shouldDisplayIcon = (id, actionType) => {
   <v-card-text v-if="!KarrynUtils.isInPrison">
     {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
   </v-card-text>
-  <v-card-text v-else>
+  <v-card-text v-else class="scrollable-container">
     <v-text-field class="py-1" v-model="search" label="Search" hide-details />
     <div class="d-inline-flex flex-row">
       <v-autocomplete

@@ -12,8 +12,6 @@ const items = [
   // { title: "Actors", icon: "mdi-cards", to: "/actors" },
   { title: "Karryn", icon: "mdi-face-woman-shimmer", to: "/karryn" },
   { title: "Prison", icon: "mdi-lock", to: "prison" },
-  { title: "Titles", icon: "mdi-crown", to: "/titles" },
-  { title: "Accessories", icon: "mdi-gift-outline", to: "/accessories" },
   // { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
   // { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
   // { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },

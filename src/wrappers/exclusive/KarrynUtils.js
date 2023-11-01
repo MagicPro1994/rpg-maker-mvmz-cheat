@@ -37,14 +37,7 @@ export class KarrynUtils {
 
   static get isInBattle() {
     try {
-      if (!opener.SceneManager._scene) {
-        return false;
-      }
-
-      if (opener.SceneManager._scene.constructor !== opener.Scene_Battle)
-        return false;
-
-      return opener.BattleManager._phase !== "battleEnd";
+      return opener.$gameParty.inBattle();
     } catch (error) {
       console.error(error);
       return false;
@@ -556,7 +549,7 @@ export class KarrynUtils {
 
   static gainTitle(itemId) {
     try {
-      if (!this.Karryn.hasThisTitle(itemId)) {
+      if (!opener.Karryn.hasThisTitle(itemId)) {
         opener.$gameParty.gainTitle(itemId);
       }
     } catch (error) {

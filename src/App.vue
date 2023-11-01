@@ -5,6 +5,16 @@
 </template>
 
 <style lang="scss">
+.scrollable-container {
+  height: 71vh;
+  overflow-y: scroll; /* Set the vertical overflow behavior to scroll */
+}
+
+.scrollable-container--full {
+  height: 78vh;
+  overflow-y: auto; /* Enable scroll if needed */
+}
+
 tr {
   .id {
     width: 1rem;

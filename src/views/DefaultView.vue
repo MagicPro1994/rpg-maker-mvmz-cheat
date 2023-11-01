@@ -53,7 +53,7 @@ const load = async ({ done }) => {
       <v-card-text>
         <template v-for="(item, index) in items" :key="item">
           <i
-            :title="`Icon ${item} | rpg-icon-i${index}`"
+            :title="`Icon ${item - 1} | rpg-icon-i${index}`"
             :class="`rpg-icon rpg-icon-i${index}`"
           ></i>
         </template>

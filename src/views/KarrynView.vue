@@ -56,10 +56,4 @@ const tabs = [
   padding-right: 10px;
   padding-left: 10px;
 }
-
-.scrollable-container {
-  min-height: 72vh; /* Set minimum height */
-  max-height: 72vh; /* Set the maximum width of the container */
-  overflow-y: scroll; /* Set the vertical overflow behavior to scroll */
-}
 </style>
