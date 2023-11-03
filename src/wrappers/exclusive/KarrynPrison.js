@@ -47,7 +47,7 @@ export class KarrynPrison {
 
   get calculatedIncome() {
     try {
-      return opener.Prison.income;
+      return opener.$gameParty.income;
     } catch (e) {
       console.error(e);
       return 0;
@@ -56,7 +56,9 @@ export class KarrynPrison {
 
   get income() {
     try {
-      return opener.$gameParty._baseIncome;
+      const actor = KarrynActorHelper.karryn;
+
+      return actor._baseIncome;
     } catch (e) {
       console.error(e);
       return 0;
@@ -65,16 +67,12 @@ export class KarrynPrison {
 
   set income(value) {
     try {
+      const actor = KarrynActorHelper.karryn;
       if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+        actor._baseIncome = 0;
       }
 
-      const actor = KarrynActorHelper.karryn;
-      let delta = value - actor._baseIncome;
-
-      if (delta === 0) return;
-
-      opener.$gameParty.increaseIncome(delta);
+      actor._baseIncome = value;
     } catch (error) {
       console.error(error);
     }
@@ -82,7 +80,7 @@ export class KarrynPrison {
 
   get calculatedExpense() {
     try {
-      return opener.Prison.expense;
+      return opener.$gameParty.expense;
     } catch (e) {
       console.error(e);
       return 0;
@@ -91,7 +89,9 @@ export class KarrynPrison {
 
   get expense() {
     try {
-      return opener.$gameParty._baseExpense;
+      const actor = KarrynActorHelper.karryn;
+
+      return actor._baseExpense;
     } catch (e) {
       console.error(e);
       return 0;
@@ -100,16 +100,13 @@ export class KarrynPrison {
 
   set expense(value) {
     try {
+      const actor = KarrynActorHelper.karryn;
+
       if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+        actor._baseExpense = 0;
       }
 
-      const actor = KarrynActorHelper.karryn;
-      let delta = value - actor._baseExpense;
-
-      if (delta === 0) return;
-
-      opener.$gameParty.increaseExpense(delta);
+      actor._baseExpense = value;
     } catch (error) {
       console.error(error);
     }
@@ -150,9 +147,18 @@ export class KarrynPrison {
     }
   }
 
+  get calculatedControl() {
+    try {
+      return opener.$gameParty.orderChangeValue();
+    } catch (e) {
+      console.error(e);
+      return 0;
+    }
+  }
+
   get control() {
     try {
-      return opener.$gameParty.orderChange;
+      return opener.$gameParty._orderChangePerDay;
     } catch (e) {
       console.error(e);
       return 0;
@@ -161,7 +167,7 @@ export class KarrynPrison {
 
   set control(value) {
     try {
-      opener.$gameParty.setOrderChangeValue(value);
+      opener.$gameParty.setOrderChangePerDay(value);
     } catch (e) {
       console.error(e);
     }
@@ -187,6 +193,10 @@ export class KarrynPrison {
   get edicts() {
     try {
       const actor = KarrynActorHelper.karryn;
+      if (actor.stsSp() > 0) {
+        return actor.stsSp();
+      }
+
       return actor.getStoredEdictPoints();
     } catch (e) {
       console.error(e);
@@ -198,6 +208,7 @@ export class KarrynPrison {
     try {
       const actor = KarrynActorHelper.karryn;
       actor._storedEdictPoints = value;
+      actor.setAsp(value);
     } catch (e) {
       console.error(e);
     }

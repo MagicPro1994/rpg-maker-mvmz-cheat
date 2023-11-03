@@ -6,12 +6,12 @@ function openCheatMenu() {
       window.cheatWindow = win;
 
       window.addEventListener("beforeunload", function () {
-        window.cheatWindow.close(true);
-        window.cheatWindow = null;
+        win.close(true);
+        win = null;
       });
 
       win.window.addEventListener("beforeunload", function () {
-        window.cheatWindow = null;
+        win = null;
       });
     });
   } else {

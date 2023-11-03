@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useAppStore } from "@/store/app";
 import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
@@ -7,7 +7,7 @@ import ViewTitle from "@/views/partials/ViewTitle.vue";
 
 const appStore = useAppStore();
 const timeStamp = ref(appStore.timeStamp);
-const prison = ref(appStore.prison);
+const prison = computed(() => appStore.prison);
 </script>
 <template>
   <span :title="timeStamp"></span>
@@ -38,6 +38,8 @@ const prison = ref(appStore.prison);
       />
       <v-text-field
         v-model.number="prison.control"
+        :prefix="`[${prison.calculatedControl}]`"
+        suffix="/day"
         :label="$G.TextManager.orderChange"
         type="number"
       />
@@ -63,8 +65,8 @@ const prison = ref(appStore.prison);
       <v-text-field
         v-model.number="prison.expense"
         :label="$G.TextManager.expense"
-        type="number"
         :prefix="'[' + prison.calculatedExpense + ']'"
+        type="number"
       />
 
       <v-text-field

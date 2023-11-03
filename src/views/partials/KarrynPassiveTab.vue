@@ -23,11 +23,11 @@ const items = ref(appStore.passives);
 const pagination = ref(appStore.pagination);
 
 const headers = [
-  { title: "ID", sortable: true, key: "id", search: true },
-  { title: "Category", key: "categoryNames", search: true },
-  { title: "Name", sortable: true, key: "name", search: true },
-  { title: "Description", key: "description", search: true },
-  { title: "Obtained", key: "owned" },
+  { title: "ID", sortable: true, key: "id", searchable: true },
+  { title: "Category", key: "categoryNames", searchable: true },
+  { title: "Name", sortable: true, key: "name", searchable: true },
+  { title: "Description", key: "description", searchable: true },
+  { title: "Obtained", key: "dayObtained" },
 ];
 
 const searchProps = ref(["categoryNames", "name", "description"]);
@@ -114,7 +114,7 @@ const searchDrawer = ref(false);
       temporary
       class="menu-drawer"
     >
-      <div class="search-container">
+      <div v-if="searchDrawer" class="search-container">
         <v-text-field
           class="search-box"
           v-model="search"
@@ -172,7 +172,7 @@ const searchDrawer = ref(false);
           class="search-props"
           chips
           label="Select the properties to search"
-          :items="headers"
+          :items="headers.filter(item => item.searchable)"
           item-text="title"
           item-value="key"
           v-model="searchProps"
@@ -218,7 +218,7 @@ const searchDrawer = ref(false);
           </td>
           <td class="description"><pre v-html="item.description"></pre></td>
           <td class="day-obtained">
-            {{ item.dayObtained ?? "---" }}
+            {{ item.dayObtained ? `Day ${item.dayObtained}` : "---" }}
           </td>
         </tr>
       </template>
@@ -266,6 +266,7 @@ tr {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding-left: 0.5rem;
   > * {
     flex-basis: 30%;
 

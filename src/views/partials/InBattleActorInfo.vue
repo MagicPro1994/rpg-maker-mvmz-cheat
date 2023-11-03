@@ -10,7 +10,7 @@ const karryn = computed(() => appStore.karryn);
 </script>
 <template>
   <span :title="timeStamp"></span>
-  <span :title="karryn._hp"></span>
+  <span :title="karryn.xCockDesire"></span>
   <v-card-text>
     <div class="desire-container">
       <v-text-field

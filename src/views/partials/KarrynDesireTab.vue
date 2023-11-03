@@ -11,11 +11,11 @@ const timeStamp = computed(() => appStore.timeStamp);
 <template>
   <span :title="timeStamp"></span>
 
-  <v-card-subtitle>Desires & Requirements</v-card-subtitle>
+  <v-card-subtitle>Desires</v-card-subtitle>
   <v-switch
     class="px-4"
     color="primary"
-    label="Enable Desire Customization"
+    label="Enable Requirement Override"
     v-model.number="gameMaster.isDesireReqUnlocked"
     density="compact"
     hide-details="auto"

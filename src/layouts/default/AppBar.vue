@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useAppStore } from "@/store/app";
-import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
+import { KarrynUtils, APP_VERSION } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
 const gameMaster = computed(() => appStore.gameMaster);
@@ -18,9 +18,9 @@ const items = [
   { title: "In Battle", icon: "mdi-sword-cross", to: "/in-battle" },
   { title: "Variables", icon: "mdi-variable", to: "/variables" },
   { title: "Switches", icon: "mdi-dip-switch", to: "/switches" },
-  { title: "Locations", icon: "mdi-sign-direction", to: "/locations" },
-  { title: "Favorites", icon: "mdi-star", to: "/favorites" },
-  { title: "Settings", icon: "mdi-cog", to: "/settings" },
+  // { title: "Locations", icon: "mdi-sign-direction", to: "/locations" },
+  // { title: "Favorites", icon: "mdi-star", to: "/favorites" },
+  // { title: "Settings", icon: "mdi-cog", to: "/settings" },
 ];
 const reloadPage = () => window.location.reload();
 </script>
@@ -32,7 +32,9 @@ const reloadPage = () => window.location.reload();
       @click.stop="drawerLeft = !drawerLeft"
     ></v-app-bar-nav-icon>
 
-    <v-app-bar-title>Cheat Menu <sub>by RJ</sub></v-app-bar-title>
+    <v-app-bar-title>
+      Cheat Menu {{ APP_VERSION }} <sub>by RJ</sub>
+    </v-app-bar-title>
 
     <v-spacer></v-spacer>
 

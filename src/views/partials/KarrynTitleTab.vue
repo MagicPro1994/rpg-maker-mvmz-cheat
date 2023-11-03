@@ -15,17 +15,20 @@ const ACTION_TYPE = {
 const headers = [
   {
     title: "ID",
-    sortable: true,
     key: "id",
+    sortable: true,
+    searchable: true,
   },
   {
     title: "Name",
-    sortable: true,
     key: "name",
+    sortable: true,
+    searchable: true,
   },
   {
     title: "Description",
     key: "description",
+    searchable: true,
   },
   {
     title: `Actions`,
@@ -64,6 +67,8 @@ const filteredItems = computed(() => {
 const availableCount = computed(() => {
   return items.value.filter((item) => karryn.value.hasTitle(item.id)).length;
 });
+
+const searchDrawer = ref(false);
 
 const changeStatus = () => {
   ownedStatus.value = (ownedStatus.value + 1) % 3;
@@ -117,29 +122,54 @@ const shouldDisplayIcon = (id, actionType) => {
     {{ MESSAGES.FEATURE_NOT_AVAILABLE }}
   </v-card-text>
   <v-card-text v-else class="scrollable-container">
-    <v-text-field class="py-1" v-model="search" label="Search" hide-details />
-    <div class="d-inline-flex flex-row">
-      <v-autocomplete
-        class="search-properties"
-        v-model="searchProperties"
-        :items="headers"
-        label="Search properties"
-        item-title="title"
-        item-value="key"
-        multiple
-        hide-details
-      ></v-autocomplete>
-      <v-checkbox
-        :model-value="ownedStatus"
-        @change="changeStatus"
-        :true-value="1"
-        :false-value="0"
-        :indeterminate="ownedStatus === 2"
-        :label="`Owned [${availableCount} / ${items.length}]`"
-        density="compact"
-        hide-details="auto"
-      ></v-checkbox>
-    </div>
+    <v-btn
+      variant="tonal"
+      color="primary"
+      style="position: absolute; right: 0; bottom: 0; z-index: 2000"
+      @click.stop="searchDrawer = !searchDrawer"
+    >
+      <v-icon v-if="searchDrawer">mdi-menu-down</v-icon>
+      <v-icon v-else>mdi-menu-up</v-icon>
+    </v-btn>
+
+    <v-navigation-drawer
+      v-model="searchDrawer"
+      app
+      location="top"
+      temporary
+      class="menu-drawer"
+    >
+      <div v-if="searchDrawer" class="search-container">
+        <v-text-field
+          class="search-box"
+          v-model="search"
+          label="Search"
+          hide-details
+        />
+        <v-select
+          chips
+          class="search-properties"
+          v-model="searchProperties"
+          :items="headers.filter((item) => item.searchable)"
+          label="Select the properties to search"
+          item-title="title"
+          item-value="key"
+          multiple
+          hide-details="auto"
+        ></v-select>
+
+        <v-checkbox
+          :model-value="ownedStatus"
+          @change="changeStatus"
+          :true-value="1"
+          :false-value="0"
+          :indeterminate="ownedStatus === 2"
+          :label="`Owned [${availableCount} / ${items.length}]`"
+          density="compact"
+          hide-details="auto"
+        ></v-checkbox>
+      </div>
+    </v-navigation-drawer>
 
     <v-data-table
       :headers="headers"
@@ -189,6 +219,10 @@ const shouldDisplayIcon = (id, actionType) => {
 </template>
 
 <style scoped lang="scss">
+.menu-drawer {
+  height: 7rem !important;
+}
+
 pre {
   font-size: small;
   white-space: break-spaces;
@@ -217,7 +251,26 @@ p {
   color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
 }
 
-.search-properties {
-  width: 20em;
+.search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0.5rem;
+  > * {
+    flex-basis: 30%;
+
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .search-properties {
+    flex-basis: 30%;
+  }
+
+  .search-box {
+    flex-basis: 50%;
+  }
 }
 </style>
