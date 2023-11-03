@@ -30,7 +30,7 @@ const headers = [
   { title: "Obtained", key: "owned" },
 ];
 
-const searchProps = ref(["id", "name", "description"]);
+const searchProps = ref(["categoryNames", "name", "description"]);
 
 const filteredItems = computed(() => {
   try {

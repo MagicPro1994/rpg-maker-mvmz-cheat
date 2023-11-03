@@ -1,8 +1,10 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, defineAsyncComponent } from "vue";
 import { useAppStore } from "@/store/app";
 
-import ConfirmationDialog from "@/components/ConfirmationDialog.vue";
+const ConfirmationDialog = defineAsyncComponent(() =>
+  import("@/components/ConfirmationDialog.vue")
+);
 
 const appStore = useAppStore();
 const gameMaster = computed(() => appStore.gameMaster);
@@ -50,7 +52,7 @@ const dialog = ref({
   title: "",
   key: "",
   message: "",
-  inputValue: 0,
+  inputValue: 1,
 });
 
 const includeDead = ref(false);
@@ -71,7 +73,7 @@ const onConfirm = () => {
     value = 0;
   }
 
-  for (const member of gameMaster.value.enemyMembers) {
+  for (const member of members.value) {
     if (!includeDead.value && member.isDead()) {
       continue;
     }
@@ -81,6 +83,24 @@ const onConfirm = () => {
     } else {
       member[dialog.value.key] = value;
     }
+  }
+};
+
+const killAll = () => {
+  for (const member of gameMaster.value.enemyMembers) {
+    member.die();
+  }
+};
+
+const recoverAll = () => {
+  for (const member of gameMaster.value.enemyMembers) {
+    member.recoverAll();
+  }
+};
+
+const raiseAllTp = () => {
+  for (const member of gameMaster.value.enemyMembers) {
+    member._tp = member.orgasmPoint();
   }
 };
 </script>
@@ -111,12 +131,21 @@ const onConfirm = () => {
             </template>
           </td>
           <td v-else>
-            <v-checkbox
-              v-model="includeDead"
-              title="Include dead members when perform bulk update"
-              density="compact"
-              hide-details="auto"
-            ></v-checkbox>
+            <i
+              class="rpg-icon rpg-icon-x24-i1"
+              title="Kill for all"
+              @click="killAll"
+            ></i>
+            <i
+              class="rpg-icon rpg-icon-x24-i329"
+              title="Recover for all"
+              @click="recoverAll"
+            ></i>
+            <i
+              class="rpg-icon rpg-icon-x24-i62"
+              title="Raise pleasure to orgasm point for all"
+              @click="raiseAllTp"
+            ></i>
           </td>
         </template>
       </tr>
@@ -161,7 +190,7 @@ const onConfirm = () => {
           ></i>
           <i
             class="rpg-icon rpg-icon-x24-i329"
-            title="Recover all"
+            title="Recover"
             @click="item.recoverAll()"
           ></i>
           <i
@@ -173,7 +202,9 @@ const onConfirm = () => {
       </tr>
     </template>
 
-    <template v-slot:bottom> </template>
+    <template v-slot:bottom>
+      <v-spacer class="py-1" />
+    </template>
   </v-data-table>
 
   <confirmation-dialog
@@ -198,13 +229,13 @@ const onConfirm = () => {
 
 <style scoped lang="scss">
 .name {
-  width: 1rem;
+  width: 6rem;
 }
 
 .hp,
 .mp,
 .tp {
-  width: 12rem;
+  width: 10rem;
 }
 
 .rpg-icon {

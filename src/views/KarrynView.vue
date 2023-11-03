@@ -1,13 +1,13 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, defineAsyncComponent } from "vue";
 import { useAppStore } from "@/store/app";
 import { KarrynUtils, MESSAGES } from "@/wrappers/exclusive/KarrynUtils";
 
-import ViewTitleVue from "./partials/ViewTitle.vue";
-import KarrynStatsTab from "@/views/partials/KarrynStatsTab.vue";
-import KarrynPassiveTab from "./partials/KarrynPassiveTab.vue";
-import KarrynOtherStatTab from "./partials/KarrynOtherStatTab.vue";
-import KarrynTitleTab from "./partials/KarrynTitleTab.vue";
+const ViewTitle = defineAsyncComponent(() => import("./partials/ViewTitle.vue"));
+const KarrynStatsTab = defineAsyncComponent(() => import("./partials/KarrynStatsTab.vue"));
+const KarrynPassiveTab = defineAsyncComponent(() => import("./partials/KarrynPassiveTab.vue"));
+const KarrynOtherStatTab = defineAsyncComponent(() => import("./partials/KarrynOtherStatTab.vue"));
+const KarrynTitleTab = defineAsyncComponent(() => import("./partials/KarrynTitleTab.vue"));
 
 const appStore = useAppStore();
 const karryn = computed(() => appStore.karryn);
@@ -22,7 +22,7 @@ const tabs = [
 </script>
 <template>
   <v-card flat class="ma-0 pa-0">
-    <view-title-vue title="Karryn" />
+    <view-title title="Karryn" />
     <v-divider class="my-1" />
     <div v-if="karryn === null">
       <v-card-text> Karryn is not in the party. </v-card-text>

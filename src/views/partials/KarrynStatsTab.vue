@@ -1,8 +1,19 @@
 <script setup>
-import KarrynBasicStatTab from "@/views/partials/KarrynBasicStatTab.vue";
-import KarrynStatTab from "@/views/partials/KarrynStatTab.vue";
-import KarrynPrimaryTab from "@/views/partials/KarrynPrimaryTab.vue";
-import KarrynSecondaryTab from "@/views/partials/KarrynSecondaryTab.vue";
+import { defineAsyncComponent } from "vue";
+
+const KarrynBasicStatTab = defineAsyncComponent(() =>
+  import("./KarrynBasicStatTab.vue")
+);
+
+const KarrynStatTab = defineAsyncComponent(() => import("./KarrynStatTab.vue"));
+
+const KarrynPrimaryTab = defineAsyncComponent(() =>
+  import("./KarrynPrimaryTab.vue")
+);
+
+const KarrynSecondaryTab = defineAsyncComponent(() =>
+  import("./KarrynSecondaryTab.vue")
+);
 </script>
 
 <template>

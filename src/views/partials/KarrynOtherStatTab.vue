@@ -1,9 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 
-import KarrynDesireTab from "./KarrynDesireTab.vue";
-import KarrynSexLevelTab from "./KarrynSexLevelTab.vue";
-import KarrynResistTab from "./KarrynResistTab.vue";
+const KarrynDesireTab = defineAsyncComponent(() =>
+  import("./KarrynDesireTab.vue")
+);
+const KarrynSexLevelTab = defineAsyncComponent(() =>
+  import("./KarrynSexLevelTab.vue")
+);
+const KarrynResistTab = defineAsyncComponent(() =>
+  import("./KarrynResistTab.vue")
+);
 
 const drawer = ref(false);
 const selectedTab = ref(0);

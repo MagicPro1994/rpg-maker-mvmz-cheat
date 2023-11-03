@@ -1,15 +1,20 @@
 <script setup>
-import { computed, ref } from "vue";
+import { defineAsyncComponent, computed, ref, watch } from "vue";
 import { useAppStore } from "@/store/app";
 import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
-import ViewTitle from "./partials/ViewTitle.vue";
-import InBattleActorInfo from "./partials/InBattleActorInfo.vue";
-import InBattleEnemyInfo from "./partials/InBattleEnemyInfo.vue";
+
+const ViewTitle = defineAsyncComponent(() => import("./partials/ViewTitle.vue"));
+const InBattleActorInfo = defineAsyncComponent(() => import("./partials/InBattleActorInfo.vue"));
+const InBattleEnemyInfo = defineAsyncComponent(() => import("./partials/InBattleEnemyInfo.vue"));
 
 const appStore = useAppStore();
 const timestamp = computed(() => appStore.timeStamp);
 const isInBattle = ref(KarrynUtils.isInBattle);
+
+watch(timestamp, () => {
+  isInBattle.value = KarrynUtils.isInBattle;
+});
 </script>
 <template>
   <span :title="timestamp"></span>
@@ -29,4 +34,3 @@ const isInBattle = ref(KarrynUtils.isInBattle);
     </div>
   </v-card>
 </template>
-

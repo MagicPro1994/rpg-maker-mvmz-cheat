@@ -38,7 +38,7 @@ const search = ref("");
 const ownedStatus = ref(0);
 
 const lastActivityId = ref("");
-const searchProperties = ref(["id"]);
+const searchProperties = ref(["name", "description"]);
 
 const filteredItems = computed(() => {
   return items.value.filter((item) => {

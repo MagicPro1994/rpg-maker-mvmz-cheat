@@ -1,7 +1,6 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { watch, ref, onMounted, onUnmounted } from "vue";
 import { useAppStore } from "@/store/app";
-import { watch } from "vue";
 const appStore = useAppStore();
 
 defineProps({
@@ -16,7 +15,7 @@ defineProps({
   },
 });
 
-const autoReload = ref(false);
+const autoReload = ref(true);
 
 let intervalId;
 
@@ -24,7 +23,7 @@ watch(autoReload, (value) => {
   if (value) {
     intervalId = setInterval(() => {
       appStore.reload();
-    }, 5000); // Reload every 10 seconds
+    }, 2000); // Reload every 10 seconds
   } else {
     if (intervalId) {
       clearInterval(intervalId);
@@ -32,10 +31,14 @@ watch(autoReload, (value) => {
   }
 });
 
+onMounted(() => {
+  intervalId = setInterval(() => {
+    appStore.reload();
+  }, 2000); // Reload every 10 seconds
+});
+
 onUnmounted(() => {
-  if (intervalId) {
-    clearInterval(intervalId);
-  }
+  clearInterval(intervalId);
 });
 </script>
 
