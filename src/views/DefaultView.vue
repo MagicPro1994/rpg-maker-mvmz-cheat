@@ -13,16 +13,11 @@ const pagePlus = computed(() => (iconPage.value - 1) * pagePerView);
     <v-card-text>
       <p>
         You can edit or view Karryn's status, stats, etc. on
-        <router-link to="/karryn">Karryn</router-link>page.
+        <router-link to="/karryn">Karryn</router-link> page.
       </p>
       <p>
         You can edit or view things related to Prison on
-        <router-link to="/prison">Prison</router-link>page.
-      </p>
-
-      <p>
-        You can click here to view the icons used in the game:
-        <v-icon icon="mdi-eye"></v-icon>
+        <router-link to="/prison">Prison</router-link> page.
       </p>
     </v-card-text>
     <!-- end: Quick Actions -->
