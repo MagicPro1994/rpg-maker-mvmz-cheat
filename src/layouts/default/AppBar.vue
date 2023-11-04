@@ -8,19 +8,33 @@ const gameMaster = computed(() => appStore.gameMaster);
 const drawerLeft = ref(false);
 const drawerRight = ref(false);
 const items = [
-  { title: "Home", icon: "mdi-controller", to: "/" },
-  // { title: "Actors", icon: "mdi-cards", to: "/actors" },
-  { title: "Karryn", icon: "mdi-face-woman-shimmer", to: "/karryn" },
-  { title: "Prison", icon: "mdi-lock", to: "prison" },
-  // { title: "Items", icon: "mdi-bottle-tonic-plus", to: "/items" },
-  // { title: "Armors", icon: "mdi-shield-crown-outline", to: "/armors" },
-  // { title: "Weapons", icon: "mdi-axe-battle", to: "/weapons" },
-  { title: "In Battle", icon: "mdi-sword-cross", to: "/in-battle" },
-  { title: "Variables", icon: "mdi-variable", to: "/variables" },
-  { title: "Switches", icon: "mdi-dip-switch", to: "/switches" },
-  // { title: "Locations", icon: "mdi-sign-direction", to: "/locations" },
-  // { title: "Favorites", icon: "mdi-star", to: "/favorites" },
-  // { title: "Settings", icon: "mdi-cog", to: "/settings" },
+  { title: "Home", iconIndex: 118, icon: "mdi-controller", to: "/" },
+  {
+    title: "Karryn",
+    iconIndex: 248,
+    icon: "mdi-face-woman-shimmer",
+    to: "/karryn",
+  },
+  { title: "Prison", iconIndex: 249, icon: "mdi-lock", to: "prison" },
+  {
+    title: "In Battle",
+    iconIndex: 111,
+    icon: "mdi-sword-cross",
+    to: "/in-battle",
+  },
+  {
+    title: "Variables",
+    iconIndex: 153,
+    icon: "mdi-variable",
+    to: "/variables",
+  },
+  {
+    title: "Switches",
+    iconIndex: 180,
+    icon: "mdi-dip-switch",
+    to: "/switches",
+  },
+  { title: "Settings", iconIndex: 273, icon: "mdi-cog", to: "/settings" },
 ];
 const reloadPage = () => window.location.reload();
 </script>
@@ -28,6 +42,7 @@ const reloadPage = () => window.location.reload();
 <template>
   <v-app-bar flat dense>
     <v-app-bar-nav-icon
+      title="Toggle Menu"
       variant="text"
       @click.stop="drawerLeft = !drawerLeft"
     ></v-app-bar-nav-icon>
@@ -38,8 +53,15 @@ const reloadPage = () => window.location.reload();
 
     <v-spacer></v-spacer>
 
-    <v-btn variant="text" icon="mdi-refresh" @click.stop="reloadPage()"></v-btn>
     <v-btn
+      title="Reload the application"
+      variant="text"
+      icon="mdi-refresh"
+      @click.stop="reloadPage()"
+    ></v-btn>
+
+    <v-btn
+      title="Toggle mini menu"
       variant="text"
       icon="mdi-dots-vertical"
       @click.stop="drawerRight = !drawerRight"
@@ -52,7 +74,14 @@ const reloadPage = () => window.location.reload();
         <router-link class="router-link" :to="item.to">
           <v-list-item>
             <template v-slot:prepend>
-              <v-icon :icon="item.icon"></v-icon>
+              <template v-if="item.iconIndex">
+                <i
+                  :class="`v-icon rpg-icon rpg-icon-x24-i${item.iconIndex}`"
+                ></i>
+              </template>
+              <template v-else-if="item.icon">
+                <v-icon :icon="item.icon"></v-icon>
+              </template>
             </template>
             <span>{{ item.title }}</span>
           </v-list-item>
@@ -175,5 +204,9 @@ const reloadPage = () => window.location.reload();
     --v-input-control-height: 10px;
     --v-input-padding-top: 0px;
   }
+}
+
+.rpg-icon {
+  opacity: 1;
 }
 </style>
