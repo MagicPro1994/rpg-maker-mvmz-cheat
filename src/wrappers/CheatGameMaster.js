@@ -1,4 +1,3 @@
-import { CheatActor } from "./CheatActor";
 import { CheatArmor, CheatItem, CheatWeapon } from "./CheatInventory";
 import { CheatGameVariable } from "./CheatGameVariable";
 import { CheatGameSwitch } from "./CheatGameSwitch";
@@ -61,9 +60,7 @@ export class CheatGameMaster {
 
   get partyMembers() {
     try {
-      return opener.$gameParty
-        .allMembers()
-        .map((member) => new CheatActor(member));
+      return opener.$gameParty.allMembers();
     } catch (error) {
       console.error(error);
       return [];

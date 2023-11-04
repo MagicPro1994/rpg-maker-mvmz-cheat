@@ -3,8 +3,13 @@ import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 import { KarrynActorHelper } from "@/wrappers/exclusive/KarrynActorHelper";
 import { CheatHelper } from "@/wrappers/CheatHelper";
 
-KarrynActorHelper.init();
+document.title = `Karryn's Prison Cheat Menu - ${
+  opener.RJCheatMenu.AppVersion || "Unknown"
+}`;
+
 KarrynUtils.init();
+KarrynActorHelper.init();
+
 window.KarrynUtils = KarrynUtils;
 window.KarrynActorHelper = KarrynActorHelper;
 window.KarrynPassive = KarrynPassive;

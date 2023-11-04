@@ -16,8 +16,6 @@ export const MESSAGES = {
     "Start a new game or load any game to use this feature.",
 };
 
-export const APP_VERSION = "v0.0.1"
-
 export class KarrynUtils {
   static init() {
     if (!opener.KarrynUtils) {

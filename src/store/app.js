@@ -29,7 +29,15 @@ export const useAppStore = defineStore("app", {
       ],
     },
   }),
-  getters: {},
+  getters: {
+    appVersion() {
+      if (opener.RJCheatMenu) {
+        return opener.RJCheatMenu.AppVersion;
+      }
+
+      return "Development";
+    },
+  },
   actions: {
     reloadPrison() {
       this.prison = new KarrynPrison();

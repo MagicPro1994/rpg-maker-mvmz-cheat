@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useAppStore } from "@/store/app";
-import { KarrynUtils, APP_VERSION } from "@/wrappers/exclusive/KarrynUtils";
+import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 
 const appStore = useAppStore();
 const gameMaster = computed(() => appStore.gameMaster);
@@ -32,8 +32,8 @@ const reloadPage = () => window.location.reload();
       @click.stop="drawerLeft = !drawerLeft"
     ></v-app-bar-nav-icon>
 
-    <v-app-bar-title>
-      Cheat Menu {{ APP_VERSION }} <sub>by RJ</sub>
+    <v-app-bar-title :title="appStore.appVersion">
+      Cheat Menu <sub>by RJ</sub>
     </v-app-bar-title>
 
     <v-spacer></v-spacer>
