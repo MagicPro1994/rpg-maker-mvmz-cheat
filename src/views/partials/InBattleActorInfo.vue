@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from "vue";
 import { useAppStore } from "@/store/app";
-import { KarrynUtils } from "@/wrappers/exclusive/KarrynUtils";
 import { propertyMapper as $p } from "@/wrappers/exclusive/KarrynActorHelper";
 
 const appStore = useAppStore();
@@ -124,11 +123,6 @@ const karryn = computed(() => appStore.karryn);
         class="rpg-icon rpg-icon-i186"
         title="Lose all pleasure"
         @click="karryn[$p.tp] = 0"
-      ></i>
-      <i
-        class="rpg-icon rpg-icon-i127"
-        title="Perform escape"
-        @click="KarrynUtils.escapeBattle()"
       ></i>
     </div>
   </v-card-text>

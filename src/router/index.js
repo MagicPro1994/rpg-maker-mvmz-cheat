@@ -12,26 +12,6 @@ const routes = [
         component: () => import("@/views/DefaultView.vue"),
       },
       {
-        path: "actors",
-        name: "Actors",
-        component: () => import("@/views/ActorView.vue"),
-      },
-      {
-        path: "items",
-        name: "Items",
-        component: () => import("@/views/ItemView.vue"),
-      },
-      {
-        path: "armors",
-        name: "Armors",
-        component: () => import("@/views/ArmorView.vue"),
-      },
-      {
-        path: "weapons",
-        name: "Weapons",
-        component: () => import("@/views/WeaponView.vue"),
-      },
-      {
         path: "in-battle",
         name: "InBattle",
         component: () => import("@/views/InBattleView.vue"),
@@ -45,16 +25,6 @@ const routes = [
         path: "switches",
         name: "Switches",
         component: () => import("@/views/SwitchView.vue"),
-      },
-      {
-        path: "locations",
-        name: "Locations",
-        component: () => import("@/views/LocationView.vue"),
-      },
-      {
-        path: "favorites",
-        name: "Favorites",
-        component: () => import("@/views/FavoriteView.vue"),
       },
       {
         path: "settings",
