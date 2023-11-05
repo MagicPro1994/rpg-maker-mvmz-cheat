@@ -5,13 +5,15 @@
 /**
  * RJ Cheat Menu - Karryn's Prison
  *
+ * Usage:
+ * - Press Ctrl + ` to open the cheat menu. (Ctrl + Backquote)
+ *
  * @author Red J
  * @version v0.0.2
- * @link https://github.com/MagicPro1994/rpg-maker-mvmz-cheat/tree/RJ331590
  */
 
 var RJCheatMenu = RJCheatMenu || {};
-RJCheatMenu.UseExternalLink = true;
+RJCheatMenu.UseExternalLink = false;
 RJCheatMenu.AppVersion = "v0.0.2";
 RJCheatMenu.DefaultConfig = {
   RJCheatMenu_OpenMenu: "Control+Backquote" // ctrl + `
@@ -29,14 +31,21 @@ RJCheatMenu.DefaultConfig = {
       if (Utils.isNwjs()) {
         nw.Window.open(APP_URL, {}, function (win) {
           window.cheatWindow = win;
+
           window.addEventListener("beforeunload", function () {
-            win.close(true);
-            win = null;
-            window.cheatWindow = null;
+            if (win) {
+              win.close(true);
+              win = null;
+              delete window.cheatWindow;
+            }
           });
+
           win.window.addEventListener("beforeunload", function () {
-            win = null;
-            window.cheatWindow = null;
+            if (win) {
+              win.close(true);
+              win = null;
+              delete window.cheatWindow;
+            }
           });
         });
       } else {
