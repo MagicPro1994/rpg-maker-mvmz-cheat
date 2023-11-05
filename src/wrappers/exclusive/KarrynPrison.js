@@ -3,6 +3,15 @@ import { KarrynActorHelper } from "./KarrynActorHelper";
 export class KarrynPrison {
   constructor() {}
 
+  get owner() {
+    try {
+      return KarrynActorHelper.karryn;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  }
+
   get funding() {
     try {
       return opener.$gameParty._gold;
@@ -14,9 +23,12 @@ export class KarrynPrison {
 
   set funding(value) {
     try {
-      if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+      if (isNaN(value)) {
+        throw new Error(`Invalid value: ${value}`);
       }
+
+      // Don't allow negative values
+      value = Math.max(value, 0);
 
       let delta = value - opener.$gameParty._gold;
 
@@ -56,9 +68,7 @@ export class KarrynPrison {
 
   get income() {
     try {
-      const actor = KarrynActorHelper.karryn;
-
-      return actor._baseIncome;
+      return this.owner._baseIncome;
     } catch (e) {
       console.error(e);
       return 0;
@@ -67,12 +77,13 @@ export class KarrynPrison {
 
   set income(value) {
     try {
-      const actor = KarrynActorHelper.karryn;
-      if (isNaN(value) || value < 0) {
-        actor._baseIncome = 0;
+      if (isNaN(value)) {
+        throw new Error(`Invalid value: ${value}`);
       }
 
-      actor._baseIncome = value;
+      value = Math.max(value, 0);
+
+      this.owner._baseIncome = value;
     } catch (error) {
       console.error(error);
     }
@@ -89,9 +100,7 @@ export class KarrynPrison {
 
   get expense() {
     try {
-      const actor = KarrynActorHelper.karryn;
-
-      return actor._baseExpense;
+      return this.owner._baseExpense;
     } catch (e) {
       console.error(e);
       return 0;
@@ -100,13 +109,13 @@ export class KarrynPrison {
 
   set expense(value) {
     try {
-      const actor = KarrynActorHelper.karryn;
-
-      if (isNaN(value) || value < 0) {
-        actor._baseExpense = 0;
+      if (isNaN(value)) {
+        throw new Error(`Invalid value: ${value}`);
       }
 
-      actor._baseExpense = value;
+      value = Math.max(value, 0);
+
+      this.owner._baseExpense = value;
     } catch (error) {
       console.error(error);
     }
@@ -192,12 +201,11 @@ export class KarrynPrison {
 
   get edicts() {
     try {
-      const actor = KarrynActorHelper.karryn;
-      if (actor.stsSp() > 0) {
-        return actor.stsSp();
+      if (this.owner.stsSp() > 0) {
+        return this.owner.stsSp();
       }
 
-      return actor.getStoredEdictPoints();
+      return this.owner.getStoredEdictPoints();
     } catch (e) {
       console.error(e);
       return 0;
@@ -206,9 +214,8 @@ export class KarrynPrison {
 
   set edicts(value) {
     try {
-      const actor = KarrynActorHelper.karryn;
-      actor._storedEdictPoints = value;
-      actor.setAsp(value);
+      this.owner._storedEdictPoints = value;
+      this.owner.setAsp(value);
     } catch (e) {
       console.error(e);
     }

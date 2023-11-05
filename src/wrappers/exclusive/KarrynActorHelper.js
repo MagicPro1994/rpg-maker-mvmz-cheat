@@ -170,9 +170,11 @@ export class KarrynActorHelper {
       },
       set: function (value) {
         try {
-          if (isNaN(value) || value < 0) {
-            return;
+          if (isNaN(value)) {
+            throw new Error(`Invalid value: ${value}`);
           }
+
+          value = Math.max(value, 0);
 
           let delta = value - this.cockiness;
 
@@ -194,8 +196,8 @@ export class KarrynActorHelper {
       },
       set: function (value) {
         try {
-          if (isNaN(value) || value < 0) {
-            return;
+          if (isNaN(value)) {
+            throw new Error(`Invalid value: ${value}`);
           }
 
           this._clothingDurability = value.clamp(
