@@ -75,8 +75,8 @@ export class CheatParam {
 
   set value(v) {
     try {
-      if (isNaN(v) || v < 0) {
-        throw new Error(`Invalid value ${v}`);
+      if (isNaN(v)) {
+        throw new Error(`Invalid value: ${v}`);
       }
 
       let delta = v - this._actor.paramPlus(this._paramId);

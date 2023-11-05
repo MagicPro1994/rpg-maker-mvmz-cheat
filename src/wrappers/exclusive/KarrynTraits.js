@@ -91,8 +91,8 @@ export class KarrynParam extends KarrynTrait {
 
   set plusValue(value) {
     try {
-      if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+      if (isNaN(value)) {
+        throw new Error("Value is NaN");
       }
 
       let delta = value - this._actor.paramPlus(this._paramId);
@@ -184,8 +184,8 @@ export class KarrynXParam extends KarrynTrait {
 
   set plusValue(value) {
     try {
-      if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+      if (isNaN(value)) {
+        throw new Error("Value is NaN");
       }
 
       let delta = value - this.plusValue;
@@ -277,8 +277,8 @@ export class KarrynSParam extends KarrynTrait {
 
   set plusValue(value) {
     try {
-      if (isNaN(value) || value < 0) {
-        throw new Error(`value is NaN or negative`);
+      if (isNaN(value)) {
+        throw new Error("Value is NaN");
       }
 
       let delta = value - this.plusValue;
